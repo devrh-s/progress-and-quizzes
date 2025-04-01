@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
 import { QuizComponent } from '@/components/QuizComponent';
@@ -9,12 +8,12 @@ import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/
 import { PlayCircle } from 'lucide-react';
 import { cn } from '@/lib/utils';
 
-// Define the QuizTopic interface
 interface QuizTopic {
   id: string;
   title: string;
   difficulty: string;
-  questions: any[]; // Using any[] for now as the exact question structure depends on QuizComponent implementation
+  questions: any[];
+  timeLimit: number;
 }
 
 const quizTopics = [
@@ -22,6 +21,7 @@ const quizTopics = [
     id: "practical-ai-skills",
     title: "Introduction to Practical AI Skills",
     difficulty: 'medium',
+    timeLimit: 120,
     questions: [
       {
         type: 'matching',
@@ -36,7 +36,7 @@ const quizTopics = [
           "Applying analytical thinking for informed decision-making",
           "Breaking down tasks into roles, context, and precise queries"
         ],
-        correctPairs: [0, 1, 2] // Indices of correct descriptions for each item
+        correctPairs: [0, 1, 2]
       },
       {
         type: 'sequencing',
@@ -47,7 +47,7 @@ const quizTopics = [
           "Applying AI tools in real projects",
           "Evaluating outcomes and refining strategies"
         ],
-        correctOrder: [0, 1, 2, 3] // Correct order of steps indices
+        correctOrder: [0, 1, 2, 3]
       },
       {
         type: 'sorting',
@@ -62,7 +62,7 @@ const quizTopics = [
           "Practical Application",
           "Theoretical Study"
         ],
-        correctCategories: [0, 1, 0, 1] // Category index for each activity
+        correctCategories: [0, 1, 0, 1]
       }
     ]
   },
@@ -70,6 +70,7 @@ const quizTopics = [
     id: "practical-skills-quiz",
     title: "Practical AI Skills Quiz",
     difficulty: 'easy',
+    timeLimit: 240,
     questions: [
       {
         type: 'multiple-choice',
@@ -121,6 +122,7 @@ const quizTopics = [
     id: "rct-framework-quiz",
     title: "Role-Context-Task Framework Quiz",
     difficulty: 'medium',
+    timeLimit: 300,
     questions: [
       {
         type: 'multiple-choice',
@@ -183,6 +185,7 @@ const quizTopics = [
     id: "ai-tools-quiz",
     title: "AI Tools Overview Quiz",
     difficulty: 'hard',
+    timeLimit: 360,
     questions: [
       {
         type: 'multiple-choice',
