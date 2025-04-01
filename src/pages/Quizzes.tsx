@@ -1,9 +1,9 @@
-
 import React, { useState, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
 import { QuizComponent } from '@/components/QuizComponent';
 import { Link } from 'react-router-dom';
 import { Progress } from '@/components/ui/progress';
+import { toast } from '@/components/ui/use-toast';
 
 interface QuizTopic {
   id: string;
@@ -199,7 +199,6 @@ const Quizzes: React.FC = () => {
   const [progress, setProgress] = useState(0);
 
   useEffect(() => {
-    // Calculate progress based on completed quizzes
     const newProgress = (completedQuizzes.length / quizTopics.length) * 100;
     setProgress(Math.round(newProgress));
   }, [completedQuizzes]);
@@ -217,7 +216,6 @@ const Quizzes: React.FC = () => {
       const quizId = selectedQuiz.id;
       setQuizResults(prev => ({...prev, [quizId]: score }));
       
-      // Award XP based on difficulty and score
       let earnedXp = 0;
       const difficultyMultiplier = 
         selectedQuiz.difficulty === 'easy' ? 5 :
@@ -226,10 +224,15 @@ const Quizzes: React.FC = () => {
       earnedXp = Math.round((score / selectedQuiz.questions.length) * difficultyMultiplier * 10);
       setXp(prev => prev + earnedXp);
       
-      // Mark as completed
       if (!completedQuizzes.includes(quizId)) {
         setCompletedQuizzes(prev => [...prev, quizId]);
       }
+      
+      toast({
+        title: "Quiz Completed!",
+        description: `You earned ${earnedXp} XP!`,
+        variant: "default",
+      });
       
       setQuizActive(false);
       setSelectedQuiz(null);
@@ -247,9 +250,7 @@ const Quizzes: React.FC = () => {
 
   return (
     <div className="min-h-screen flex flex-col md:flex-row">
-      {/* Sidebar */}
       <div className="md:w-1/4 bg-gray-900 p-4 md:p-6 space-y-6 border-r border-purple-900">
-        {/* Quiz Progress */}
         <div className="fantasy-card p-4">
           <h3 className="text-lg font-semibold text-white mb-2">Quiz Progress</h3>
           <Progress value={progress} className="h-2 mb-2" />
@@ -262,7 +263,6 @@ const Quizzes: React.FC = () => {
           </div>
         </div>
         
-        {/* Quiz Topics */}
         <div className="space-y-2">
           <h3 className="text-lg font-semibold text-white mb-4">Available Quizzes</h3>
           
@@ -295,7 +295,6 @@ const Quizzes: React.FC = () => {
           </div>
         </div>
         
-        {/* Back to Guide */}
         <div className="pt-4">
           <Link to="/guide">
             <Button variant="outline" className="w-full border-purple-500 text-purple-300">
@@ -305,7 +304,6 @@ const Quizzes: React.FC = () => {
         </div>
       </div>
       
-      {/* Main Content */}
       <div className="flex-1 p-4 md:p-8 overflow-y-auto">
         {quizActive && selectedQuiz ? (
           <QuizComponent quiz={selectedQuiz} onComplete={handleQuizComplete} />

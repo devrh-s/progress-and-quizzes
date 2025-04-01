@@ -1,10 +1,10 @@
-
 import React, { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { Progress } from '@/components/ui/progress';
 import { CourseContent } from '@/components/CourseContent';
 import { TableOfContents } from '@/components/TableOfContents';
+import { toast } from '@/components/ui/use-toast';
 
 interface Section {
   id: string;
@@ -367,7 +367,6 @@ const Guide: React.FC = () => {
   const [xp, setXp] = useState(0);
 
   useEffect(() => {
-    // Calculate progress based on completed sections
     const totalSubtopics = courseSections.reduce((acc, section) => acc + section.subtopics.length, 0);
     const newProgress = (completedSections.length / totalSubtopics) * 100;
     setProgress(Math.round(newProgress));
@@ -388,7 +387,11 @@ const Guide: React.FC = () => {
       if (!completedSections.includes(subtopicId)) {
         setCompletedSections([...completedSections, subtopicId]);
         setXp(xp + 10);
-        toast.success('Gained 10 XP for exploring a new topic!');
+        toast({
+          title: "XP Gained!",
+          description: "Gained 10 XP for exploring a new topic!",
+          variant: "default",
+        });
       }
     }
   };
@@ -396,10 +399,8 @@ const Guide: React.FC = () => {
   const handleNextSubtopic = () => {
     const currentIndex = activeSection.subtopics.findIndex(s => s.id === activeSubtopic.id);
     if (currentIndex < activeSection.subtopics.length - 1) {
-      // Move to next subtopic in current section
       handleSubtopicChange(activeSection.subtopics[currentIndex + 1].id);
     } else {
-      // Move to first subtopic of next section
       const currentSectionIndex = courseSections.findIndex(s => s.id === activeSection.id);
       if (currentSectionIndex < courseSections.length - 1) {
         const nextSection = courseSections[currentSectionIndex + 1];
@@ -408,7 +409,11 @@ const Guide: React.FC = () => {
         if (!completedSections.includes(nextSection.subtopics[0].id)) {
           setCompletedSections([...completedSections, nextSection.subtopics[0].id]);
           setXp(xp + 10);
-          toast.success('Gained 10 XP for moving to a new section!');
+          toast({
+            title: "XP Gained!",
+            description: "Gained 10 XP for moving to a new section!",
+            variant: "default",
+          });
         }
       }
     }
@@ -417,10 +422,8 @@ const Guide: React.FC = () => {
   const handlePreviousSubtopic = () => {
     const currentIndex = activeSection.subtopics.findIndex(s => s.id === activeSubtopic.id);
     if (currentIndex > 0) {
-      // Move to previous subtopic in current section
       handleSubtopicChange(activeSection.subtopics[currentIndex - 1].id);
     } else {
-      // Move to last subtopic of previous section
       const currentSectionIndex = courseSections.findIndex(s => s.id === activeSection.id);
       if (currentSectionIndex > 0) {
         const prevSection = courseSections[currentSectionIndex - 1];
@@ -432,9 +435,7 @@ const Guide: React.FC = () => {
 
   return (
     <div className="min-h-screen flex flex-col md:flex-row">
-      {/* Sidebar */}
       <div className="md:w-1/4 bg-gray-900 p-4 md:p-6 space-y-6 border-r border-purple-900">
-        {/* Course Progress */}
         <div className="fantasy-card p-4">
           <h3 className="text-lg font-semibold text-white mb-2">Course Progress</h3>
           <Progress value={progress} className="h-2 mb-2" />
@@ -447,7 +448,6 @@ const Guide: React.FC = () => {
           </div>
         </div>
         
-        {/* Table of Contents */}
         <TableOfContents 
           sections={courseSections}
           activeSection={activeSection.id}
@@ -458,14 +458,12 @@ const Guide: React.FC = () => {
         />
       </div>
       
-      {/* Main Content */}
       <div className="flex-1 p-4 md:p-8 overflow-y-auto">
         <CourseContent
           section={activeSection}
           subtopic={activeSubtopic}
         />
         
-        {/* Navigation Buttons */}
         <div className="flex justify-between mt-8">
           <Button
             variant="outline"
@@ -483,7 +481,6 @@ const Guide: React.FC = () => {
           </Button>
         </div>
         
-        {/* Quiz Button */}
         <div className="mt-6 text-center">
           <Link to="/quizzes">
             <Button className="bg-gradient-to-r from-purple-600 to-indigo-600 text-white">
