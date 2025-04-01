@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
@@ -30,36 +29,81 @@ const courseSections: Section[] = [
         title: "Introduction to Practical AI Skills",
         content: `
           <h3>Understanding AI's Practical Applications</h3>
-          <p>In this section, we'll explore how to apply AI tools in real-world scenarios. Unlike theoretical knowledge, practical skills focus on implementation and results.</p>
+          <p>In today's digital world, practical AI skills are essential for tech professionals. This training focuses on developing AI competencies through hands-on experience:</p>
           
-          <h4>Key Concepts</h4>
           <ul>
-            <li>Distinguishing between AI capabilities and limitations</li>
-            <li>Developing effective prompting techniques</li>
-            <li>Creating workflows that incorporate AI assistance</li>
-            <li>Evaluating and improving AI outputs</li>
+            <li><strong>AI Fluency</strong>: Master tools like ChatGPT, Claude, and Perplexity AI for solving real business problems. Focus on strategic implementation rather than basic prompting.</li>
+            <li><strong>Critical Analysis</strong>: Apply critical thinking for decision-making and problem-solving with AI tools.</li>
+            <li><strong>Role-Context-Query Method</strong>: Learn precise formulation and task decomposition for effective AI interaction.</li>
           </ul>
           
-          <p>Throughout this course, you'll learn not just what AI can do, but how to direct it effectively to achieve your specific goals, whether for research, content creation, data analysis, or problem-solving.</p>
+          <p><strong>Practical Exercise</strong>: Create an AI-assisted workflow optimization plan with clear metrics and validation steps.</p>
         `
       },
       {
         id: "proactive-implementation",
         title: "Proactive Implementation Strategies",
         content: `
-          <h3>Taking the Initiative with AI Tools</h3>
-          <p>Proactive implementation means anticipating how AI can be integrated into your workflow before problems arise. This forward-thinking approach maximizes efficiency and results.</p>
+          <h3>Success in AI Adoption Requires Strategic Planning</h3>
+          <p>Proactive implementation means anticipating how AI can be integrated into your workflow for maximum efficiency:</p>
           
-          <h4>Implementation Framework</h4>
+          <ul>
+            <li><strong>Rapid Testing</strong>: Launch small pilots quickly, learn from results, and scale successful approaches.</li>
+            <li><strong>Change Management</strong>: Drive adoption through clear communication and demonstrable benefits.</li>
+            <li><strong>Tool Selection</strong>: Choose appropriate AI tools based on specific professional roles and needs.</li>
+          </ul>
+          
+          <p><strong>Example</strong>: Develop practical solutions using Claude AI for documents and Perplexity AI for information verification.</p>
+        `
+      },
+      {
+        id: "personal-ai-development",
+        title: "Personal AI Development",
+        content: `
+          <h3>Accelerate Your AI Expertise Through Structured Learning</h3>
+          <p>Building personal AI skills requires a systematic approach:</p>
+          
+          <ul>
+            <li><strong>Skills Assessment</strong>: Identify areas for improvement in AI tool usage and implementation.</li>
+            <li><strong>Project Focus</strong>: Apply learning to real projects aligned with course objectives.</li>
+            <li><strong>Continuous Learning</strong>: Practice AI skills through hands-on projects and exercises.</li>
+          </ul>
+          
+          <p><strong>Planning</strong>: Create detailed project plans with measurable outcomes.</p>
+        `
+      },
+      {
+        id: "final-project",
+        title: "Final Project",
+        content: `
+          <h3>Implement an AI Solution for Business Process Improvement</h3>
+          <p><strong>Task</strong>: Develop and present an AI-driven solution for a specific business challenge.</p>
+          
+          <h4>Steps</h4>
           <ol>
-            <li><strong>Identify opportunities</strong>: Analyze your current workflow for repetitive or time-consuming tasks</li>
-            <li><strong>Select appropriate tools</strong>: Match AI capabilities to specific needs</li>
-            <li><strong>Develop prompting strategies</strong>: Create templates for common requests</li>
-            <li><strong>Evaluate results</strong>: Continuously assess output quality and refine approaches</li>
-            <li><strong>Scale successful implementations</strong>: Expand proven techniques to new areas</li>
+            <li><strong>Analysis</strong>: Identify opportunities for AI implementation.</li>
+            <li><strong>Tools</strong>: Select and implement appropriate AI solutions.</li>
+            <li><strong>Execute</strong>: Build and test solutions with stakeholder feedback.</li>
+            <li><strong>Present</strong>: Demonstrate results and future development plans.</li>
           </ol>
           
-          <p>By adopting a proactive mindset, you'll transform from a casual AI user to someone who strategically leverages these tools for maximum impact.</p>
+          <p><strong>Example</strong>: Workflow optimization using AI tools covered in the course.</p>
+        `
+      },
+      {
+        id: "key-focus-areas",
+        title: "Key Focus Areas",
+        content: `
+          <h3>Essential Areas for AI Implementation Success</h3>
+          <p>To succeed with AI in a practical context, focus on these key areas:</p>
+          
+          <ul>
+            <li><strong>Practical Skills</strong>: Hands-on experience with AI tools and applications.</li>
+            <li><strong>Implementation</strong>: Strategic approach to AI solution deployment.</li>
+            <li><strong>Results</strong>: Measurable improvements in workflow efficiency.</li>
+          </ul>
+          
+          <p>Success requires practical expertise, strategic thinking, and effective implementation of AI technologies.</p>
         `
       }
     ]
@@ -73,11 +117,11 @@ const courseSections: Section[] = [
         title: "Introduction to the RCT Framework",
         content: `
           <h3>Understanding Role-Context-Task</h3>
-          <p>The Role-Context-Task (RCT) Framework provides a structured approach to crafting effective AI prompts. By clearly defining these three elements, you can dramatically improve the quality and relevance of AI responses.</p>
+          <p>The Role-Context-Task (RCT) Framework is used in AI onboarding to help employees effectively communicate with AI systems through structured prompts.</p>
           
           <h4>The Three Components</h4>
           <ul>
-            <li><strong>Role</strong>: The expertise or perspective you want the AI to adopt</li>
+            <li><strong>Role</strong>: The expertise or perspective you want the AI to adopt (e.g., "Documentation Specialist" when working with documents)</li>
             <li><strong>Context</strong>: Background information and constraints relevant to the task</li>
             <li><strong>Task</strong>: The specific action or output you want from the AI</li>
           </ul>
@@ -86,58 +130,107 @@ const courseSections: Section[] = [
         `
       },
       {
-        id: "role-definition",
-        title: "Defining Effective Roles",
+        id: "effective-prompting-principles",
+        title: "Effective Prompting Principles",
         content: `
-          <h3>The Power of Role Assignment</h3>
-          <p>The role element in the RCT Framework defines the perspective, expertise, or character the AI should adopt when responding. Effective role assignment can dramatically improve results.</p>
+          <h3>Key Principles for Effective Prompts</h3>
+          <p>Following these principles will help you create more effective AI prompts:</p>
           
-          <h4>Guidelines for Role Selection</h4>
-          <ul>
-            <li>Choose roles with well-defined knowledge domains</li>
-            <li>Be specific about expertise level (e.g., "expert," "professor," "researcher")</li>
-            <li>Consider multiple roles for complex tasks (e.g., "Act as both a critic and advocate")</li>
-            <li>Align roles with your intended audience</li>
-          </ul>
+          <ol>
+            <li><strong>Precision</strong>: Be specific in your requests (e.g., "Create a summary of the meeting minutes in 5 bullet points")</li>
+            <li><strong>Context relevance</strong>: Include relevant background information</li>
+            <li><strong>Task breakdown</strong>: Split complex requests into smaller steps</li>
+            <li><strong>Iteration</strong>: Refine prompts based on results</li>
+            <li><strong>Clear formatting</strong>: Define how you want the information presented</li>
+          </ol>
           
-          <p>Examples of effective roles include "experienced data scientist," "UX researcher with 10 years of experience," or "expert in Renaissance art history." The more clearly defined the role, the more tailored the response will be.</p>
+          <p>These principles ensure that your prompts are clear, specific, and designed to produce the desired results.</p>
         `
       },
       {
-        id: "context-setting",
-        title: "Setting Clear Context",
+        id: "document-processing",
+        title: "Document Processing with RCT",
         content: `
-          <h3>The Importance of Context</h3>
-          <p>Context provides the AI with necessary background information, constraints, and parameters. Well-defined context eliminates ambiguity and helps the AI generate more relevant responses.</p>
+          <h3>Example: Document Processing with RCT</h3>
           
-          <h4>Elements of Effective Context</h4>
-          <ul>
-            <li>Background information relevant to the task</li>
-            <li>Scope and limitations (what should be included or excluded)</li>
-            <li>Target audience and their level of expertise</li>
-            <li>Format requirements or preferences</li>
-            <li>Relevant examples or references</li>
-          </ul>
+          <p><strong>Prompt</strong>:</p>
+          <blockquote>
+            "As a Documentation Specialist, analyze this meeting transcript. Extract key decisions and action items. Format as a bulleted list."
+          </blockquote>
           
-          <p>Context setting might include statements like "This is for an undergraduate audience with basic knowledge of economics" or "The response should follow APA citation format and include only peer-reviewed sources from the last 5 years."</p>
+          <p><strong>Result</strong>:</p>
+          <ol>
+            <li><strong>Project timeline</strong>: Approved Q2 start date</li>
+            <li><strong>Budget allocation</strong>: Resources confirmed</li>
+            <li><strong>Team structure</strong>: Roles defined</li>
+            <li><strong>Next steps</strong>: Weekly progress reviews</li>
+            <li><strong>Tools</strong>: Selected collaboration platform</li>
+          </ol>
+          
+          <p>This example demonstrates how a well-structured RCT prompt can efficiently extract key information from documents.</p>
         `
       },
       {
-        id: "task-formulation",
-        title: "Formulating Clear Tasks",
+        id: "information-search",
+        title: "Information Search with RCT",
         content: `
-          <h3>Crafting Actionable Tasks</h3>
-          <p>The task component specifies exactly what you want the AI to do. Clear task formulation eliminates guesswork and ensures you receive the type of output you need.</p>
+          <h3>Example: Information Search with RCT</h3>
           
-          <h4>Characteristics of Well-Defined Tasks</h4>
+          <p><strong>Prompt</strong>:</p>
+          <blockquote>
+            "As a Research Assistant, find relevant industry statistics for our quarterly report. Focus on market growth and trends."
+          </blockquote>
+          
+          <div class="overflow-x-auto my-4">
+            <table class="min-w-full border border-purple-800/30">
+              <thead class="bg-purple-900/20">
+                <tr>
+                  <th class="px-4 py-2 text-left text-purple-300">Category</th>
+                  <th class="px-4 py-2 text-left text-purple-300">Current Value</th>
+                  <th class="px-4 py-2 text-left text-purple-300">Growth Rate</th>
+                  <th class="px-4 py-2 text-left text-purple-300">Source</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr class="border-t border-purple-800/30">
+                  <td class="px-4 py-2 text-white">Market Size</td>
+                  <td class="px-4 py-2 text-white">$5.2B</td>
+                  <td class="px-4 py-2 text-green-400">12%</td>
+                  <td class="px-4 py-2 text-gray-300">Industry Report</td>
+                </tr>
+                <tr class="border-t border-purple-800/30 bg-purple-900/10">
+                  <td class="px-4 py-2 text-white">User Base</td>
+                  <td class="px-4 py-2 text-white">2.5M</td>
+                  <td class="px-4 py-2 text-green-400">15%</td>
+                  <td class="px-4 py-2 text-gray-300">Analytics</td>
+                </tr>
+                <tr class="border-t border-purple-800/30">
+                  <td class="px-4 py-2 text-white">ROI</td>
+                  <td class="px-4 py-2 text-white">185%</td>
+                  <td class="px-4 py-2 text-green-400">8%</td>
+                  <td class="px-4 py-2 text-gray-300">Customer Data</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          
+          <p>This example demonstrates how the RCT framework can be used to structure data collection tasks.</p>
+        `
+      },
+      {
+        id: "why-this-works",
+        title: "Why the RCT Framework Works",
+        content: `
+          <h3>The Power of Structured Communication</h3>
+          <p>The RCT framework is effective because it addresses the key elements needed for successful AI interaction:</p>
+          
           <ul>
-            <li>Uses specific action verbs (analyze, compare, summarize, evaluate)</li>
-            <li>Indicates the desired output format (list, essay, table, code)</li>
-            <li>Specifies length or comprehensiveness</li>
-            <li>Includes evaluation criteria when relevant</li>
+            <li><strong>Clear roles</strong>: Specific AI expertise assignment</li>
+            <li><strong>Detailed context</strong>: Well-defined parameters</li>
+            <li><strong>Structured output</strong>: Organized information delivery</li>
           </ul>
           
-          <p>Examples of clear tasks include "Create a 500-word summary highlighting the three main arguments," "Develop a step-by-step troubleshooting guide with code examples," or "Compare these two research methodologies using a table with at least 5 criteria."</p>
+          <p>This structured approach helps employees maximize AI tool effectiveness across various work tasks by providing clear guidance to the AI system.</p>
         `
       }
     ]
@@ -147,60 +240,64 @@ const courseSections: Section[] = [
     title: "AI Tools in Remote Helpers: Overview",
     subtopics: [
       {
-        id: "ai-tools-landscape",
-        title: "The AI Tools Landscape",
+        id: "text-generation",
+        title: "Text Generation & Analysis Tools",
         content: `
-          <h3>Navigating the AI Ecosystem</h3>
-          <p>The landscape of AI tools is vast and rapidly evolving. Understanding the different categories and capabilities helps you select the right tool for each task.</p>
+          <h3>Core Text Processing Tools</h3>
+          <p>Remote Helpers utilize a range of powerful text-based AI tools:</p>
           
-          <h4>Major Categories of AI Tools</h4>
           <ul>
-            <li><strong>Language Models</strong>: GPT-4, Claude, LLaMA, PaLM</li>
-            <li><strong>Image Generation</strong>: DALL-E, Stable Diffusion, Midjourney</li>
-            <li><strong>Audio/Voice Tools</strong>: Whisper, ElevenLabs, Murf</li>
-            <li><strong>Code Assistants</strong>: GitHub Copilot, CodeWhisperer</li>
-            <li><strong>Specialized Research Tools</strong>: Elicit, Consensus, Scholarcy</li>
+            <li><strong>Claude AI</strong>: Creates and analyzes documents, reports, and administrative content with high accuracy.</li>
+            <li><strong>Perplexity AI</strong>: Delivers verified research results and fact-checking with cited sources.</li>
+            <li><strong>Grok</strong>: Processes bulk text and learns from interactions to improve workflow efficiency.</li>
           </ul>
           
-          <p>Each category offers distinct capabilities and limitations. The most effective researchers understand how to combine multiple tools into integrated workflows.</p>
+          <p>These tools form the foundation of text-based AI assistance for Remote Helpers.</p>
         `
       },
       {
-        id: "selecting-right-tool",
-        title: "Selecting the Right Tool for the Job",
+        id: "content-creation",
+        title: "Content Creation & Design Tools",
         content: `
-          <h3>Matching Tools to Tasks</h3>
-          <p>Choosing the appropriate AI tool for a specific task is critical for efficiency and quality. This decision depends on understanding both your requirements and each tool's strengths.</p>
+          <h3>Creative AI Solutions</h3>
+          <p>For content generation and creative tasks, Remote Helpers rely on:</p>
           
-          <h4>Selection Criteria</h4>
           <ul>
-            <li><strong>Task complexity</strong>: More complex tasks may require more advanced models</li>
-            <li><strong>Domain specificity</strong>: Some tools are optimized for particular fields</li>
-            <li><strong>Output format needs</strong>: Consider whether you need text, code, images, or data</li>
-            <li><strong>Integration requirements</strong>: How the tool needs to fit into your workflow</li>
-            <li><strong>Speed vs. quality tradeoffs</strong>: Balance processing time with output quality</li>
+            <li><strong>ChatGPT</strong>: Creates content and assists with creative ideation.</li>
+            <li><strong>Gemini</strong>: Handles both text and image tasks with Google's latest AI technology.</li>
           </ul>
           
-          <p>For example, while GPT-4 excels at general knowledge tasks, specialized tools like Elicit may perform better for academic research, and domain-specific models might be optimal for technical fields.</p>
+          <p>These tools support the creation of engaging, professional content across various formats.</p>
         `
       },
       {
-        id: "effectiveness-evaluation",
-        title: "Evaluating Tool Effectiveness",
+        id: "development-automation",
+        title: "Development & Automation Tools",
         content: `
-          <h3>Measuring AI Tool Impact</h3>
-          <p>Systematically evaluating AI tool effectiveness helps you optimize your toolset and improve your results over time.</p>
+          <h3>Workflow Automation Solutions</h3>
+          <p>To optimize processes and automate repetitive tasks:</p>
           
-          <h4>Evaluation Framework</h4>
-          <ol>
-            <li><strong>Define success metrics</strong>: Time saved, quality improvements, error reduction</li>
-            <li><strong>Benchmark against alternatives</strong>: Compare with manual methods or other AI tools</li>
-            <li><strong>Collect quantitative data</strong>: Track completion times, revision rates, accuracy</li>
-            <li><strong>Gather qualitative feedback</strong>: User satisfaction, perceived usefulness</li>
-            <li><strong>Assess ROI</strong>: Balance benefits against costs (financial, time, complexity)</li>
-          </ol>
+          <ul>
+            <li><strong>Make.com</strong>: Automates workflows across platforms, reducing manual tasks.</li>
+          </ul>
           
-          <p>Regular evaluation helps you build an optimized AI toolkit that evolves with your needs and with the rapidly changing technology landscape.</p>
+          <p>Automation tools significantly reduce time spent on repetitive tasks and help maintain consistency across processes.</p>
+        `
+      },
+      {
+        id: "key-applications",
+        title: "Key Applications for AI Tools",
+        content: `
+          <h3>Practical Applications in Daily Work</h3>
+          <p>AI tools are applied to a wide range of Remote Helper tasks:</p>
+          
+          <ul>
+            <li><strong>Communication</strong>: Real-time transcription and automated summaries.</li>
+            <li><strong>Task Management</strong>: AI-driven prioritization and deadline tracking.</li>
+            <li><strong>Process Automation</strong>: Streamlined scheduling, data entry, and analysis.</li>
+          </ul>
+          
+          <p>These applications enable Remote Helpers to deliver faster, more accurate results while reducing operational overhead and improving team efficiency.</p>
         `
       }
     ]
@@ -210,69 +307,181 @@ const courseSections: Section[] = [
     title: "Creating an AI Project",
     subtopics: [
       {
-        id: "project-planning",
-        title: "Planning Your AI Project",
+        id: "core-components",
+        title: "Core Components of AI Project Development",
         content: `
-          <h3>Structured Approach to AI Projects</h3>
-          <p>Successful AI projects begin with thorough planning that considers goals, resources, and potential challenges.</p>
+          <h3>Essential Elements for Success</h3>
+          <p>Key phases of AI project development include:</p>
           
-          <h4>Project Planning Framework</h4>
-          <ol>
-            <li><strong>Define clear objectives</strong>: What specific problem are you solving?</li>
-            <li><strong>Identify success criteria</strong>: How will you measure results?</li>
-            <li><strong>Select appropriate tools</strong>: Which AI capabilities match your needs?</li>
-            <li><strong>Outline workflow integration</strong>: How will AI fit into existing processes?</li>
-            <li><strong>Anticipate limitations</strong>: What are potential bottlenecks or challenges?</li>
-            <li><strong>Create evaluation protocol</strong>: How will you assess and refine results?</li>
-          </ol>
+          <ul>
+            <li><strong>Problem Formulation</strong>: Define business problem, set measurable KPIs, and align with stakeholders.</li>
+            <li><strong>Tool Selection</strong>: Choose AI tools based on task requirements, data needs, and team expertise.</li>
+            <li><strong>Workflow Development</strong>: Create project lifecycle plan, define roles, and establish feedback loops.</li>
+            <li><strong>Testing & Optimization</strong>: Implement testing protocols and use feedback for improvements.</li>
+          </ul>
           
-          <p>A well-planned AI project has clearly defined phases, from initial exploration to full implementation, with feedback loops for continuous improvement.</p>
+          <p>A structured approach to these components ensures more successful AI project outcomes.</p>
         `
       },
       {
-        id: "data-preparation",
-        title: "Data Preparation and Management",
+        id: "tool-selection",
+        title: "Tool Selection for AI Projects",
         content: `
-          <h3>The Foundation of AI Success</h3>
-          <p>High-quality data preparation is crucial for effective AI project outcomes. This process ensures the AI has the information it needs in the optimal format.</p>
+          <h3>Choosing the Right AI Tools</h3>
+          <p>Essential AI tools for our work:</p>
           
-          <h4>Data Preparation Best Practices</h4>
           <ul>
-            <li><strong>Data cleaning</strong>: Remove irrelevant information and standardize formats</li>
-            <li><strong>Structuring information</strong>: Organize data in logical hierarchies</li>
-            <li><strong>Chunking content</strong>: Break large datasets into manageable pieces</li>
-            <li><strong>Context preservation</strong>: Maintain relationships between data elements</li>
-            <li><strong>Metadata creation</strong>: Add descriptive tags for improved retrieval</li>
+            <li><strong>Claude AI</strong>: Document processing and analysis</li>
+            <li><strong>Perplexity AI</strong>: Information search and verification</li>
+            <li><strong>Grok</strong>: Workflow automation</li>
           </ul>
           
-          <p>Effective data management creates a foundation for AI to generate more accurate, relevant outputs while reducing the need for extensive prompt engineering.</p>
+          <p>Selecting the appropriate tools is crucial for project success and depends on specific use cases and requirements.</p>
         `
       },
       {
-        id: "implementation-strategies",
-        title: "Implementation Strategies",
+        id: "workflow-development",
+        title: "Workflow Development",
         content: `
-          <h3>From Concept to Application</h3>
-          <p>Implementing AI projects requires a strategic approach that balances ambition with practicality. Successful implementation often follows an iterative path.</p>
+          <h3>Creating Effective AI Workflows</h3>
+          <p>Implementation structure:</p>
           
-          <h4>Implementation Models</h4>
           <ol>
-            <li><strong>Pilot-first approach</strong>: Test concepts with limited scope before scaling</li>
-            <li><strong>Modular implementation</strong>: Build and perfect individual components sequentially</li>
-            <li><strong>Parallel development</strong>: Work on multiple aspects simultaneously with coordination</li>
-            <li><strong>Agile adaptation</strong>: Continuously refine based on feedback and results</li>
+            <li><strong>Data Collection</strong>: Use Perplexity AI for research</li>
+            <li><strong>Analysis</strong>: Apply Claude AI for processing</li>
+            <li><strong>Content Generation</strong>: Create outputs with AI assistance</li>
+            <li><strong>Iteration</strong>: Refine based on feedback</li>
           </ol>
           
-          <h4>Common Implementation Challenges</h4>
+          <p>A well-designed workflow ensures that each AI tool is used optimally within the project lifecycle.</p>
+        `
+      },
+      {
+        id: "testing-optimization",
+        title: "Testing & Optimization",
+        content: `
+          <h3>Ensuring Quality and Performance</h3>
+          <p>Key aspects of testing and optimization include:</p>
+          
           <ul>
-            <li>Integration with existing workflows and systems</li>
-            <li>User adoption and training</li>
-            <li>Managing expectations around capabilities</li>
-            <li>Handling edge cases and exceptions</li>
-            <li>Scaling from prototype to production</li>
+            <li><strong>Validation</strong>: Test functionality and performance</li>
+            <li><strong>Monitoring</strong>: Track key metrics</li>
+            <li><strong>Optimization</strong>: Improve processes</li>
+            <li><strong>Feedback</strong>: Incorporate user input</li>
           </ul>
           
-          <p>Successful implementation requires both technical excellence and change management skills to ensure the AI solution delivers its promised value.</p>
+          <p>Continuous testing and optimization ensure that AI projects deliver maximum value and improve over time.</p>
+        `
+      },
+      {
+        id: "build-prototype",
+        title: "Build a Working Prototype",
+        content: `
+          <h3>Example: Process Optimization Project</h3>
+          
+          <ol>
+            <li><strong>Objective</strong>: Create an automated workflow</li>
+            <li><strong>Tools</strong>:
+              <ul>
+                <li><strong>Claude AI</strong>: Document processing</li>
+                <li><strong>Perplexity AI</strong>: Information verification</li>
+              </ul>
+            </li>
+            <li><strong>Steps</strong>:
+              <ul>
+                <li>Define workflow requirements</li>
+                <li>Implement AI tools</li>
+                <li>Test and validate results</li>
+              </ul>
+            </li>
+            <li><strong>Optimization</strong>:
+              <ul>
+                <li>Monitor performance metrics</li>
+                <li>Gather user feedback</li>
+              </ul>
+            </li>
+          </ol>
+          
+          <p>This structured approach ensures that prototypes deliver value and provide a foundation for further development.</p>
+        `
+      },
+      {
+        id: "tools-overview",
+        title: "Comprehensive Tools Overview",
+        content: `
+          <h3>AI Tool Ecosystem</h3>
+          
+          <div class="overflow-x-auto my-4">
+            <table class="min-w-full border border-purple-800/30">
+              <thead class="bg-purple-900/20">
+                <tr>
+                  <th class="px-4 py-2 text-left text-purple-300">Tool</th>
+                  <th class="px-4 py-2 text-left text-purple-300">Purpose</th>
+                  <th class="px-4 py-2 text-left text-purple-300">Usage</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr class="border-t border-purple-800/30">
+                  <td class="px-4 py-2 text-white"><strong>Claude AI</strong></td>
+                  <td class="px-4 py-2 text-white">Text generation</td>
+                  <td class="px-4 py-2 text-gray-300">Workflow automation</td>
+                </tr>
+                <tr class="border-t border-purple-800/30 bg-purple-900/10">
+                  <td class="px-4 py-2 text-white"><strong>Perplexity</strong></td>
+                  <td class="px-4 py-2 text-white">Research</td>
+                  <td class="px-4 py-2 text-gray-300">Data verification</td>
+                </tr>
+                <tr class="border-t border-purple-800/30">
+                  <td class="px-4 py-2 text-white"><strong>Grok</strong></td>
+                  <td class="px-4 py-2 text-white">Text processing</td>
+                  <td class="px-4 py-2 text-gray-300">Documentation</td>
+                </tr>
+                <tr class="border-t border-purple-800/30 bg-purple-900/10">
+                  <td class="px-4 py-2 text-white"><strong>Notebook LM</strong></td>
+                  <td class="px-4 py-2 text-white">Analysis</td>
+                  <td class="px-4 py-2 text-gray-300">Data handling</td>
+                </tr>
+                <tr class="border-t border-purple-800/30">
+                  <td class="px-4 py-2 text-white"><strong>Midjourney</strong></td>
+                  <td class="px-4 py-2 text-white">Images</td>
+                  <td class="px-4 py-2 text-gray-300">Visual content</td>
+                </tr>
+                <tr class="border-t border-purple-800/30 bg-purple-900/10">
+                  <td class="px-4 py-2 text-white"><strong>ChatGPT</strong></td>
+                  <td class="px-4 py-2 text-white">Content</td>
+                  <td class="px-4 py-2 text-gray-300">Communications</td>
+                </tr>
+                <tr class="border-t border-purple-800/30">
+                  <td class="px-4 py-2 text-white"><strong>Gemini</strong></td>
+                  <td class="px-4 py-2 text-white">Multimedia</td>
+                  <td class="px-4 py-2 text-gray-300">Complex projects</td>
+                </tr>
+                <tr class="border-t border-purple-800/30 bg-purple-900/10">
+                  <td class="px-4 py-2 text-white"><strong>Cursor Pro</strong></td>
+                  <td class="px-4 py-2 text-white">Coding</td>
+                  <td class="px-4 py-2 text-gray-300">Development</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          
+          <p>This comprehensive overview helps in selecting the right tools for specific project needs.</p>
+        `
+      },
+      {
+        id: "practical-tips",
+        title: "Practical Tips for Implementation",
+        content: `
+          <h3>Best Practices for Success</h3>
+          <p>Follow these practical tips for more effective AI project implementation:</p>
+          
+          <ul>
+            <li><strong>Start Small</strong>: Begin with MVPs to validate concepts.</li>
+            <li><strong>Collaborate</strong>: Maintain stakeholder engagement throughout the process.</li>
+            <li><strong>Monitor</strong>: Track metrics and optimize performance continuously.</li>
+          </ul>
+          
+          <p>These practices ensure efficient AI project development while maintaining quality and innovation.</p>
         `
       }
     ]
@@ -282,78 +491,92 @@ const courseSections: Section[] = [
     title: "Final AI Project Presentation Structure",
     subtopics: [
       {
-        id: "presentation-framework",
-        title: "Creating an Effective Presentation Framework",
+        id: "problem-description",
+        title: "Problem Description",
         content: `
-          <h3>Structuring Your AI Project Presentation</h3>
-          <p>A well-structured presentation communicates your AI project's value clearly and convincingly to stakeholders.</p>
+          <h3>Defining the Challenge</h3>
+          <p>Describe the specific workplace process or challenge your AI solution aims to improve. Focus on how AI tools can enhance productivity, automate routine tasks, or improve decision-making in your role.</p>
           
-          <h4>Essential Components</h4>
-          <ol>
-            <li><strong>Executive Summary</strong>: Core problem, solution, and key results</li>
-            <li><strong>Problem Statement</strong>: Clear articulation of the challenge addressed</li>
-            <li><strong>Methodology</strong>: AI tools selected and implementation approach</li>
-            <li><strong>Results and Analysis</strong>: Quantitative and qualitative outcomes</li>
-            <li><strong>Challenges and Solutions</strong>: Obstacles encountered and how they were overcome</li>
-            <li><strong>Lessons Learned</strong>: Insights gained through the process</li>
-            <li><strong>Future Directions</strong>: Potential expansions or refinements</li>
-          </ol>
+          <p>Include specific examples from your daily work that show the need for AI assistance, such as:</p>
+          <ul>
+            <li>Time-consuming manual processes</li>
+            <li>Error-prone tasks</li>
+            <li>Information bottlenecks</li>
+            <li>Decision-making challenges</li>
+          </ul>
           
-          <p>Tailoring this framework to your audience's technical knowledge and interests ensures your presentation resonates effectively.</p>
+          <p>A clear problem description establishes the foundation for your AI project.</p>
         `
       },
       {
-        id: "results-visualization",
-        title: "Visualizing Results and Impact",
+        id: "tools-implementation",
+        title: "AI Tools and Implementation",
         content: `
-          <h3>Making Data Compelling</h3>
-          <p>Effective visualization transforms raw results into compelling evidence of your AI project's value.</p>
+          <h3>Your AI Solution Approach</h3>
+          <p>Detail your chosen AI tools and approach:</p>
           
-          <h4>Visualization Best Practices</h4>
           <ul>
-            <li><strong>Select appropriate chart types</strong> for different data relationships</li>
-            <li><strong>Create before/after comparisons</strong> to highlight improvements</li>
-            <li><strong>Use consistent visual language</strong> throughout presentations</li>
-            <li><strong>Incorporate progressive disclosure</strong> from summary to detail</li>
-            <li><strong>Balance quantitative metrics with qualitative examples</strong></li>
+            <li><strong>Selected AI tools</strong> (Claude AI, Perplexity AI, or Grok)
+              <ul>
+                <li>Specific use cases for each tool</li>
+                <li>Integration into your workflow</li>
+              </ul>
+            </li>
+            <li><strong>Key features utilized</strong></li>
+            <li><strong>Implementation process and timeline</strong></li>
           </ul>
           
-          <h4>Recommended Visualization Types</h4>
-          <ul>
-            <li><strong>Time series</strong>: For showing improvement over time</li>
-            <li><strong>Comparison charts</strong>: For benchmarking against baselines</li>
-            <li><strong>Process flows</strong>: For illustrating system integration</li>
-            <li><strong>Heat maps</strong>: For highlighting patterns in complex data</li>
-            <li><strong>Interactive demos</strong>: For bringing capabilities to life</li>
-          </ul>
-          
-          <p>Effective visualization not only communicates results but builds confidence in your AI implementation.</p>
+          <p>Describe how these tools work together to form a complete solution.</p>
         `
       },
       {
-        id: "future-recommendations",
-        title: "Developing Future Recommendations",
+        id: "results-impact",
+        title: "Results and Impact",
         content: `
-          <h3>Looking Beyond the Current Implementation</h3>
-          <p>Strong AI project presentations conclude with thoughtful recommendations that demonstrate vision and sustainability.</p>
+          <h3>Measuring Success</h3>
+          <p>Present your achievements with quantifiable metrics:</p>
           
-          <h4>Types of Recommendations</h4>
           <ul>
-            <li><strong>Scalability opportunities</strong>: How to expand successful elements</li>
-            <li><strong>Enhancement possibilities</strong>: Next-generation features or capabilities</li>
-            <li><strong>Integration pathways</strong>: Connections with other systems or processes</li>
-            <li><strong>Potential new applications</strong>: Adjacent problems the approach could solve</li>
-            <li><strong>Technology evolution planning</strong>: Adapting to emerging AI capabilities</li>
+            <li><strong>Time saved on tasks</strong>: Before/after comparisons</li>
+            <li><strong>Quality improvements in output</strong>: Error reduction</li>
+            <li><strong>Workflow efficiency gains</strong>: Process improvements</li>
+            <li><strong>Team feedback and adoption</strong>: User satisfaction</li>
           </ul>
           
-          <h4>Structuring Recommendations</h4>
-          <ol>
-            <li><strong>Short-term wins</strong>: Immediate next steps with high ROI</li>
-            <li><strong>Medium-term developments</strong>: 3-6 month horizon initiatives</li>
-            <li><strong>Long-term vision</strong>: Strategic direction for continued evolution</li>
-          </ol>
+          <p>Use data visualizations where possible to clearly demonstrate the impact of your AI solution.</p>
+        `
+      },
+      {
+        id: "future-development",
+        title: "Future Development Plans",
+        content: `
+          <h3>Next Steps for Your AI Project</h3>
+          <p>Outline your vision for continued development:</p>
           
-          <p>Well-crafted recommendations position your project not as a one-time effort but as the beginning of an ongoing transformation journey.</p>
+          <ul>
+            <li><strong>Short-term</strong>: Expand use cases and team training</li>
+            <li><strong>Mid-term</strong>: Integration with more work processes</li>
+            <li><strong>Long-term</strong>: Department-wide AI adoption strategy</li>
+          </ul>
+          
+          <p>A clear roadmap demonstrates forward thinking and ensures continued value from your AI implementation.</p>
+        `
+      },
+      {
+        id: "presentation-guidelines",
+        title: "Presentation Guidelines",
+        content: `
+          <h3>Effective Presentation Strategies</h3>
+          <p>Key elements to include in your presentation:</p>
+          
+          <ul>
+            <li><strong>Show practical examples</strong> of AI tools in use</li>
+            <li><strong>Demonstrate actual workflow improvements</strong> with before/after comparisons</li>
+            <li><strong>Share lessons learned</strong> and best practices</li>
+            <li><strong>Provide recommendations</strong> for others planning similar implementations</li>
+          </ul>
+          
+          <p>Focus on clarity, impact, and actionable takeaways in your presentation to engage your audience effectively.</p>
         `
       }
     ]
@@ -388,10 +611,10 @@ const Guide: React.FC = () => {
       setActiveSubtopic(subtopic);
       if (!completedSections.includes(subtopicId)) {
         setCompletedSections([...completedSections, subtopicId]);
-        setXp(xp + 5); // Changed from 10 to 5 XP
+        setXp(xp + 5);
         toast({
           title: "XP Gained!",
-          description: "Gained 5 XP for exploring a new topic!", // Changed from 10 to 5 XP
+          description: "Gained 5 XP for exploring a new topic!",
           variant: "default",
         });
       }
@@ -410,10 +633,10 @@ const Guide: React.FC = () => {
         setActiveSubtopic(nextSection.subtopics[0]);
         if (!completedSections.includes(nextSection.subtopics[0].id)) {
           setCompletedSections([...completedSections, nextSection.subtopics[0].id]);
-          setXp(xp + 5); // Changed from 10 to 5 XP
+          setXp(xp + 5);
           toast({
             title: "XP Gained!",
-            description: "Gained 5 XP for moving to a new section!", // Changed from 10 to 5 XP
+            description: "Gained 5 XP for moving to a new section!",
             variant: "default",
           });
         }

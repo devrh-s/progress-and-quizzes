@@ -70,23 +70,25 @@ const FantasyFirework = () => {
   return (
     <div className="absolute inset-0 overflow-hidden pointer-events-none z-50">
       {particles}
-      <style jsx>{`
-        @keyframes fireworkFade {
-          0% { opacity: 0; }
-          10% { opacity: 1; }
-          80% { opacity: 0.8; }
-          100% { opacity: 0; }
-        }
-        @keyframes fireworkScale {
-          0% { transform: scale(0); }
-          10% { transform: scale(1); }
-          100% { transform: scale(0); }
-        }
-        @keyframes fireworkMove {
-          0% { transform: translate(0, 0); }
-          100% { transform: translate(${(Math.random() - 0.5) * 50}px, ${(Math.random() - 0.5) * 50}px); }
-        }
-      `}</style>
+      <style>
+        {`
+          @keyframes fireworkFade {
+            0% { opacity: 0; }
+            10% { opacity: 1; }
+            80% { opacity: 0.8; }
+            100% { opacity: 0; }
+          }
+          @keyframes fireworkScale {
+            0% { transform: scale(0); }
+            10% { transform: scale(1); }
+            100% { transform: scale(0); }
+          }
+          @keyframes fireworkMove {
+            0% { transform: translate(0, 0); }
+            100% { transform: translate(${(Math.random() - 0.5) * 50}px, ${(Math.random() - 0.5) * 50}px); }
+          }
+        `}
+      </style>
     </div>
   );
 };

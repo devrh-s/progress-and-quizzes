@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
 import { cn } from '@/lib/utils';
+import { BookOpen, CheckCircle, Circle } from 'lucide-react';
 
 interface Section {
   id: string;
@@ -64,7 +65,10 @@ export const TableOfContents: React.FC<TableOfContentsProps> = ({
                 activeSection === section.id ? "text-purple-300" : "text-white"
               )}
             >
-              {section.title}
+              <div className="flex items-center">
+                <BookOpen size={16} className="mr-2 text-purple-400" />
+                {section.title}
+              </div>
             </AccordionTrigger>
             <AccordionContent className="px-2 py-1">
               <div className="space-y-1 pl-4 border-l border-purple-800/50">
@@ -84,7 +88,9 @@ export const TableOfContents: React.FC<TableOfContentsProps> = ({
                     onClick={() => onSubtopicChange(subtopic.id)}
                   >
                     <span className="mr-2">
-                      {completedSections.includes(subtopic.id) ? "✓" : "○"}
+                      {completedSections.includes(subtopic.id) ? 
+                        <CheckCircle size={14} className="text-green-400" /> : 
+                        <Circle size={14} className="text-gray-400" />}
                     </span>
                     {subtopic.title}
                     <span className="ml-auto text-xs text-yellow-300">+5 XP</span>
