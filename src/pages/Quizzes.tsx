@@ -807,6 +807,243 @@ const quizTopics = [
         correctCategories: [0, 0, 1, 1, 2, 2]
       }
     ]
+  },
+  {
+    id: "problem-description-quiz",
+    title: "Problem Description",
+    difficulty: 'medium',
+    timeLimit: 180,
+    questions: [
+      {
+        type: 'sequencing',
+        question: "Rank the following aspects by importance when describing a workplace problem that your AI solution will address.",
+        steps: [
+          "Specific workplace process or challenge",
+          "Examples from daily work",
+          "How AI can enhance productivity"
+        ],
+        correctOrder: [0, 2, 1]
+      },
+      {
+        type: 'sequencing',
+        question: "Sequence the steps to write an effective problem description.",
+        steps: [
+          "Explain the workplace challenge",
+          "Describe how AI tools can automate routine tasks",
+          "Include specific examples from your work"
+        ],
+        correctOrder: [0, 1, 2]
+      },
+      {
+        type: 'matching',
+        question: "Identify and label each key component of the problem description by assigning its function.",
+        items: [
+          "Workplace process/challenge",
+          "AI impact on productivity",
+          "Daily work examples"
+        ],
+        descriptions: [
+          "Defines the specific issue to be improved",
+          "Explains how AI enhances efficiency or decision‑making",
+          "Provides concrete instances showing the need for AI"
+        ],
+        correctPairs: [0, 1, 2]
+      }
+    ]
+  },
+  {
+    id: "ai-tools-implementation-quiz",
+    title: "AI Tools and Implementation",
+    difficulty: 'medium',
+    timeLimit: 210,
+    questions: [
+      {
+        type: 'matching',
+        question: "Match each implementation detail with its description.",
+        items: [
+          "Selected AI tools (e.g., Claude AI, Perplexity AI, Grok)",
+          "Specific use cases and workflow integration",
+          "Implementation process and timeline"
+        ],
+        descriptions: [
+          "The tools chosen based on task requirements and team expertise",
+          "Detailed explanation of how each tool is applied and integrated",
+          "A step-by-step plan with key milestones and timeframes"
+        ],
+        correctPairs: [0, 1, 2]
+      },
+      {
+        type: 'sorting',
+        question: "Sort the following details into three categories: Tool Selection, Integration, and Timeline.",
+        activities: [
+          "Choosing Claude AI for document processing",
+          "Using Perplexity AI for data verification",
+          "Outlining steps for workflow integration",
+          "Setting a 3‑month implementation plan",
+          "Defining key features utilized"
+        ],
+        categories: [
+          "Tool Selection",
+          "Integration",
+          "Timeline"
+        ],
+        correctCategories: [0, 0, 1, 2, 1]
+      },
+      {
+        type: 'sequencing',
+        question: "Sequence the steps for implementing AI tools in your workflow.",
+        steps: [
+          "Select appropriate AI tools",
+          "Define specific use cases",
+          "Integrate tools into your workflow",
+          "Establish an implementation timeline"
+        ],
+        correctOrder: [0, 1, 2, 3]
+      }
+    ]
+  },
+  {
+    id: "results-impact-quiz",
+    title: "Results and Impact",
+    difficulty: 'easy',
+    timeLimit: 180,
+    questions: [
+      {
+        type: 'sequencing',
+        question: "Sequence the reporting of results in a logical order.",
+        steps: [
+          "Report time saved on tasks",
+          "Describe quality improvements in output",
+          "Present workflow efficiency gains",
+          "Include team feedback and adoption"
+        ],
+        correctOrder: [0, 1, 2, 3]
+      },
+      {
+        type: 'matching',
+        question: "Label each result metric with its corresponding measurement focus.",
+        items: [
+          "Time saved",
+          "Quality improvements",
+          "Efficiency gains",
+          "Team feedback"
+        ],
+        descriptions: [
+          "Measures reduction in task duration",
+          "Assesses the enhancement in output standards",
+          "Evaluates workflow optimization",
+          "Reflects user satisfaction and adoption"
+        ],
+        correctPairs: [0, 1, 2, 3]
+      },
+      {
+        type: 'sequencing',
+        question: "Rank the impact metrics by their potential influence on overall business performance.",
+        steps: [
+          "Workflow efficiency gains",
+          "Time saved on tasks",
+          "Quality improvements",
+          "Team feedback and adoption"
+        ],
+        correctOrder: [0, 1, 2, 3]
+      }
+    ]
+  },
+  {
+    id: "future-development-quiz",
+    title: "Future Development Plans",
+    difficulty: 'medium',
+    timeLimit: 180,
+    questions: [
+      {
+        type: 'matching',
+        question: "Match each future development phase with its corresponding action.",
+        items: [
+          "Short-term",
+          "Mid-term",
+          "Long-term"
+        ],
+        descriptions: [
+          "Expand use cases and team training",
+          "Integrate with more work processes",
+          "Develop a department-wide AI adoption strategy"
+        ],
+        correctPairs: [0, 1, 2]
+      },
+      {
+        type: 'sequencing',
+        question: "Sequence the steps for future AI development.",
+        steps: [
+          "Expand current use cases",
+          "Provide training for team members",
+          "Integrate AI into additional work processes",
+          "Formulate a broad adoption strategy"
+        ],
+        correctOrder: [0, 1, 2, 3]
+      },
+      {
+        type: 'sorting',
+        question: "Sort the following future development strategies into their corresponding timeframes.",
+        activities: [
+          "Team training and small-scale pilots",
+          "Broader integration across multiple processes",
+          "Department-wide strategy formulation"
+        ],
+        categories: [
+          "Short-term",
+          "Mid-term",
+          "Long-term"
+        ],
+        correctCategories: [0, 1, 2]
+      }
+    ]
+  },
+  {
+    id: "presentation-guidelines-quiz",
+    title: "Presentation Guidelines",
+    difficulty: 'easy',
+    timeLimit: 180,
+    questions: [
+      {
+        type: 'matching',
+        question: "Identify and label the key elements that should be included in your presentation.",
+        items: [
+          "Practical examples of AI tools in use",
+          "Demonstrated workflow improvements",
+          "Lessons learned and best practices",
+          "Recommendations for others"
+        ],
+        descriptions: [
+          "Show real cases of AI implementation",
+          "Highlight measurable changes in processes",
+          "Share insights and challenges encountered",
+          "Provide actionable advice for peers"
+        ],
+        correctPairs: [0, 1, 2, 3]
+      },
+      {
+        type: 'sequencing',
+        question: "Sequence the logical order for presenting your project results.",
+        steps: [
+          "Begin with practical examples",
+          "Demonstrate workflow improvements",
+          "Share lessons learned and best practices",
+          "Conclude with recommendations"
+        ],
+        correctOrder: [0, 1, 2, 3]
+      },
+      {
+        type: 'sequencing',
+        question: "Rank the presentation elements by their potential to engage an audience, from most engaging to least engaging.",
+        steps: [
+          "Practical examples of AI tools",
+          "Demonstrated workflow improvements",
+          "Lessons learned and best practices",
+          "Recommendations for others"
+        ],
+        correctOrder: [0, 1, 2, 3]
+      }
+    ]
   }
 ];
 
