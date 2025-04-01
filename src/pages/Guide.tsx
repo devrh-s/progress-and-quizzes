@@ -847,4 +847,114 @@ const Guide: React.FC = () => {
       
       toast({
         title: "Quiz Completed!",
-        description: `You earned ${quizX
+        description: `You earned ${quizXp} XP for completing the quiz!`,
+        variant: "default",
+      });
+    }
+  };
+
+  const handleStartQuiz = () => {
+    const quiz = quizzes[activeSubtopic.id as keyof typeof quizzes];
+    if (quiz) {
+      setCurrentQuiz(quiz);
+      setShowQuiz(true);
+    } else {
+      toast({
+        title: "Quiz Not Available",
+        description: "This topic doesn't have a quiz yet. Try another topic!",
+        variant: "destructive",
+      });
+    }
+  };
+
+  return (
+    <div className="flex flex-col min-h-screen pb-12">
+      <div className="container mx-auto px-4 py-6 flex-1 flex flex-col lg:flex-row gap-6">
+        {/* Sidebar */}
+        <div className="lg:w-1/3 xl:w-1/4 space-y-6">
+          {/* Course Progress */}
+          <div className="fantasy-card p-4">
+            <div className="flex justify-between items-center mb-2">
+              <h3 className="text-lg font-semibold text-white">Course Progress</h3>
+              <span className="text-teal-400 font-semibold">{progress}%</span>
+            </div>
+            <Progress value={progress} className="h-2 mb-2" />
+            <div className="text-sm text-purple-300 flex items-center gap-2 mt-3">
+              <Star size={14} className="text-yellow-300" />
+              <span>XP: {xp}</span>
+            </div>
+          </div>
+          
+          {/* Table of Contents */}
+          <div className="fantasy-card p-4">
+            <TableOfContents 
+              sections={courseSections}
+              activeSection={activeSection.id}
+              activeSubtopic={activeSubtopic.id}
+              completedSections={completedSections}
+              onSectionChange={handleSectionChange}
+              onSubtopicChange={handleSubtopicChange}
+            />
+          </div>
+        </div>
+        
+        {/* Main Content */}
+        <div className="lg:w-2/3 xl:w-3/4 space-y-6">
+          <div className="fantasy-card p-6">
+            <div className="mb-4">
+              <h2 className="text-2xl font-bold mb-1 text-white glow-text">
+                {activeSection.title}
+              </h2>
+              <h3 className="text-xl font-semibold text-purple-300 mb-4">
+                {activeSubtopic.title}
+              </h3>
+              
+              <div className="flex flex-wrap gap-2 mb-4">
+                <div className="px-3 py-1 bg-purple-900/30 rounded-full text-sm text-purple-300 flex items-center">
+                  <Clock size={14} className="mr-2" />
+                  <span>5-10 min</span>
+                </div>
+                <div className="px-3 py-1 bg-purple-900/30 rounded-full text-sm text-purple-300 flex items-center">
+                  <BookOpen size={14} className="mr-2" />
+                  <span>Beginner</span>
+                </div>
+                <div className="px-3 py-1 bg-purple-900/30 rounded-full text-sm text-purple-300 flex items-center">
+                  <Globe size={14} className="mr-2" />
+                  <span>Remote</span>
+                </div>
+              </div>
+            </div>
+            
+            {showQuiz ? (
+              <QuizComponent 
+                quiz={currentQuiz}
+                onComplete={handleQuizComplete}
+              />
+            ) : (
+              <>
+                <CourseContent content={activeSubtopic.content} />
+                
+                {quizzes[activeSubtopic.id as keyof typeof quizzes] && (
+                  <div className="mt-6 pt-6 border-t border-purple-800/30 flex justify-end">
+                    <Button 
+                      onClick={handleStartQuiz}
+                      className="group relative overflow-hidden px-6 py-2 shadow-lg text-white rounded-lg magical-border"
+                    >
+                      <div className="absolute inset-0 bg-gradient-to-br from-teal-500 to-teal-700 opacity-70 group-hover:opacity-80 transition-opacity"></div>
+                      <span className="relative flex items-center font-medium text-lg">
+                        <GraduationCap className="mr-2 h-5 w-5" />
+                        Take Quiz
+                      </span>
+                    </Button>
+                  </div>
+                )}
+              </>
+            )}
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+export default Guide;
