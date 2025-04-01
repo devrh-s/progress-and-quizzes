@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
@@ -1236,11 +1237,11 @@ const Guide: React.FC = () => {
           const newCompletedSections = [...completedSections, subtopicId];
           setCompletedSections(newCompletedSections);
           
-          // Show toast for new completion
+          // Show toast for new completion - FIXED variant to use "default" instead of "success"
           toast({
             title: "Section completed!",
             description: `You earned 5 XP for completing "${subtopic.title}"`,
-            variant: "success",
+            variant: "default",
           });
         }
       }
@@ -1258,16 +1259,18 @@ const Guide: React.FC = () => {
     }
   };
 
-  const handleQuizComplete = (score: number, totalQuestions: number) => {
-    // Calculate XP based on score
+  // FIXED: Modified handleQuizComplete to match the expected signature
+  const handleQuizComplete = (score: number) => {
+    // We still calculate using totalQuestions from currentQuiz
+    const totalQuestions = currentQuiz?.questions?.length || 1;
     const earnedXP = Math.round((score / totalQuestions) * 10);
     setXp(prev => prev + earnedXP);
     
-    // Show toast
+    // Show toast - FIXED variant to use "default" instead of "success"
     toast({
       title: "Quiz Completed!",
       description: `You scored ${score}/${totalQuestions} and earned ${earnedXP} XP`,
-      variant: "success",
+      variant: "default",
     });
     
     // Hide quiz
