@@ -478,6 +478,185 @@ const quizzes = {
         correctPairs: [0, 1, 2]
       }
     ]
+  },
+  "text-generation": {
+    id: "text-generation-quiz",
+    title: "Text Generation & Analysis Tools Quiz",
+    difficulty: "Mixed",
+    timeLimit: 120,
+    questions: [
+      {
+        type: "sequencing",
+        question: "Rank the three AI tools based on the type of content they primarily handle—from most document‑focused to most geared toward dynamic text processing.",
+        steps: [
+          "Claude AI (document creation and analysis)",
+          "Perplexity AI (research verification and fact‑checking)",
+          "Grok (bulk text processing and interactive learning)"
+        ],
+        correctOrder: [0, 1, 2]
+      },
+      {
+        type: "sequencing",
+        question: "Arrange the following steps that a comprehensive text analysis workflow might follow when using these tools.",
+        steps: [
+          "Process a large volume of text (Grok)",
+          "Analyze and generate a detailed report (Claude AI)",
+          "Verify facts and provide cited research (Perplexity AI)"
+        ],
+        correctOrder: [0, 1, 2]
+      },
+      {
+        type: "matching",
+        question: "Identify the primary function of each tool by labeling them with the correct role.",
+        items: [
+          "Claude AI",
+          "Perplexity AI",
+          "Grok"
+        ],
+        descriptions: [
+          "Document creation and analysis",
+          "Research verification and fact‑checking",
+          "Bulk text processing and interactive learning"
+        ],
+        correctPairs: [0, 1, 2]
+      }
+    ]
+  },
+  "content-creation": {
+    id: "content-creation-quiz",
+    title: "Content Creation & Design Tools Quiz",
+    difficulty: "Mixed",
+    timeLimit: 120,
+    questions: [
+      {
+        type: "matching",
+        question: "Match each tool with its primary creative function.",
+        items: [
+          "ChatGPT",
+          "Gemini"
+        ],
+        descriptions: [
+          "Supports creative ideation and content generation",
+          "Manages both text and image tasks"
+        ],
+        correctPairs: [0, 1]
+      },
+      {
+        type: "sorting",
+        question: "Sort the following creative functions into the appropriate tool category.",
+        activities: [
+          "Content generation",
+          "Idea brainstorming",
+          "Image processing",
+          "Multi-modal creative tasks"
+        ],
+        categories: [
+          "ChatGPT",
+          "Gemini"
+        ],
+        correctCategories: [0, 0, 1, 1]
+      },
+      {
+        type: "sequencing",
+        question: "Sequence the steps in a content creation workflow that leverages these tools.",
+        steps: [
+          "Brainstorm creative ideas (ChatGPT)",
+          "Generate textual content (ChatGPT)",
+          "Enhance content with images (Gemini)"
+        ],
+        correctOrder: [0, 1, 2]
+      }
+    ]
+  },
+  "development-automation": {
+    id: "development-automation-quiz",
+    title: "Development & Automation Tools Quiz",
+    difficulty: "Mixed",
+    timeLimit: 120,
+    questions: [
+      {
+        type: "sequencing",
+        question: "Rank the following benefits of workflow automation (as enabled by Make.com) in order of impact on operational efficiency.",
+        steps: [
+          "Reduced manual tasks",
+          "Increased efficiency",
+          "Improved consistency"
+        ],
+        correctOrder: [0, 1, 2]
+      },
+      {
+        type: "matching",
+        question: "Identify the main advantage of using Make.com by labeling its core function.",
+        items: [
+          "Make.com"
+        ],
+        descriptions: [
+          "Automates workflows across platforms, reducing manual tasks"
+        ],
+        correctPairs: [0]
+      },
+      {
+        type: "matching",
+        question: "Match each step in an automation process with its description.",
+        items: [
+          "Identify repetitive manual tasks",
+          "Configure automated workflows",
+          "Monitor and optimize automation"
+        ],
+        descriptions: [
+          "Recognize tasks best suited for automation",
+          "Set up systems to perform tasks automatically",
+          "Analyze and adjust processes for improved efficiency"
+        ],
+        correctPairs: [0, 1, 2]
+      }
+    ]
+  },
+  "key-applications": {
+    id: "key-applications-quiz",
+    title: "Key Applications for AI Tools Quiz",
+    difficulty: "Mixed",
+    timeLimit: 120,
+    questions: [
+      {
+        type: "sequencing",
+        question: "Sequence the steps a Remote Helper might follow to manage a project using these key applications.",
+        steps: [
+          "Transcribe and summarize meetings (Communication)",
+          "Prioritize tasks and track deadlines (Task Management)",
+          "Automate scheduling and data entry (Process Automation)"
+        ],
+        correctOrder: [0, 1, 2]
+      },
+      {
+        type: "sequencing",
+        question: "Rank the key applications based on their potential to reduce manual workload—from highest to lowest impact.",
+        steps: [
+          "Process Automation",
+          "Task Management",
+          "Communication"
+        ],
+        correctOrder: [0, 1, 2]
+      },
+      {
+        type: "sorting",
+        question: "Sort the following functions into the appropriate key application category.",
+        activities: [
+          "Real-time transcription",
+          "Automated summaries",
+          "AI-driven prioritization",
+          "Deadline tracking",
+          "Streamlined scheduling",
+          "Data entry and analysis"
+        ],
+        categories: [
+          "Communication",
+          "Task Management",
+          "Process Automation"
+        ],
+        correctCategories: [0, 0, 1, 1, 2, 2]
+      }
+    ]
   }
 };
 
