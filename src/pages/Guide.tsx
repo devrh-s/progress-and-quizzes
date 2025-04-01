@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
@@ -932,15 +931,6 @@ const Guide: React.FC = () => {
           <div className="fantasy-card p-6 mb-6">
             <div className="flex justify-between items-center mb-4">
               <h2 className="text-2xl font-semibold text-white glow-text">{activeSubtopic.title}</h2>
-              {quizzes[activeSubtopic.id as keyof typeof quizzes] && (
-                <Button 
-                  onClick={handleTakeQuiz} 
-                  className="bg-purple-800 hover:bg-purple-700" 
-                  size="sm"
-                >
-                  <BookOpen className="mr-2 h-4 w-4" /> Take Quiz
-                </Button>
-              )}
             </div>
             
             {showQuiz && currentQuiz ? (
