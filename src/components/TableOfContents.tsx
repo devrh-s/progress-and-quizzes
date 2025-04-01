@@ -43,31 +43,31 @@ export const TableOfContents: React.FC<TableOfContentsProps> = ({
   };
 
   return (
-    <div className="space-y-2">
+    <div className="space-y-2 w-full">
       <h3 className="text-lg font-semibold text-white mb-4">Table of Contents</h3>
       
       <Accordion 
         type="multiple" 
         defaultValue={[activeSection]} 
         value={expandedSections}
-        className="space-y-2"
+        className="space-y-2 w-full"
       >
         {sections.map((section) => (
           <AccordionItem 
             key={section.id} 
             value={section.id}
-            className="fantasy-card border-0 overflow-hidden mb-2"
+            className="fantasy-card border-0 overflow-hidden mb-2 w-full"
           >
             <AccordionTrigger 
               onClick={() => toggleSection(section.id)}
               className={cn(
-                "px-4 py-3 text-left text-sm font-medium hover:bg-purple-900/30",
+                "px-4 py-3 text-left text-sm font-medium hover:bg-purple-900/30 w-full",
                 activeSection === section.id ? "text-purple-300" : "text-white"
               )}
             >
               <div className="flex items-center">
-                <BookOpen size={16} className="mr-2 text-purple-400" />
-                {section.title}
+                <BookOpen size={16} className="mr-2 text-purple-400 flex-shrink-0" />
+                <span className="truncate">{section.title}</span>
               </div>
             </AccordionTrigger>
             <AccordionContent className="px-2 py-1">
@@ -87,13 +87,13 @@ export const TableOfContents: React.FC<TableOfContentsProps> = ({
                     )}
                     onClick={() => onSubtopicChange(subtopic.id)}
                   >
-                    <span className="mr-2">
+                    <span className="mr-2 flex-shrink-0">
                       {completedSections.includes(subtopic.id) ? 
                         <CheckCircle size={14} className="text-green-400" /> : 
                         <Circle size={14} className="text-gray-400" />}
                     </span>
-                    {subtopic.title}
-                    <span className="ml-auto text-xs text-yellow-300 flex items-center">
+                    <span className="truncate">{subtopic.title}</span>
+                    <span className="ml-auto text-xs text-yellow-300 flex items-center flex-shrink-0">
                       +5 <Star size={10} className="ml-0.5" />
                     </span>
                   </Button>

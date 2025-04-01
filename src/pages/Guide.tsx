@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
@@ -67,31 +68,41 @@ const quizzes = {
     id: "proactive-implementation-quiz",
     title: "Proactive Implementation Quiz",
     difficulty: "Mixed",
+    timeLimit: 120,
     questions: [
       {
-        question: "Identify the element that supports quickly testing AI hypotheses.",
-        options: ["Rapid Testing", "Change Management", "Tool Selection", "Strategic Analysis"],
-        correctAnswer: 0
+        type: "sequencing",
+        question: "Arrange the strategic steps for proactive AI implementation in the correct order.",
+        steps: [
+          "Analyze business needs",
+          "Launch rapid testing pilots",
+          "Manage change through clear communication",
+          "Select appropriate AI tools"
+        ],
+        correctOrder: [0, 1, 2, 3]
       },
       {
-        question: "Match each element with its primary function correctly.",
-        options: [
-          "Rapid Testing → Quick pilot launches, Change Management → Facilitating adoption, Tool Selection → Choosing suitable AI tools",
-          "Rapid Testing → Strategic planning, Change Management → Tool integration, Tool Selection → User feedback",
-          "Rapid Testing → Continuous refinement, Change Management → Documentation, Tool Selection → Implementation",
-          "Rapid Testing → Testing procedures, Change Management → Technical deployment, Tool Selection → Team assignment"
+        type: "matching",
+        question: "Match each element of proactive implementation with its function.",
+        items: ["Rapid Testing", "Change Management", "Tool Selection"],
+        descriptions: [
+          "Launching small pilots to validate ideas quickly",
+          "Driving adoption with clear, effective communication",
+          "Choosing the right AI tools based on role needs"
         ],
-        correctAnswer: 0
+        correctPairs: [0, 1, 2]
       },
       {
-        question: "Arrange the strategic steps for successful AI adoption in order.",
-        options: [
-          "Analyze business needs → Launch pilot projects → Collect and analyze feedback → Scale successful solutions",
-          "Launch pilot projects → Analyze business needs → Scale successful solutions → Collect feedback",
-          "Collect feedback → Analyze business needs → Launch pilot projects → Scale successful solutions",
-          "Scale successful solutions → Launch pilot projects → Analyze business needs → Collect feedback"
+        type: "sorting",
+        question: "Sort the following items into two groups: Strategic Elements and Non‑Strategic Elements.",
+        activities: [
+          "Rapid Testing",
+          "Change Management",
+          "Random Experimentation",
+          "Unplanned Trials"
         ],
-        correctAnswer: 0
+        categories: ["Strategic Elements", "Non‑Strategic Elements"],
+        correctCategories: [0, 0, 1, 1]
       }
     ]
   },
@@ -878,8 +889,8 @@ const Guide: React.FC = () => {
         </div>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
-        <div className="md:col-span-1">
+      <div className="grid grid-cols-1 md:grid-cols-12 gap-6">
+        <div className="md:col-span-4">
           <div className="fantasy-card p-3 mb-4">
             <div className="flex items-center justify-between mb-2">
               <h3 className="text-sm font-semibold text-white">Course Progress</h3>
@@ -917,7 +928,7 @@ const Guide: React.FC = () => {
           </div>
         </div>
 
-        <div className="md:col-span-3">
+        <div className="md:col-span-8">
           <div className="fantasy-card p-6 mb-6">
             <div className="flex justify-between items-center mb-4">
               <h2 className="text-2xl font-semibold text-white glow-text">{activeSubtopic.title}</h2>
