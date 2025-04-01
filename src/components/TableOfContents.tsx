@@ -3,7 +3,8 @@ import React, { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
 import { cn } from '@/lib/utils';
-import { BookOpen, CheckCircle, Circle, Star } from 'lucide-react';
+import { BookOpen, CheckCircle, Circle, Star, Home } from 'lucide-react';
+import { Link } from 'react-router-dom';
 
 interface Section {
   id: string;
@@ -44,7 +45,15 @@ export const TableOfContents: React.FC<TableOfContentsProps> = ({
 
   return (
     <div className="space-y-2 w-full">
-      <h3 className="text-lg font-semibold text-white mb-4">Table of Contents</h3>
+      <div className="flex justify-between items-center mb-4">
+        <h3 className="text-lg font-semibold text-white">Table of Contents</h3>
+        <Link to="/">
+          <Button variant="ghost" size="sm" className="text-white hover:bg-purple-900/30">
+            <Home size={16} className="mr-2 text-purple-400" />
+            Home
+          </Button>
+        </Link>
+      </div>
       
       <Accordion 
         type="multiple" 
@@ -61,17 +70,17 @@ export const TableOfContents: React.FC<TableOfContentsProps> = ({
             <AccordionTrigger 
               onClick={() => toggleSection(section.id)}
               className={cn(
-                "px-4 py-3 text-left text-sm font-medium hover:bg-teal-900/30 w-full",
-                activeSection === section.id ? "text-teal-300" : "text-white"
+                "px-4 py-3 text-left text-sm font-medium hover:bg-purple-900/30 w-full",
+                activeSection === section.id ? "text-purple-300" : "text-white"
               )}
             >
               <div className="flex items-center w-full pr-4">
-                <BookOpen size={16} className="mr-2 text-teal-400 flex-shrink-0" />
+                <BookOpen size={16} className="mr-2 text-purple-400 flex-shrink-0" />
                 <span className="truncate">{section.title}</span>
               </div>
             </AccordionTrigger>
             <AccordionContent className="px-2 py-1">
-              <div className="space-y-1 pl-4 border-l border-teal-800/50">
+              <div className="space-y-1 pl-4 border-l border-purple-800/50">
                 {section.subtopics.map((subtopic) => (
                   <Button
                     key={subtopic.id}
@@ -80,7 +89,7 @@ export const TableOfContents: React.FC<TableOfContentsProps> = ({
                     className={cn(
                       "w-full justify-start text-left text-sm h-auto py-1",
                       activeSubtopic === subtopic.id 
-                        ? "bg-teal-900/50 text-teal-300"
+                        ? "bg-purple-900/50 text-purple-300"
                         : completedSections.includes(subtopic.id)
                         ? "text-green-400 hover:text-green-300"
                         : "text-gray-300 hover:text-white"

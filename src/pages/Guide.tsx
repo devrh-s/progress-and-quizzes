@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
@@ -253,6 +252,232 @@ const quizzes = {
         correctCategories: [0, 0, 0, 1, 1]
       }
     ]
+  },
+  "rct-introduction": {
+    id: "rct-introduction-quiz",
+    title: "RCT Framework Basics Quiz",
+    difficulty: "Mixed",
+    timeLimit: 120,
+    questions: [
+      {
+        type: "sequencing",
+        question: "Rank the RCT framework elements by the order in which they should be considered when constructing a prompt.",
+        steps: [
+          "Role",
+          "Context",
+          "Task"
+        ],
+        correctOrder: [0, 1, 2]
+      },
+      {
+        type: "sequencing",
+        question: "Sequence the steps to build an effective RCT prompt. Drag the steps into the correct order.",
+        steps: [
+          "Specify the AI's role",
+          "Provide relevant background information and requirements",
+          "Clearly state what needs to be done and in what format"
+        ],
+        correctOrder: [0, 1, 2]
+      },
+      {
+        type: "matching",
+        question: "Identify each element of the RCT Framework by assigning its correct function.",
+        items: [
+          "Role",
+          "Context",
+          "Task"
+        ],
+        descriptions: [
+          "Specifies the AI's assigned expertise (e.g., \"Documentation Specialist\")",
+          "Provides the necessary background details and requirements",
+          "Clearly defines the desired action and output format"
+        ],
+        correctPairs: [0, 1, 2]
+      }
+    ]
+  },
+  "effective-prompting-principles": {
+    id: "effective-prompting-principles-quiz",
+    title: "Effective Prompting Principles Quiz",
+    difficulty: "Mixed",
+    timeLimit: 150,
+    questions: [
+      {
+        type: "sequencing",
+        question: "Rank the following prompting principles in the order you would apply them when crafting a prompt.",
+        steps: [
+          "Precision",
+          "Context Relevance",
+          "Task Breakdown",
+          "Clear Formatting",
+          "Iteration"
+        ],
+        correctOrder: [0, 1, 2, 3, 4]
+      },
+      {
+        type: "sequencing",
+        question: "Sequence the steps for developing an effective prompt based on the principles.",
+        steps: [
+          "Identify and state specific requirements",
+          "Include all relevant background information",
+          "Break down complex tasks into smaller steps",
+          "Define the exact output format",
+          "Refine the prompt based on feedback"
+        ],
+        correctOrder: [0, 1, 2, 3, 4]
+      },
+      {
+        type: "matching",
+        question: "Identify and label each effective prompting principle with its corresponding description.",
+        items: [
+          "Precision",
+          "Context Relevance",
+          "Task Breakdown",
+          "Clear Formatting",
+          "Iteration"
+        ],
+        descriptions: [
+          "Being specific in your request (e.g., \"Create a summary in 5 bullet points\")",
+          "Including necessary background information",
+          "Splitting a complex request into smaller, manageable steps",
+          "Specifying how the output should be presented",
+          "Refining the prompt based on initial outcomes"
+        ],
+        correctPairs: [0, 1, 2, 3, 4]
+      }
+    ]
+  },
+  "document-processing": {
+    id: "document-processing-quiz",
+    title: "Document Processing with RCT Quiz",
+    difficulty: "Mixed",
+    timeLimit: 120,
+    questions: [
+      {
+        type: "sequencing",
+        question: "Rank the following steps from first to last in the process described by the document processing prompt.",
+        steps: [
+          "Analyze the meeting transcript",
+          "Extract key decisions",
+          "Identify action items",
+          "Format the findings as a bulleted list"
+        ],
+        correctOrder: [0, 1, 2, 3]
+      },
+      {
+        type: "sequencing",
+        question: "Sequence the operational steps a Documentation Specialist should follow when processing a document prompt.",
+        steps: [
+          "Read the transcript",
+          "Identify the significant decisions",
+          "Note action items",
+          "Organize the information into bullet points"
+        ],
+        correctOrder: [0, 1, 2, 3]
+      },
+      {
+        type: "matching",
+        question: "Identify the key components of the document processing prompt by labeling each with its function.",
+        items: [
+          "Role",
+          "Task (Action)",
+          "Output Format"
+        ],
+        descriptions: [
+          "\"Documentation Specialist\" (assigns specific expertise)",
+          "Analyze the meeting transcript and extract key decisions and action items",
+          "Format the result as a bulleted list"
+        ],
+        correctPairs: [0, 1, 2]
+      }
+    ]
+  },
+  "information-search": {
+    id: "information-search-quiz",
+    title: "Information Search with RCT Quiz",
+    difficulty: "Mixed",
+    timeLimit: 120,
+    questions: [
+      {
+        type: "sequencing",
+        question: "Rank the following industry statistic rows based on their growth rate from highest to lowest.",
+        steps: [
+          "User Base (15%)",
+          "Market Size (12%)",
+          "ROI (8%)"
+        ],
+        correctOrder: [0, 1, 2]
+      },
+      {
+        type: "sequencing",
+        question: "Sequence the steps a Research Assistant should follow when conducting an information search based on the given prompt.",
+        steps: [
+          "Define the research focus",
+          "Gather relevant data and statistics",
+          "Organize the data into a table",
+          "Verify the sources"
+        ],
+        correctOrder: [0, 1, 2, 3]
+      },
+      {
+        type: "matching",
+        question: "Identify the key components from the information search prompt by labeling each with its correct role.",
+        items: [
+          "Assigned Role",
+          "Research Focus",
+          "Expected Output Format"
+        ],
+        descriptions: [
+          "\"Research Assistant\"",
+          "Finding relevant industry statistics with emphasis on market growth and trends",
+          "A table with columns (Category, Current Value, Growth Rate, Source)"
+        ],
+        correctPairs: [0, 1, 2]
+      }
+    ]
+  },
+  "why-this-works": {
+    id: "why-this-works-quiz",
+    title: "Why the RCT Framework Works Quiz",
+    difficulty: "Mixed",
+    timeLimit: 120,
+    questions: [
+      {
+        type: "sequencing",
+        question: "Rank the benefits of the RCT framework by the order in which they contribute to effective prompting.",
+        steps: [
+          "Clear Roles",
+          "Detailed Context",
+          "Structured Output"
+        ],
+        correctOrder: [0, 1, 2]
+      },
+      {
+        type: "sequencing",
+        question: "Sequence the rationale behind the RCT framework's effectiveness. Arrange the following steps in order.",
+        steps: [
+          "Assign a clear role to the AI",
+          "Provide detailed and relevant context",
+          "Deliver a structured and organized output"
+        ],
+        correctOrder: [0, 1, 2]
+      },
+      {
+        type: "matching",
+        question: "Identify each benefit of the RCT framework by labeling its corresponding effect.",
+        items: [
+          "Clear Roles",
+          "Detailed Context",
+          "Structured Output"
+        ],
+        descriptions: [
+          "Ensures the AI has specific expertise for the task",
+          "Provides well-defined parameters and background information",
+          "Organizes the delivered information in a consistent format"
+        ],
+        correctPairs: [0, 1, 2]
+      }
+    ]
   }
 };
 
@@ -319,8 +544,8 @@ const courseSections: Section[] = [
           <h4>Steps</h4>
           <ol>
             <li><strong>Analysis</strong>: Identify opportunities for AI implementation.</li>
-            <li><strong>Tools</strong>: Select and implement appropriate AI solutions.</li>
-            <li><strong>Execute</strong>: Build and test solutions with stakeholder feedback.</li>
+            <li><strong>Tool Selection</strong>: Choose and implement appropriate AI solutions.</li>
+            <li><strong>Execution</strong>: Build and test with stakeholder feedback.</li>
             <li><strong>Present</strong>: Demonstrate results and future development plans.</li>
           </ol>
           
@@ -926,6 +1151,22 @@ const Guide: React.FC = () => {
               <Star size={14} className="text-yellow-300" />
               <span>XP: {xp}</span>
             </div>
+            
+            {/* Course Info Tags - Moved from content section */}
+            <div className="flex flex-wrap gap-2 mt-4">
+              <div className="px-3 py-1 bg-purple-900/30 rounded-full text-sm text-purple-300 flex items-center">
+                <Clock size={14} className="mr-2" />
+                <span>5-10 min</span>
+              </div>
+              <div className="px-3 py-1 bg-purple-900/30 rounded-full text-sm text-purple-300 flex items-center">
+                <BookOpen size={14} className="mr-2" />
+                <span>Beginner</span>
+              </div>
+              <div className="px-3 py-1 bg-purple-900/30 rounded-full text-sm text-purple-300 flex items-center">
+                <Briefcase size={14} className="mr-2" />
+                <span>any profession</span>
+              </div>
+            </div>
           </div>
           
           {/* Table of Contents */}
@@ -951,21 +1192,6 @@ const Guide: React.FC = () => {
               <h3 className="text-xl font-semibold text-purple-300 mb-4">
                 {activeSubtopic.title}
               </h3>
-              
-              <div className="flex flex-wrap gap-2 mb-4">
-                <div className="px-3 py-1 bg-purple-900/30 rounded-full text-sm text-purple-300 flex items-center">
-                  <Clock size={14} className="mr-2" />
-                  <span>5-10 min</span>
-                </div>
-                <div className="px-3 py-1 bg-purple-900/30 rounded-full text-sm text-purple-300 flex items-center">
-                  <BookOpen size={14} className="mr-2" />
-                  <span>Beginner</span>
-                </div>
-                <div className="px-3 py-1 bg-purple-900/30 rounded-full text-sm text-purple-300 flex items-center">
-                  <Briefcase size={14} className="mr-2" />
-                  <span>Profession: any profession</span>
-                </div>
-              </div>
             </div>
             
             {showQuiz ? (
