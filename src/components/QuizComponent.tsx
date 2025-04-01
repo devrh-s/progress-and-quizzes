@@ -80,7 +80,7 @@ export const QuizComponent: React.FC<QuizProps> = ({ quiz, onComplete }) => {
     setIsAnswered(false);
     setLoading(true);
     setSelectedOption(null);
-
+    
     // Small delay to ensure state is reset between questions
     const timer = setTimeout(() => {
       switch(currentQuestion.type) {
@@ -122,7 +122,7 @@ export const QuizComponent: React.FC<QuizProps> = ({ quiz, onComplete }) => {
           // Initialize categories and items
           const categories = currentQuestion.categories.map(cat => ({
             category: cat,
-            items: []
+            items: [] as DraggableItem[]
           }));
           
           // Add unsorted category for initial state
@@ -218,7 +218,7 @@ export const QuizComponent: React.FC<QuizProps> = ({ quiz, onComplete }) => {
         
       case 'multiple-choice':
         // Check if selected option is correct
-        isCorrect = selectedOption === currentQuestion.correctAnswer;
+        isCorrect = selectedOption !== null && multipleChoiceOptions[selectedOption].id === currentQuestion.correctAnswer;
         break;
     }
     
@@ -357,16 +357,10 @@ export const QuizComponent: React.FC<QuizProps> = ({ quiz, onComplete }) => {
     if (currentQuestion?.type !== 'sequencing') return null;
     
     return (
-      <Reorder.Group 
-        axis="y" 
-        values={sequenceItems} 
-        onReorder={setSequenceItems}
-        className="space-y-2"
-      >
+      <div className="space-y-2">
         {sequenceItems.map((item, index) => (
-          <Reorder.Item
+          <div
             key={item.id.toString()}
-            value={item}
             className={`w-full text-left p-4 rounded-lg border ${
               isAnswered
                 ? item.id === currentQuestion.correctOrder[index]
@@ -374,7 +368,6 @@ export const QuizComponent: React.FC<QuizProps> = ({ quiz, onComplete }) => {
                   : "bg-red-700/20 border-red-500/50 text-white"
                 : "bg-gray-800 border-gray-700 cursor-grab active:cursor-grabbing"
             }`}
-            disabled={isAnswered}
           >
             <div className="flex items-center">
               {isAnswered ? (
@@ -393,9 +386,9 @@ export const QuizComponent: React.FC<QuizProps> = ({ quiz, onComplete }) => {
                 </span>
               )}
             </div>
-          </Reorder.Item>
+          </div>
         ))}
-      </Reorder.Group>
+      </div>
     );
   };
   
@@ -485,21 +478,21 @@ export const QuizComponent: React.FC<QuizProps> = ({ quiz, onComplete }) => {
               isAnswered
                 ? option.id === currentQuestion.correctAnswer
                   ? "bg-green-700/40 border-green-500 text-white"
-                  : selectedOption === option.id
+                  : selectedOption === index
                     ? "bg-red-700/20 border-red-500/50 text-white"
                     : "bg-gray-800 border-gray-700"
-                : selectedOption === option.id
+                : selectedOption === index
                   ? "bg-purple-700 border-purple-500"
                   : "bg-gray-800 border-gray-700 hover:bg-gray-700"
             }`}
-            onClick={() => !isAnswered && setSelectedOption(option.id)}
+            onClick={() => !isAnswered && setSelectedOption(index)}
             disabled={isAnswered}
           >
             <div className="flex items-center">
               {isAnswered ? (
                 option.id === currentQuestion.correctAnswer ? (
                   <Check size={18} className="text-green-400 mr-3 flex-shrink-0" />
-                ) : selectedOption === option.id ? (
+                ) : selectedOption === index ? (
                   <X size={18} className="text-red-400 mr-3 flex-shrink-0" />
                 ) : null
               ) : null}

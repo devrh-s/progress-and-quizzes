@@ -273,7 +273,11 @@ const Quizzes: React.FC = () => {
   };
 
   const handleStartQuiz = () => {
-    setQuizActive(true);
+    if (selectedQuiz) {
+      console.log("Starting quiz:", selectedQuiz.title);
+      console.log("Questions:", selectedQuiz.questions);
+      setQuizActive(true);
+    }
   };
 
   const handleQuizComplete = (score: number) => {
