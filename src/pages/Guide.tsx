@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
@@ -5,7 +6,7 @@ import { Progress } from '@/components/ui/progress';
 import { CourseContent } from '@/components/CourseContent';
 import { TableOfContents } from '@/components/TableOfContents';
 import { toast } from '@/hooks/use-toast';
-import { Home, Clock, Users, BookOpen, GraduationCap, Star, Globe } from 'lucide-react';
+import { Home, Clock, Users, BookOpen, GraduationCap, Star, Briefcase } from 'lucide-react';
 import { QuizComponent } from '@/components/QuizComponent';
 
 interface Section {
@@ -106,39 +107,50 @@ const quizzes = {
     ]
   },
   "personal-ai-development": {
-    id: "personal-ai-quiz",
+    id: "personal-ai-development-quiz",
     title: "Personal AI Development Quiz",
     difficulty: "Mixed",
+    timeLimit: 180,
     questions: [
       {
-        question: "Identify the three core components of structured AI learning mentioned in the content.",
-        options: [
-          "Skills Assessment, Project Focus, Continuous Learning",
-          "Skills Assessment, Theoretical Study, Random Practice",
-          "Project Focus, Research, Documentation",
-          "Continuous Learning, Self-Critique, Evaluation"
+        type: "sequencing",
+        question: "Arrange the steps for personal AI development in the correct order.",
+        steps: [
+          "Conduct a skills assessment",
+          "Apply learning to real projects",
+          "Engage in continuous practice and refinement"
         ],
-        correctAnswer: 0
+        correctOrder: [0, 1, 2]
       },
       {
-        question: "Match each component with its description correctly.",
-        options: [
-          "Skills Assessment → Identifying areas for improvement, Project Focus → Applying learning to real projects, Continuous Learning → Regular practice through hands-on exercises",
-          "Skills Assessment → Creating theoretical plans, Project Focus → Documentation, Continuous Learning → Academic research",
-          "Skills Assessment → Team collaboration, Project Focus → Market research, Continuous Learning → Technical documentation",
-          "Skills Assessment → Academic study, Project Focus → Tool selection, Continuous Learning → Strategic planning"
+        type: "matching",
+        question: "Match each component of personal AI development with its description.",
+        items: [
+          "Skills Assessment",
+          "Project Focus",
+          "Continuous Learning"
         ],
-        correctAnswer: 0
+        descriptions: [
+          "Identifying areas for improvement in AI tool usage",
+          "Applying learning to practical projects",
+          "Regular practice to refine and enhance skills"
+        ],
+        correctPairs: [0, 1, 2]
       },
       {
-        question: "Arrange the steps for personal AI development in a logical order.",
-        options: [
-          "Conduct a skills assessment → Apply knowledge through projects → Engage in continuous learning",
-          "Engage in continuous learning → Conduct a skills assessment → Apply knowledge through projects",
-          "Apply knowledge through projects → Engage in continuous learning → Conduct a skills assessment",
-          "All steps should happen simultaneously"
+        type: "sorting",
+        question: "Sort the following project planning elements into two categories: Strategy and Measurement.",
+        activities: [
+          "Define clear objectives",
+          "Outline action steps",
+          "Establish success metrics",
+          "Set timelines"
         ],
-        correctAnswer: 0
+        categories: [
+          "Strategy",
+          "Measurement"
+        ],
+        correctCategories: [0, 0, 1, 1]
       }
     ]
   },
@@ -146,36 +158,50 @@ const quizzes = {
     id: "final-project-quiz",
     title: "Final Project Quiz",
     difficulty: "Mixed",
+    timeLimit: 180,
     questions: [
       {
-        question: "Identify the main task of the final project.",
-        options: [
-          "Develop and present an AI-driven solution for a specific business challenge",
-          "Write a theoretical paper on AI trends",
-          "Create a simple AI chatbot",
-          "Design a marketing strategy using AI"
+        type: "sequencing",
+        question: "Arrange the final project implementation steps in the correct order.",
+        steps: [
+          "Analysis (Identify AI opportunities)",
+          "Tool Selection (Choose and implement AI solutions)",
+          "Execution (Build and test with stakeholder feedback)",
+          "Presentation (Demonstrate results and future plans)"
         ],
-        correctAnswer: 0
+        correctOrder: [0, 1, 2, 3]
       },
       {
-        question: "Match each step of the project with its description correctly.",
-        options: [
-          "Analysis → Identify opportunities for AI implementation, Tools → Select and implement appropriate AI solutions, Execute → Build and test with stakeholder feedback, Present → Demonstrate results and outline future plans",
-          "Analysis → Documentation, Tools → Implementation, Execute → Research, Present → Publication",
-          "Analysis → Market research, Tools → Technical documentation, Execute → Developing theories, Present → Statistical review",
-          "Analysis → Team formation, Tools → Resource allocation, Execute → Timeline planning, Present → Budget review"
+        type: "matching",
+        question: "Match each final project step with its function.",
+        items: [
+          "Analysis",
+          "Tools",
+          "Execute",
+          "Present"
         ],
-        correctAnswer: 0
+        descriptions: [
+          "Identifying opportunities for AI implementation",
+          "Selecting and applying appropriate AI solutions",
+          "Building and testing the solution with feedback",
+          "Demonstrating outcomes and outlining next steps"
+        ],
+        correctPairs: [0, 1, 2, 3]
       },
       {
-        question: "Arrange the following steps to implement the AI solution for business process improvement.",
-        options: [
-          "Analyze business needs → Select appropriate AI tools → Build and test the solution → Present the outcomes and future plans",
-          "Select appropriate AI tools → Analyze business needs → Present the outcomes → Build and test the solution",
-          "Build and test the solution → Analyze business needs → Select appropriate AI tools → Present the outcomes",
-          "Present the outcomes → Build and test the solution → Select appropriate AI tools → Analyze business needs"
+        type: "sorting",
+        question: "Sort the following aspects of business process improvement with AI into two categories: Operational Efficiency and Data Accuracy.",
+        activities: [
+          "Speeding up task completion",
+          "Streamlining communication",
+          "Reducing manual errors",
+          "Enhancing data processing"
         ],
-        correctAnswer: 0
+        categories: [
+          "Operational Efficiency",
+          "Data Accuracy"
+        ],
+        correctCategories: [0, 0, 1, 1]
       }
     ]
   },
@@ -183,31 +209,48 @@ const quizzes = {
     id: "key-focus-areas-quiz",
     title: "Key Focus Areas Quiz",
     difficulty: "Mixed",
+    timeLimit: 180,
     questions: [
       {
-        question: "Identify one of the key focus areas mentioned in the content.",
-        options: ["Practical Skills", "Market Research", "Theoretical Analysis", "Customer Engagement"],
-        correctAnswer: 0
+        type: "matching",
+        question: "Match each key focus area with its description by dragging the correct description block next to the corresponding focus area.",
+        items: [
+          "Practical Skills",
+          "Implementation",
+          "Results"
+        ],
+        descriptions: [
+          "Hands‑on experience with AI tools",
+          "Strategic deployment of AI solutions",
+          "Measurable improvements in workflow efficiency"
+        ],
+        correctPairs: [0, 1, 2]
       },
       {
-        question: "Sort the focus areas in the order they appear in the text.",
-        options: [
-          "Practical Skills → Implementation → Results",
-          "Results → Implementation → Practical Skills",
-          "Implementation → Practical Skills → Results",
-          "Practical Skills → Results → Implementation"
+        type: "sequencing",
+        question: "Arrange the key focus areas in the order they are emphasized for successful AI adoption.",
+        steps: [
+          "Practical Skills",
+          "Implementation",
+          "Results"
         ],
-        correctAnswer: 0
+        correctOrder: [0, 1, 2]
       },
       {
-        question: "Match each key focus area with its corresponding description.",
-        options: [
-          "Practical Skills → Hands-on experience with AI tools, Implementation → Strategic deployment of AI solutions, Results → Measurable improvements in workflow efficiency",
-          "Practical Skills → Theoretical knowledge, Implementation → Research methods, Results → Documentation standards",
-          "Practical Skills → Team management, Implementation → Budget allocation, Results → Project timeline",
-          "Practical Skills → Academic research, Implementation → Publication, Results → Peer review"
+        type: "sorting",
+        question: "Sort these factors into two groups: Relevant Factors and Irrelevant Factors for AI success.",
+        activities: [
+          "Practical Expertise",
+          "Strategic Thinking",
+          "Effective Implementation",
+          "Creative Design",
+          "Random Experimentation"
         ],
-        correctAnswer: 0
+        categories: [
+          "Relevant Factors",
+          "Irrelevant Factors"
+        ],
+        correctCategories: [0, 0, 0, 1, 1]
       }
     ]
   }
@@ -876,7 +919,7 @@ const Guide: React.FC = () => {
           <div className="fantasy-card p-4">
             <div className="flex justify-between items-center mb-2">
               <h3 className="text-lg font-semibold text-white">Course Progress</h3>
-              <span className="text-teal-400 font-semibold">{progress}%</span>
+              <span className="text-purple-400 font-semibold">{progress}%</span>
             </div>
             <Progress value={progress} className="h-2 mb-2" />
             <div className="text-sm text-purple-300 flex items-center gap-2 mt-3">
@@ -919,8 +962,8 @@ const Guide: React.FC = () => {
                   <span>Beginner</span>
                 </div>
                 <div className="px-3 py-1 bg-purple-900/30 rounded-full text-sm text-purple-300 flex items-center">
-                  <Globe size={14} className="mr-2" />
-                  <span>Remote</span>
+                  <Briefcase size={14} className="mr-2" />
+                  <span>Profession: any profession</span>
                 </div>
               </div>
             </div>
@@ -940,7 +983,7 @@ const Guide: React.FC = () => {
                       onClick={handleStartQuiz}
                       className="group relative overflow-hidden px-6 py-2 shadow-lg text-white rounded-lg magical-border"
                     >
-                      <div className="absolute inset-0 bg-gradient-to-br from-teal-500 to-teal-700 opacity-70 group-hover:opacity-80 transition-opacity"></div>
+                      <div className="absolute inset-0 bg-gradient-to-br from-purple-500 to-purple-700 opacity-70 group-hover:opacity-80 transition-opacity"></div>
                       <span className="relative flex items-center font-medium text-lg">
                         <GraduationCap className="mr-2 h-5 w-5" />
                         Take Quiz
