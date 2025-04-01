@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
@@ -845,8 +846,103 @@ const Guide: React.FC = () => {
   };
 
   return (
-    <div>
-      {/* Component JSX */}
+    <div className="container mx-auto px-4 py-8 max-w-7xl">
+      <div className="flex items-center justify-between mb-6">
+        <div className="flex items-center space-x-4">
+          <Button variant="ghost" size="sm" onClick={() => navigate('/')}>
+            <Home className="mr-2 h-4 w-4" /> Home
+          </Button>
+          <h1 className="text-3xl font-bold text-white">AI Course Guide</h1>
+        </div>
+        <div className="flex items-center space-x-3">
+          <div className="bg-purple-900/30 px-3 py-1 rounded-full flex items-center">
+            <GraduationCap className="mr-2 h-4 w-4 text-purple-400" />
+            <span className="text-purple-200 font-medium">{xp} XP</span>
+          </div>
+          <div className="bg-purple-900/30 px-3 py-1 rounded-full flex items-center">
+            <Users className="mr-2 h-4 w-4 text-purple-400" />
+            <span className="text-purple-200 font-medium">Level {Math.floor(xp / 50) + 1}</span>
+          </div>
+        </div>
+      </div>
+
+      <div className="mb-6">
+        <div className="flex justify-between items-center mb-2">
+          <span className="text-white">Progress: {progress}%</span>
+          <span className="text-white">{completedSections.length}/{totalTopics} topics</span>
+        </div>
+        <Progress value={progress} className="h-2" />
+      </div>
+
+      <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
+        <div className="md:col-span-1 fantasy-card p-4">
+          <TableOfContents 
+            sections={courseSections}
+            activeSection={activeSection.id}
+            activeSubtopic={activeSubtopic.id}
+            completedSections={completedSections}
+            onSectionChange={handleSectionChange}
+            onSubtopicChange={handleSubtopicChange}
+          />
+        </div>
+
+        <div className="md:col-span-3">
+          <div className="fantasy-card p-6 mb-6">
+            <div className="flex justify-between items-center mb-4">
+              <h2 className="text-2xl font-semibold text-white glow-text">{activeSubtopic.title}</h2>
+              {quizzes[activeSubtopic.id as keyof typeof quizzes] && (
+                <Button 
+                  onClick={handleTakeQuiz} 
+                  className="bg-purple-800 hover:bg-purple-700" 
+                  size="sm"
+                >
+                  <BookOpen className="mr-2 h-4 w-4" /> Take Quiz
+                </Button>
+              )}
+            </div>
+            
+            {showQuiz && currentQuiz ? (
+              <QuizComponent 
+                quiz={currentQuiz}
+                onComplete={handleQuizComplete}
+              />
+            ) : (
+              <CourseContent content={activeSubtopic.content} />
+            )}
+          </div>
+
+          <div className="flex justify-between">
+            {activeSection.subtopics.findIndex(s => s.id === activeSubtopic.id) > 0 && (
+              <Button 
+                onClick={() => {
+                  const currentIndex = activeSection.subtopics.findIndex(s => s.id === activeSubtopic.id);
+                  if (currentIndex > 0) {
+                    handleSubtopicChange(activeSection.subtopics[currentIndex - 1].id);
+                  }
+                }}
+                variant="outline"
+                className="border-purple-500/50 text-purple-300"
+              >
+                ← Previous Topic
+              </Button>
+            )}
+            
+            {activeSection.subtopics.findIndex(s => s.id === activeSubtopic.id) < activeSection.subtopics.length - 1 && (
+              <Button 
+                onClick={() => {
+                  const currentIndex = activeSection.subtopics.findIndex(s => s.id === activeSubtopic.id);
+                  if (currentIndex < activeSection.subtopics.length - 1) {
+                    handleSubtopicChange(activeSection.subtopics[currentIndex + 1].id);
+                  }
+                }}
+                className="ml-auto bg-purple-800 hover:bg-purple-700"
+              >
+                Next Topic →
+              </Button>
+            )}
+          </div>
+        </div>
+      </div>
     </div>
   );
 };
