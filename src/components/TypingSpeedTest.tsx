@@ -21,7 +21,7 @@ export const TypingSpeedTest: React.FC = () => {
   const [startTime, setStartTime] = useState(0);
   const [wpm, setWpm] = useState(0);
   const [accuracy, setAccuracy] = useState(100);
-  const inputRef = useRef<HTMLInputElement>(null);
+  const inputRef = useRef<HTMLTextAreaElement>(null);
 
   const startTest = () => {
     // Get a random text from the sample texts
@@ -39,7 +39,7 @@ export const TypingSpeedTest: React.FC = () => {
     }, 0);
   };
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     const value = e.target.value;
     setUserInput(value);
     
@@ -115,20 +115,20 @@ export const TypingSpeedTest: React.FC = () => {
         <>
           <div className="relative mb-4">
             {/* Text display - using min-height to ensure sufficient space */}
-            <div className="absolute inset-0 p-4 text-gray-500 pointer-events-none font-mono text-lg bg-transparent whitespace-pre-wrap min-h-[120px] overflow-y-auto">
+            <div className="absolute inset-0 p-4 text-gray-500 pointer-events-none font-mono text-lg bg-transparent whitespace-pre-wrap min-h-[180px] overflow-y-auto">
               {text}
             </div>
             {/* User input field */}
             <div className="relative">
               <textarea
-                ref={inputRef as React.RefObject<HTMLTextAreaElement>}
+                ref={inputRef}
                 value={userInput}
-                onChange={(e) => handleChange(e as unknown as React.ChangeEvent<HTMLInputElement>)}
+                onChange={handleChange}
                 disabled={isComplete}
-                className="w-full p-4 bg-transparent border border-purple-500/50 rounded-md font-mono text-lg text-white caretColor-purple-500 outline-none focus:border-purple-500 min-h-[120px]"
+                className="w-full p-4 bg-transparent border border-purple-500/50 rounded-md font-mono text-lg text-white caretColor-purple-500 outline-none focus:border-purple-500 min-h-[180px]"
                 style={{ color: 'transparent', caretColor: 'white', resize: 'none' }}
               />
-              <div className="absolute inset-0 p-4 pointer-events-none font-mono text-lg whitespace-pre-wrap min-h-[120px] overflow-y-auto">
+              <div className="absolute inset-0 p-4 pointer-events-none font-mono text-lg whitespace-pre-wrap min-h-[180px] overflow-y-auto">
                 {userInput.split('').map((char, index) => (
                   <span key={index} className={char === text[index] ? 'text-green-400' : 'text-red-500'}>
                     {char}
@@ -144,7 +144,7 @@ export const TypingSpeedTest: React.FC = () => {
           </div>
         </>
       ) : (
-        <div className="text-center text-purple-200 p-4 min-h-[120px] flex items-center justify-center">
+        <div className="text-center text-purple-200 p-4 min-h-[180px] flex items-center justify-center">
           Click the button above to start a typing test
         </div>
       )}
