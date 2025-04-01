@@ -5,7 +5,7 @@ import { Progress } from '@/components/ui/progress';
 import { CourseContent } from '@/components/CourseContent';
 import { TableOfContents } from '@/components/TableOfContents';
 import { toast } from '@/components/ui/use-toast';
-import { Home } from 'lucide-react';
+import { Home, Clock, Users, BookOpen, GraduationCap, Star } from 'lucide-react';
 
 interface Section {
   id: string;
@@ -601,14 +601,30 @@ const Guide: React.FC = () => {
     const section = courseSections.find(s => s.id === sectionId);
     if (section) {
       setActiveSection(section);
-      setActiveSubtopic(section.subtopics[0]);
     }
   };
 
   const handleSubtopicChange = (subtopicId: string) => {
-    const subtopic = activeSection.subtopics.find(s => s.id === subtopicId);
-    if (subtopic) {
-      setActiveSubtopic(subtopic);
+    let foundSection = activeSection;
+    let foundSubtopic = activeSection.subtopics.find(s => s.id === subtopicId);
+    
+    if (!foundSubtopic) {
+      for (const section of courseSections) {
+        const subtopic = section.subtopics.find(s => s.id === subtopicId);
+        if (subtopic) {
+          foundSection = section;
+          foundSubtopic = subtopic;
+          break;
+        }
+      }
+    }
+    
+    if (foundSubtopic) {
+      if (foundSection.id !== activeSection.id) {
+        setActiveSection(foundSection);
+      }
+      setActiveSubtopic(foundSubtopic);
+      
       if (!completedSections.includes(subtopicId)) {
         setCompletedSections([...completedSections, subtopicId]);
         setXp(xp + 5);
@@ -665,16 +681,16 @@ const Guide: React.FC = () => {
           <h3 className="text-lg font-semibold text-white mb-2">Course Progress</h3>
           <Progress value={progress} className="h-2 mb-2" />
           <div className="flex justify-between text-purple-300 text-sm">
-            <span>{progress}% complete</span>
+            <span className="bg-clip-text text-transparent bg-gradient-to-r from-purple-400 via-pink-300 to-indigo-400 animate-shimmer bg-[length:200%_100%]">{progress}% complete</span>
             <span>{completedSections.length} topics</span>
           </div>
           <div className="mt-2 text-yellow-300 font-semibold">
             {xp} XP ✨
           </div>
           <div className="mt-3 space-y-1 text-sm text-purple-200">
-            <div>Languages: English</div>
-            <div>Estimated Effort: Intermediate</div>
-            <div>Location: Global</div>
+            <div className="flex items-center"><BookOpen size={14} className="mr-2 text-blue-300" /> Languages: English</div>
+            <div className="flex items-center"><Clock size={14} className="mr-2 text-green-300" /> Estimated Effort: 2 hours</div>
+            <div className="flex items-center"><Users size={14} className="mr-2 text-pink-300" /> Location: Global</div>
           </div>
         </div>
         
