@@ -4,6 +4,7 @@ import { Button } from '@/components/ui/button';
 import { Progress } from '@/components/ui/progress';
 import { motion, Reorder } from 'framer-motion';
 import { Check, X, GripVertical } from 'lucide-react';
+import { Skeleton } from '@/components/ui/skeleton';
 
 // Question types
 interface MatchingQuestion {
@@ -67,6 +68,7 @@ export const QuizComponent: React.FC<QuizProps> = ({ quiz, onComplete }) => {
   const [sequenceItems, setSequenceItems] = useState<DraggableItem[]>([]);
   const [sortedItems, setSortedItems] = useState<{category: string, items: DraggableItem[]}[]>([]);
   const [multipleChoiceOptions, setMultipleChoiceOptions] = useState<DraggableItem[]>([]);
+  const [selectedOption, setSelectedOption] = useState<number | null>(null);
   const [loading, setLoading] = useState(true);
   
   const currentQuestion = quiz.questions[currentQuestionIndex];
@@ -77,6 +79,7 @@ export const QuizComponent: React.FC<QuizProps> = ({ quiz, onComplete }) => {
     
     setIsAnswered(false);
     setLoading(true);
+    setSelectedOption(null);
 
     // Small delay to ensure state is reset between questions
     const timer = setTimeout(() => {
@@ -215,7 +218,7 @@ export const QuizComponent: React.FC<QuizProps> = ({ quiz, onComplete }) => {
         
       case 'multiple-choice':
         // Check if selected option is correct
-        isCorrect = multipleChoiceOptions[0].id === currentQuestion.correctAnswer;
+        isCorrect = selectedOption === currentQuestion.correctAnswer;
         break;
     }
     
@@ -281,6 +284,10 @@ export const QuizComponent: React.FC<QuizProps> = ({ quiz, onComplete }) => {
     }
   };
   
+  const getQuestionText = () => {
+    return currentQuestion?.question || "";
+  };
+  
   const getQuestionInstructions = () => {
     if (!currentQuestion) return "";
     
@@ -292,7 +299,7 @@ export const QuizComponent: React.FC<QuizProps> = ({ quiz, onComplete }) => {
       case 'sorting': 
         return "Sort the items into their correct categories by clicking on them.";
       case 'multiple-choice': 
-        return "Drag the correct answer to the top position.";
+        return "Select the correct answer.";
       default: 
         return "";
     }
@@ -321,8 +328,8 @@ export const QuizComponent: React.FC<QuizProps> = ({ quiz, onComplete }) => {
                 <span>→</span>
               )}
             </div>
-            <div 
-              className={`flex-1 p-3 rounded-lg cursor-pointer border-2 ${
+            <button 
+              className={`flex-1 p-3 rounded-lg cursor-pointer border-2 text-left ${
                 isAnswered 
                   ? currentQuestion.correctPairs[pair.item.id] === pair.description.id
                     ? "border-green-500 bg-green-900/30"
@@ -336,9 +343,10 @@ export const QuizComponent: React.FC<QuizProps> = ({ quiz, onComplete }) => {
                   swapMatchingPair(index, index - 1);
                 }
               }}
+              disabled={isAnswered}
             >
               {pair.description.text}
-            </div>
+            </button>
           </div>
         ))}
       </div>
@@ -409,7 +417,7 @@ export const QuizComponent: React.FC<QuizProps> = ({ quiz, onComplete }) => {
               {category.category}
             </h4>
             
-            <div className="space-y-2 min-h-16">
+            <div className="space-y-2 min-h-[4rem]">
               {category.items.map((item) => (
                 <div 
                   key={item.id}
@@ -469,38 +477,37 @@ export const QuizComponent: React.FC<QuizProps> = ({ quiz, onComplete }) => {
     if (currentQuestion?.type !== 'multiple-choice') return null;
     
     return (
-      <Reorder.Group 
-        axis="y" 
-        values={multipleChoiceOptions} 
-        onReorder={setMultipleChoiceOptions}
-        className="space-y-2"
-      >
-        {multipleChoiceOptions.map((option) => (
-          <Reorder.Item
-            key={option.id.toString()}
-            value={option}
+      <div className="space-y-2">
+        {multipleChoiceOptions.map((option, index) => (
+          <button
+            key={option.id}
             className={`w-full text-left p-4 rounded-lg border ${
               isAnswered
                 ? option.id === currentQuestion.correctAnswer
-                  ? "bg-green-700 border-green-500 text-white"
-                  : "bg-gray-800 border-gray-700"
-                : "bg-gray-800 border-gray-700 cursor-grab active:cursor-grabbing"
+                  ? "bg-green-700/40 border-green-500 text-white"
+                  : selectedOption === option.id
+                    ? "bg-red-700/20 border-red-500/50 text-white"
+                    : "bg-gray-800 border-gray-700"
+                : selectedOption === option.id
+                  ? "bg-purple-700 border-purple-500"
+                  : "bg-gray-800 border-gray-700 hover:bg-gray-700"
             }`}
+            onClick={() => !isAnswered && setSelectedOption(option.id)}
             disabled={isAnswered}
           >
             <div className="flex items-center">
               {isAnswered ? (
                 option.id === currentQuestion.correctAnswer ? (
                   <Check size={18} className="text-green-400 mr-3 flex-shrink-0" />
+                ) : selectedOption === option.id ? (
+                  <X size={18} className="text-red-400 mr-3 flex-shrink-0" />
                 ) : null
-              ) : (
-                <GripVertical size={18} className="text-gray-400 mr-3 flex-shrink-0" />
-              )}
+              ) : null}
               <span>{option.text}</span>
             </div>
-          </Reorder.Item>
+          </button>
         ))}
-      </Reorder.Group>
+      </div>
     );
   };
 
@@ -545,7 +552,7 @@ export const QuizComponent: React.FC<QuizProps> = ({ quiz, onComplete }) => {
             <h3 className="text-xl font-semibold text-white mb-1">
               {getQuestionTitle()}
             </h3>
-            <p className="text-lg text-gray-200">{currentQuestion?.question}</p>
+            <p className="text-lg text-gray-200">{getQuestionText()}</p>
             
             <p className="text-sm text-purple-300 mt-2">
               {getQuestionInstructions()}
@@ -555,8 +562,10 @@ export const QuizComponent: React.FC<QuizProps> = ({ quiz, onComplete }) => {
           {/* Interactive Quiz Area */}
           <div className="mb-6">
             {loading ? (
-              <div className="flex justify-center items-center h-40">
-                <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-purple-500"></div>
+              <div className="space-y-3">
+                <Skeleton className="h-12 w-full bg-gray-800" />
+                <Skeleton className="h-12 w-full bg-gray-800" />
+                <Skeleton className="h-12 w-full bg-gray-800" />
               </div>
             ) : (
               <>
@@ -574,7 +583,7 @@ export const QuizComponent: React.FC<QuizProps> = ({ quiz, onComplete }) => {
               <Button 
                 onClick={handleAnswer}
                 className="w-full bg-gradient-to-r from-purple-600 to-indigo-600 text-white"
-                disabled={loading}
+                disabled={loading || (currentQuestion?.type === 'multiple-choice' && selectedOption === null)}
               >
                 Submit Answer
               </Button>
