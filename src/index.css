@@ -43,9 +43,24 @@
   }
 
   body {
-    @apply bg-gradient-to-br from-indigo-950 via-purple-900 to-indigo-950 text-foreground;
-    background-size: 200% 200%;
-    animation: gradientAnimation 15s ease infinite;
+    @apply text-foreground;
+    background-image: url('/lovable-uploads/4d003625-bfcd-4fd3-a28d-e29ef3082ede.png');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    position: relative;
+  }
+
+  body::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background: linear-gradient(to bottom right, rgba(20, 30, 48, 0.85), rgba(36, 59, 85, 0.9));
+    z-index: -1;
   }
 
   @keyframes gradientAnimation {
@@ -55,18 +70,18 @@
   }
 
   .fantasy-card {
-    @apply relative overflow-hidden rounded-xl border border-purple-400/30 bg-black/40 backdrop-blur-sm shadow-xl;
-    box-shadow: 0 0 15px rgba(147, 51, 234, 0.3), inset 0 0 10px rgba(139, 92, 246, 0.2);
+    @apply relative overflow-hidden rounded-xl border border-teal-400/30 bg-black/40 backdrop-blur-sm shadow-xl;
+    box-shadow: 0 0 15px rgba(20, 184, 166, 0.3), inset 0 0 10px rgba(56, 178, 172, 0.2);
   }
 
   .fantasy-card::before {
     content: '';
     @apply absolute top-0 left-0 w-full h-full pointer-events-none;
-    background: linear-gradient(45deg, rgba(139, 92, 246, 0.15), transparent 30%, rgba(79, 70, 229, 0.15) 100%);
+    background: linear-gradient(45deg, rgba(56, 178, 172, 0.15), transparent 30%, rgba(6, 95, 70, 0.15) 100%);
   }
   
   .glow-text {
-    text-shadow: 0 0 10px rgba(167, 139, 250, 0.7), 0 0 20px rgba(139, 92, 246, 0.5);
+    text-shadow: 0 0 10px rgba(94, 234, 212, 0.7), 0 0 20px rgba(45, 212, 191, 0.5);
   }
   
   .magical-border {
@@ -80,7 +95,7 @@
     left: -2px;
     right: -2px;
     bottom: -2px;
-    background: linear-gradient(45deg, #6366f1, #8b5cf6, #d946ef, #8b5cf6, #6366f1);
+    background: linear-gradient(45deg, #0d9488, #14b8a6, #2dd4bf, #14b8a6, #0d9488);
     border-radius: 0.6rem;
     z-index: -1;
     animation: borderAnimation 6s linear infinite;
