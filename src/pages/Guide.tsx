@@ -25,31 +25,41 @@ const quizzes = {
     id: "practical-skills-intro-quiz",
     title: "Practical AI Skills Quiz",
     difficulty: "Mixed",
+    timeLimit: 120,
     questions: [
       {
-        question: "Identify the component that emphasizes mastering AI tools for real business problems.",
-        options: ["AI Fluency", "Critical Analysis", "Role-Context-Query Method", "Workflow Planning"],
-        correctAnswer: 0
+        type: "matching",
+        question: "Match each key component with its description by dragging the correct description next to the corresponding component.",
+        items: ["AI Fluency", "Critical Analysis", "Role-Context-Query Method"],
+        descriptions: [
+          "Mastering AI tools to solve real business problems",
+          "Applying analytical thinking for informed decision-making",
+          "Breaking down tasks into roles, context, and precise queries"
+        ],
+        correctPairs: [0, 1, 2]
       },
       {
-        question: "Sort the following activities into two groups: Practical (Hands-On Experience) and Theoretical.",
-        options: [
-          "Experimenting with AI tools in projects and participating in AI workshops are practical, while reading academic papers and attending lectures are theoretical.",
-          "Reading academic papers and participating in workshops are practical, while experimenting with tools and attending lectures are theoretical.",
-          "All four activities are primarily theoretical in nature.",
-          "All four activities are primarily practical in nature."
+        type: "sequencing",
+        question: "Arrange the following steps to develop practical AI skills in the correct order.",
+        steps: [
+          "Understanding basic AI concepts",
+          "Gaining hands-on experience",
+          "Applying AI tools in real projects",
+          "Evaluating outcomes and refining strategies"
         ],
-        correctAnswer: 0
+        correctOrder: [0, 1, 2, 3]
       },
       {
-        question: "Arrange the steps for developing AI competencies in the correct order.",
-        options: [
-          "Understanding basic concepts → Applying AI tools in real projects → Evaluating outcomes → Refining strategies",
-          "Applying AI tools → Understanding concepts → Refining strategies → Evaluating outcomes",
-          "Evaluating outcomes → Understanding concepts → Applying AI tools → Refining strategies",
-          "Refining strategies → Applying AI tools → Understanding concepts → Evaluating outcomes"
+        type: "sorting",
+        question: "Sort these activities into two categories: Practical Application and Theoretical Study.",
+        activities: [
+          "Participating in an AI workshop",
+          "Reading research papers on AI algorithms",
+          "Experimenting with AI tools in real projects",
+          "Attending academic lectures on AI fundamentals"
         ],
-        correctAnswer: 0
+        categories: ["Practical Application", "Theoretical Study"],
+        correctCategories: [0, 1, 0, 1]
       }
     ]
   },
@@ -374,7 +384,7 @@ const courseSections: Section[] = [
                 </tr>
                 <tr class="border-t border-purple-800/30 bg-purple-900/10">
                   <td class="px-4 py-2 text-white">User Base</td>
-                  <td class="px-4 py-2 text-white">2.5M</td>
+                  <td class-4 py-2 text-white">2.5M</td>
                   <td class="px-4 py-2 text-green-400">15%</td>
                   <td class="px-4 py-2 text-gray-300">Analytics</td>
                 </tr>
@@ -812,7 +822,7 @@ const Guide: React.FC = () => {
       
       if (!completedSections.includes(subtopicId)) {
         setCompletedSections([...completedSections, subtopicId]);
-        setXp(xp + 5); // +5 XP for reading a new topic
+        setXp(xp + 5);
         toast({
           title: "XP Gained!",
           description: "Gained 5 XP for exploring a new topic!",
@@ -828,7 +838,7 @@ const Guide: React.FC = () => {
     setShowQuiz(false);
     
     if (!completedQuizzes.includes(activeSubtopic.id)) {
-      const quizXp = 15; // +15 XP for completing a quiz
+      const quizXp = 15;
       setXp(prev => prev + quizXp);
       setCompletedQuizzes([...completedQuizzes, activeSubtopic.id]);
       
@@ -931,6 +941,15 @@ const Guide: React.FC = () => {
           <div className="fantasy-card p-6 mb-6">
             <div className="flex justify-between items-center mb-4">
               <h2 className="text-2xl font-semibold text-white glow-text">{activeSubtopic.title}</h2>
+              {activeSubtopic.id === "practical-skills-intro" && (
+                <Button 
+                  onClick={handleTakeQuiz} 
+                  className="bg-purple-800 hover:bg-purple-700" 
+                  size="sm"
+                >
+                  <BookOpen className="mr-2 h-4 w-4" /> Take Quiz
+                </Button>
+              )}
             </div>
             
             {showQuiz && currentQuiz ? (

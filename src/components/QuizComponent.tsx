@@ -1,8 +1,7 @@
-
 import React, { useState, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
 import { Progress } from '@/components/ui/progress';
-import { motion, Reorder } from 'framer-motion';
+import { motion } from 'framer-motion';
 import { Check, X, GripVertical } from 'lucide-react';
 import { Skeleton } from '@/components/ui/skeleton';
 
@@ -45,6 +44,7 @@ interface QuizProps {
     title: string;
     difficulty: string;
     questions: QuizQuestion[];
+    timeLimit: number; // New property for time limit
   };
   onComplete: (score: number) => void;
 }
@@ -60,7 +60,7 @@ export const QuizComponent: React.FC<QuizProps> = ({ quiz, onComplete }) => {
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
   const [score, setScore] = useState(0);
   const [isAnswered, setIsAnswered] = useState(false);
-  const [timeRemaining, setTimeRemaining] = useState(60); // More time for complex questions
+  const [timeRemaining, setTimeRemaining] = useState(quiz.timeLimit || 60); // Use provided time limit or default to 60
   const [isCompleted, setIsCompleted] = useState(false);
   
   // State for different question types
@@ -504,6 +504,12 @@ export const QuizComponent: React.FC<QuizProps> = ({ quiz, onComplete }) => {
     );
   };
 
+  const formatTimeRemaining = (seconds: number) => {
+    const minutes = Math.floor(seconds / 60);
+    const remainingSeconds = seconds % 60;
+    return `${minutes}:${remainingSeconds < 10 ? '0' : ''}${remainingSeconds}`;
+  };
+
   return (
     <div className="fantasy-card p-6">
       {isCompleted ? (
@@ -533,8 +539,9 @@ export const QuizComponent: React.FC<QuizProps> = ({ quiz, onComplete }) => {
             <div className="text-sm text-purple-300">
               Question {currentQuestionIndex + 1} of {quiz.questions.length}
             </div>
-            <div className="text-sm text-yellow-300">
-              Time remaining: {timeRemaining}s
+            <div className="text-sm text-yellow-300 flex items-center">
+              <Clock className="mr-2 h-4 w-4" />
+              Time remaining: {formatTimeRemaining(timeRemaining)}
             </div>
           </div>
           
