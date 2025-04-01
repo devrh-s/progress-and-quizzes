@@ -878,74 +878,50 @@ const Guide: React.FC = () => {
         </div>
       </div>
 
-      <div className="fantasy-card p-4 mb-6">
-        <h3 className="text-lg font-semibold text-white mb-3">Course Progress</h3>
-        
-        <div className="grid grid-cols-1 gap-4 mb-4">
-          <div className="bg-purple-900/30 p-3 rounded-lg">
-            <div className="flex items-center justify-between mb-2">
-              <span className="text-purple-200">Progress ({completedSections.length}/{totalTopics} topics completed)</span>
-              <span className="text-white font-medium">{progress}%</span>
-            </div>
-            <Progress value={progress} className="h-2" />
-          </div>
-        </div>
-        
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-4">
-          <div className="bg-purple-900/20 p-3 rounded-lg flex items-center">
-            <Globe className="h-5 w-5 text-purple-400 mr-3" />
-            <div>
-              <p className="text-sm text-purple-200">Location</p>
-              <p className="text-white font-medium">Global</p>
-            </div>
-          </div>
-          
-          <div className="bg-purple-900/20 p-3 rounded-lg flex items-center">
-            <Clock className="h-5 w-5 text-purple-400 mr-3" />
-            <div>
-              <p className="text-sm text-purple-200">Estimated Effort</p>
-              <p className="text-white font-medium">2 hours</p>
-            </div>
-          </div>
-          
-          <div className="bg-purple-900/20 p-3 rounded-lg flex items-center">
-            <BookOpen className="h-5 w-5 text-purple-400 mr-3" />
-            <div>
-              <p className="text-sm text-purple-200">Language</p>
-              <p className="text-white font-medium">English</p>
-            </div>
-          </div>
-        </div>
-        
-        <div className="flex flex-wrap gap-3 text-sm">
-          <div className="bg-purple-900/20 px-3 py-1 rounded-full flex items-center">
-            <BookOpen className="mr-2 h-4 w-4 text-purple-400" />
-            <span className="text-purple-200">Reading a topic: <span className="text-yellow-300 font-medium">+5 <Star className="inline h-3 w-3" /></span></span>
-          </div>
-          <div className="bg-purple-900/20 px-3 py-1 rounded-full flex items-center">
-            <GraduationCap className="mr-2 h-4 w-4 text-purple-400" />
-            <span className="text-purple-200">Completing a quiz: <span className="text-yellow-300 font-medium">+15 <Star className="inline h-3 w-3" /></span></span>
-          </div>
-        </div>
-      </div>
-
       <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
-        <div className="md:col-span-1 fantasy-card p-4">
-          <TableOfContents 
-            sections={courseSections}
-            activeSection={activeSection.id}
-            activeSubtopic={activeSubtopic.id}
-            completedSections={completedSections}
-            onSectionChange={handleSectionChange}
-            onSubtopicChange={handleSubtopicChange}
-          />
+        <div className="md:col-span-1">
+          <div className="fantasy-card p-3 mb-4">
+            <div className="flex items-center justify-between mb-2">
+              <h3 className="text-sm font-semibold text-white">Course Progress</h3>
+              <span className="text-xs text-purple-200">{completedSections.length}/{totalTopics}</span>
+            </div>
+            <Progress value={progress} className="h-1.5 mb-2" />
+            
+            <div className="grid grid-cols-3 gap-2 text-xs">
+              <div className="flex items-center">
+                <Globe className="h-3.5 w-3.5 text-purple-400 mr-1.5" />
+                <span className="text-purple-200">Global</span>
+              </div>
+              
+              <div className="flex items-center">
+                <Clock className="h-3.5 w-3.5 text-purple-400 mr-1.5" />
+                <span className="text-purple-200">2 hours</span>
+              </div>
+              
+              <div className="flex items-center">
+                <BookOpen className="h-3.5 w-3.5 text-purple-400 mr-1.5" />
+                <span className="text-purple-200">English</span>
+              </div>
+            </div>
+          </div>
+          
+          <div className="fantasy-card p-4">
+            <TableOfContents 
+              sections={courseSections}
+              activeSection={activeSection.id}
+              activeSubtopic={activeSubtopic.id}
+              completedSections={completedSections}
+              onSectionChange={handleSectionChange}
+              onSubtopicChange={handleSubtopicChange}
+            />
+          </div>
         </div>
 
         <div className="md:col-span-3">
           <div className="fantasy-card p-6 mb-6">
             <div className="flex justify-between items-center mb-4">
               <h2 className="text-2xl font-semibold text-white glow-text">{activeSubtopic.title}</h2>
-              {activeSubtopic.id === "practical-skills-intro" && (
+              {quizzes[activeSubtopic.id as keyof typeof quizzes] && (
                 <Button 
                   onClick={handleTakeQuiz} 
                   className="bg-purple-800 hover:bg-purple-700" 
