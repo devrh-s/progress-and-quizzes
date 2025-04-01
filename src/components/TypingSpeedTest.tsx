@@ -12,6 +12,85 @@ const sampleTexts = [
   "Data science combines statistics, programming, and domain knowledge. Effective data scientists blend technical skills with business acumen."
 ];
 
+// Fantasy firework component
+const FantasyFirework = () => {
+  const [particles, setParticles] = useState<JSX.Element[]>([]);
+  
+  useEffect(() => {
+    const createParticles = () => {
+      const newParticles: JSX.Element[] = [];
+      const colors = [
+        '#9b87f5', '#8B5CF6', '#D946EF', '#F97316', 
+        '#0EA5E9', '#33C3F0', '#ea384c', '#7E69AB'
+      ];
+      
+      // Create multiple particles with random positions, colors, and animations
+      for (let i = 0; i < 100; i++) {
+        const size = Math.random() * 8 + 4; // Random size between 4-12px
+        const x = Math.random() * 100; // Random horizontal position
+        const y = Math.random() * 100; // Random vertical position
+        const duration = Math.random() * 2 + 1; // Random animation duration
+        const delay = Math.random() * 0.5; // Random delay
+        const color = colors[Math.floor(Math.random() * colors.length)]; // Random color
+        
+        newParticles.push(
+          <div
+            key={i}
+            className="absolute rounded-full"
+            style={{
+              width: `${size}px`,
+              height: `${size}px`,
+              backgroundColor: color,
+              boxShadow: `0 0 ${size * 2}px ${color}`,
+              left: `${x}%`,
+              top: `${y}%`,
+              opacity: 0,
+              transform: 'scale(0)',
+              animation: `
+                fireworkFade ${duration}s ease-out ${delay}s forwards,
+                fireworkScale ${duration}s ease-out ${delay}s forwards,
+                fireworkMove ${duration}s ease-out ${delay}s forwards
+              `
+            }}
+          />
+        );
+      }
+      
+      setParticles(newParticles);
+    };
+    
+    createParticles();
+    
+    // Cleanup
+    return () => {
+      setParticles([]);
+    };
+  }, []);
+  
+  return (
+    <div className="absolute inset-0 overflow-hidden pointer-events-none z-50">
+      {particles}
+      <style jsx>{`
+        @keyframes fireworkFade {
+          0% { opacity: 0; }
+          10% { opacity: 1; }
+          80% { opacity: 0.8; }
+          100% { opacity: 0; }
+        }
+        @keyframes fireworkScale {
+          0% { transform: scale(0); }
+          10% { transform: scale(1); }
+          100% { transform: scale(0); }
+        }
+        @keyframes fireworkMove {
+          0% { transform: translate(0, 0); }
+          100% { transform: translate(${(Math.random() - 0.5) * 50}px, ${(Math.random() - 0.5) * 50}px); }
+        }
+      `}</style>
+    </div>
+  );
+};
+
 export const TypingSpeedTest: React.FC = () => {
   const [text, setText] = useState('');
   const [userInput, setUserInput] = useState('');
@@ -21,6 +100,7 @@ export const TypingSpeedTest: React.FC = () => {
   const [startTime, setStartTime] = useState(0);
   const [wpm, setWpm] = useState(0);
   const [accuracy, setAccuracy] = useState(100);
+  const [showFireworks, setShowFireworks] = useState(false);
   const inputRef = useRef<HTMLTextAreaElement>(null);
 
   const startTest = () => {
@@ -32,6 +112,7 @@ export const TypingSpeedTest: React.FC = () => {
     setIsActive(true);
     setIsComplete(false);
     setStartTime(Date.now());
+    setShowFireworks(false);
     setTimeout(() => {
       if (inputRef.current) {
         inputRef.current.focus();
@@ -53,6 +134,13 @@ export const TypingSpeedTest: React.FC = () => {
       setWpm(calculatedWpm);
       setIsActive(false);
       setIsComplete(true);
+      
+      // Show fireworks if accuracy is 100%
+      if (accuracy === 100) {
+        setShowFireworks(true);
+        setTimeout(() => setShowFireworks(false), 3000); // Hide fireworks after 3 seconds
+      }
+      
       toast.success(`Test completed! Your speed: ${calculatedWpm} WPM`, {
         description: `Accuracy: ${accuracy}%`
       });
@@ -95,7 +183,9 @@ export const TypingSpeedTest: React.FC = () => {
   };
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-6 relative">
+      {showFireworks && <FantasyFirework />}
+      
       <div className="flex justify-between items-center mb-4">
         <Button 
           onClick={startTest} 
@@ -139,7 +229,9 @@ export const TypingSpeedTest: React.FC = () => {
           </div>
           
           <div className="flex justify-between text-purple-200">
-            <div>Accuracy: {accuracy}%</div>
+            <div className={accuracy === 100 ? "text-yellow-300 font-bold animate-pulse" : ""}>
+              Accuracy: {accuracy}%
+            </div>
             {isComplete && <div>Speed: {wpm} WPM</div>}
           </div>
         </>
