@@ -1,11 +1,12 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
-import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
+import { Progress } from '@/components/ui/progress';
 import { CourseContent } from '@/components/CourseContent';
 import { TableOfContents } from '@/components/TableOfContents';
-import { cn } from '@/lib/utils';
-import { BookOpen, CheckCircle, Circle, Star, Home, PlayCircle } from 'lucide-react';
-import { Link } from 'react-router-dom';
+import { toast } from '@/hooks/use-toast';
+import { Home, Clock, Users, BookOpen, GraduationCap, Star, Briefcase, PlayCircle } from 'lucide-react';
+import { QuizComponent } from '@/components/QuizComponent';
 
 interface Section {
   id: string;
@@ -816,19 +817,19 @@ const quizzes = {
   },
   "problem-description": {
     id: "problem-description-quiz",
-    title: "Problem Description",
-    difficulty: "medium",
-    timeLimit: 180,
+    title: "Problem Description Quiz",
+    difficulty: "Mixed",
+    timeLimit: 120,
     questions: [
       {
         type: "sequencing",
         question: "Rank the following aspects by importance when describing a workplace problem that your AI solution will address.",
         steps: [
           "Specific workplace process or challenge",
-          "Examples from daily work",
-          "How AI can enhance productivity"
+          "How AI can enhance productivity",
+          "Examples from daily work"
         ],
-        correctOrder: [0, 2, 1]
+        correctOrder: [0, 1, 2]
       },
       {
         type: "sequencing",
@@ -858,10 +859,10 @@ const quizzes = {
     ]
   },
   "tools-implementation": {
-    id: "ai-tools-implementation-quiz",
-    title: "AI Tools and Implementation",
-    difficulty: "medium",
-    timeLimit: 210,
+    id: "tools-implementation-quiz",
+    title: "AI Tools and Implementation Quiz",
+    difficulty: "Mixed",
+    timeLimit: 120,
     questions: [
       {
         type: "matching",
@@ -910,9 +911,9 @@ const quizzes = {
   },
   "results-impact": {
     id: "results-impact-quiz",
-    title: "Results and Impact",
-    difficulty: "easy",
-    timeLimit: 180,
+    title: "Results and Impact Quiz",
+    difficulty: "Mixed",
+    timeLimit: 120,
     questions: [
       {
         type: "sequencing",
@@ -957,9 +958,9 @@ const quizzes = {
   },
   "future-development": {
     id: "future-development-quiz",
-    title: "Future Development Plans",
-    difficulty: "medium",
-    timeLimit: 180,
+    title: "Future Development Quiz",
+    difficulty: "Mixed",
+    timeLimit: 120,
     questions: [
       {
         type: "matching",
@@ -1006,9 +1007,9 @@ const quizzes = {
   },
   "presentation-guidelines": {
     id: "presentation-guidelines-quiz",
-    title: "Presentation Guidelines",
-    difficulty: "easy",
-    timeLimit: 180,
+    title: "Presentation Guidelines Quiz",
+    difficulty: "Mixed",
+    timeLimit: 120,
     questions: [
       {
         type: "matching",
@@ -1043,3 +1044,18 @@ const quizzes = {
         question: "Rank the presentation elements by their potential to engage an audience, from most engaging to least engaging.",
         steps: [
           "Practical examples of AI tools",
+          "Demonstrated workflow improvements",
+          "Lessons learned and best practices",
+          "Recommendations for others"
+        ],
+        correctOrder: [0, 1, 2, 3]
+      }
+    ]
+  }
+};
+
+const Guide = ({ courseSections, quizzes }) => {
+  // Existing component implementation
+};
+
+export default Guide;
