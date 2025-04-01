@@ -114,22 +114,21 @@ export const TypingSpeedTest: React.FC = () => {
       {isActive || isComplete ? (
         <>
           <div className="relative mb-4">
-            {/* Text display */}
-            <div className="absolute inset-0 p-4 text-gray-500 pointer-events-none font-mono text-lg bg-transparent whitespace-pre-wrap">
+            {/* Text display - using min-height to ensure sufficient space */}
+            <div className="absolute inset-0 p-4 text-gray-500 pointer-events-none font-mono text-lg bg-transparent whitespace-pre-wrap min-h-[120px] overflow-y-auto">
               {text}
             </div>
             {/* User input field */}
             <div className="relative">
-              <input
-                ref={inputRef}
-                type="text"
+              <textarea
+                ref={inputRef as React.RefObject<HTMLTextAreaElement>}
                 value={userInput}
-                onChange={handleChange}
+                onChange={(e) => handleChange(e as unknown as React.ChangeEvent<HTMLInputElement>)}
                 disabled={isComplete}
-                className="w-full p-4 bg-transparent border border-purple-500/50 rounded-md font-mono text-lg text-white caretColor-purple-500 outline-none focus:border-purple-500"
-                style={{ color: 'transparent', caretColor: 'white' }}
+                className="w-full p-4 bg-transparent border border-purple-500/50 rounded-md font-mono text-lg text-white caretColor-purple-500 outline-none focus:border-purple-500 min-h-[120px]"
+                style={{ color: 'transparent', caretColor: 'white', resize: 'none' }}
               />
-              <div className="absolute inset-0 p-4 pointer-events-none font-mono text-lg whitespace-pre-wrap">
+              <div className="absolute inset-0 p-4 pointer-events-none font-mono text-lg whitespace-pre-wrap min-h-[120px] overflow-y-auto">
                 {userInput.split('').map((char, index) => (
                   <span key={index} className={char === text[index] ? 'text-green-400' : 'text-red-500'}>
                     {char}
@@ -145,7 +144,7 @@ export const TypingSpeedTest: React.FC = () => {
           </div>
         </>
       ) : (
-        <div className="text-center text-purple-200 p-4">
+        <div className="text-center text-purple-200 p-4 min-h-[120px] flex items-center justify-center">
           Click the button above to start a typing test
         </div>
       )}

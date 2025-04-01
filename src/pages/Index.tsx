@@ -57,7 +57,7 @@ const Index = () => {
         />
       </div>
 
-      {/* Typing Speed Test */}
+      {/* Typing Speed Test - increased size */}
       <div className="w-full max-w-4xl my-8 fantasy-card p-8 z-10">
         <h2 className="text-2xl font-bold text-white mb-6 text-center">Typing Speed Test</h2>
         <TypingSpeedTest />

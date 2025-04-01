@@ -388,10 +388,10 @@ const Guide: React.FC = () => {
       setActiveSubtopic(subtopic);
       if (!completedSections.includes(subtopicId)) {
         setCompletedSections([...completedSections, subtopicId]);
-        setXp(xp + 10);
+        setXp(xp + 5); // Changed from 10 to 5 XP
         toast({
           title: "XP Gained!",
-          description: "Gained 10 XP for exploring a new topic!",
+          description: "Gained 5 XP for exploring a new topic!", // Changed from 10 to 5 XP
           variant: "default",
         });
       }
@@ -410,10 +410,10 @@ const Guide: React.FC = () => {
         setActiveSubtopic(nextSection.subtopics[0]);
         if (!completedSections.includes(nextSection.subtopics[0].id)) {
           setCompletedSections([...completedSections, nextSection.subtopics[0].id]);
-          setXp(xp + 10);
+          setXp(xp + 5); // Changed from 10 to 5 XP
           toast({
             title: "XP Gained!",
-            description: "Gained 10 XP for moving to a new section!",
+            description: "Gained 5 XP for moving to a new section!", // Changed from 10 to 5 XP
             variant: "default",
           });
         }

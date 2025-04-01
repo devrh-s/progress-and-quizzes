@@ -1,9 +1,13 @@
+
 import React, { useState, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
 import { QuizComponent } from '@/components/QuizComponent';
 import { Link } from 'react-router-dom';
 import { Progress } from '@/components/ui/progress';
 import { toast } from '@/components/ui/use-toast';
+import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
+import { PlayCircle } from 'lucide-react';
+import { cn } from '@/lib/utils';
 
 interface QuizTopic {
   id: string;
@@ -197,6 +201,7 @@ const Quizzes: React.FC = () => {
   const [xp, setXp] = useState(0);
   const [completedQuizzes, setCompletedQuizzes] = useState<string[]>([]);
   const [progress, setProgress] = useState(0);
+  const [expandedSections, setExpandedSections] = useState<string[]>(['available-quizzes']);
 
   useEffect(() => {
     const newProgress = (completedQuizzes.length / quizTopics.length) * 100;
@@ -248,6 +253,19 @@ const Quizzes: React.FC = () => {
     }
   };
 
+  // Function to render stars based on score
+  const renderStars = (score: number, total: number) => {
+    const stars = [];
+    for (let i = 0; i < total; i++) {
+      stars.push(
+        <span key={i} className={i < score ? "text-yellow-300" : "text-gray-500"}>
+          ★
+        </span>
+      );
+    }
+    return stars;
+  };
+
   return (
     <div className="min-h-screen flex flex-col md:flex-row">
       <div className="md:w-1/4 bg-gray-900 p-4 md:p-6 space-y-6 border-r border-purple-900">
@@ -266,33 +284,61 @@ const Quizzes: React.FC = () => {
         <div className="space-y-2">
           <h3 className="text-lg font-semibold text-white mb-4">Available Quizzes</h3>
           
-          <div className="space-y-2">
-            {quizTopics.map(quiz => (
-              <button
-                key={quiz.id}
-                onClick={() => handleSelectQuiz(quiz)}
-                className={`w-full text-left fantasy-card p-4 transition hover:bg-purple-900/30 ${
-                  selectedQuiz?.id === quiz.id ? 'border-purple-500' : ''
-                }`}
-              >
-                <div className="flex justify-between items-center">
-                  <h4 className="font-medium text-white">{quiz.title}</h4>
-                  <span className={`text-sm font-medium ${getDifficultyColor(quiz.difficulty)}`}>
-                    {quiz.difficulty}
-                  </span>
-                </div>
-                
-                {completedQuizzes.includes(quiz.id) && (
-                  <div className="mt-2 text-sm flex justify-between">
-                    <span className="text-green-400">Completed</span>
-                    <span className="text-purple-300">
-                      Score: {quizResults[quiz.id] || 0}/{quiz.questions.length}
-                    </span>
-                  </div>
+          <Accordion
+            type="multiple"
+            defaultValue={['available-quizzes']}
+            value={expandedSections}
+            className="space-y-2"
+          >
+            <AccordionItem
+              value="available-quizzes"
+              className="fantasy-card border-0 overflow-hidden mb-2"
+            >
+              <AccordionTrigger
+                onClick={() => setExpandedSections(prev =>
+                  prev.includes('available-quizzes')
+                    ? prev.filter(id => id !== 'available-quizzes')
+                    : [...prev, 'available-quizzes']
                 )}
-              </button>
-            ))}
-          </div>
+                className="px-4 py-3 text-left text-sm font-medium hover:bg-purple-900/30 text-white"
+              >
+                Available Quizzes
+              </AccordionTrigger>
+              <AccordionContent className="px-2 py-1">
+                <div className="space-y-1 pl-4 border-l border-purple-800/50">
+                  {quizTopics.map((quiz) => (
+                    <Button
+                      key={quiz.id}
+                      variant="ghost"
+                      size="sm"
+                      className={cn(
+                        "w-full justify-start text-left text-sm h-auto py-1",
+                        selectedQuiz?.id === quiz.id
+                          ? "bg-purple-900/50 text-purple-300"
+                          : completedQuizzes.includes(quiz.id)
+                          ? "text-green-400 hover:text-green-300"
+                          : "text-gray-300 hover:text-white"
+                      )}
+                      onClick={() => handleSelectQuiz(quiz)}
+                    >
+                      <span className="mr-2">
+                        {completedQuizzes.includes(quiz.id) ? "✓" : "○"}
+                      </span>
+                      <span className="flex-1">{quiz.title}</span>
+                      <span className={`text-xs font-medium mr-2 ${getDifficultyColor(quiz.difficulty)}`}>
+                        {quiz.difficulty}
+                      </span>
+                      {completedQuizzes.includes(quiz.id) && (
+                        <span className="text-xs">
+                          {renderStars(quizResults[quiz.id] || 0, quiz.questions.length)}
+                        </span>
+                      )}
+                    </Button>
+                  ))}
+                </div>
+              </AccordionContent>
+            </AccordionItem>
+          </Accordion>
         </div>
         
         <div className="pt-4">
@@ -326,8 +372,9 @@ const Quizzes: React.FC = () => {
             
             <Button 
               onClick={handleStartQuiz}
-              className="w-full bg-gradient-to-r from-purple-600 to-indigo-600 text-white"
+              className="w-full bg-gradient-to-r from-purple-600 to-indigo-600 text-white flex items-center justify-center gap-2"
             >
+              <PlayCircle size={18} />
               Start Quiz
             </Button>
           </div>

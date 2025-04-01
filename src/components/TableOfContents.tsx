@@ -87,6 +87,7 @@ export const TableOfContents: React.FC<TableOfContentsProps> = ({
                       {completedSections.includes(subtopic.id) ? "✓" : "○"}
                     </span>
                     {subtopic.title}
+                    <span className="ml-auto text-xs text-yellow-300">+5 XP</span>
                   </Button>
                 ))}
               </div>
