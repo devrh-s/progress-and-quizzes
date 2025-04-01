@@ -5,11 +5,38 @@ import { Progress } from '@/components/ui/progress';
 import { motion, Reorder } from 'framer-motion';
 import { Check, X, GripVertical } from 'lucide-react';
 
-interface QuizQuestion {
+// Question types
+interface MatchingQuestion {
+  type: 'matching';
+  question: string;
+  items: string[];
+  descriptions: string[];
+  correctPairs: number[]; // Index of correct description for each item
+}
+
+interface SequencingQuestion {
+  type: 'sequencing';
+  question: string;
+  steps: string[];
+  correctOrder: number[]; // Correct order of indices
+}
+
+interface SortingQuestion {
+  type: 'sorting';
+  question: string;
+  activities: string[];
+  categories: string[];
+  correctCategories: number[]; // Category index for each activity
+}
+
+interface MultipleChoiceQuestion {
+  type: 'multiple-choice';
   question: string;
   options: string[];
   correctAnswer: number;
 }
+
+type QuizQuestion = MatchingQuestion | SequencingQuestion | SortingQuestion | MultipleChoiceQuestion;
 
 interface QuizProps {
   quiz: {
@@ -21,45 +48,111 @@ interface QuizProps {
   onComplete: (score: number) => void;
 }
 
-type QuizOptionType = {
+// Item types for drag and drop
+type DraggableItem = {
+  id: number;
   text: string;
-  originalIndex: number;
+  category?: number; // For sorting questions
 };
 
 export const QuizComponent: React.FC<QuizProps> = ({ quiz, onComplete }) => {
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
-  const [shuffledOptions, setShuffledOptions] = useState<QuizOptionType[]>([]);
   const [score, setScore] = useState(0);
-  const [answers, setAnswers] = useState<{question: number, selected: number[], correct: number}[]>([]);
   const [isAnswered, setIsAnswered] = useState(false);
-  const [timeRemaining, setTimeRemaining] = useState(30); // 30 seconds per question
+  const [timeRemaining, setTimeRemaining] = useState(60); // More time for complex questions
   const [isCompleted, setIsCompleted] = useState(false);
-  const [quizType, setQuizType] = useState<'order' | 'match'>('order');
-
+  
+  // State for different question types
+  const [matchingPairs, setMatchingPairs] = useState<{item: DraggableItem, description: DraggableItem}[]>([]);
+  const [sequenceItems, setSequenceItems] = useState<DraggableItem[]>([]);
+  const [sortedItems, setSortedItems] = useState<{category: string, items: DraggableItem[]}[]>([]);
+  const [multipleChoiceOptions, setMultipleChoiceOptions] = useState<DraggableItem[]>([]);
+  
   const currentQuestion = quiz.questions[currentQuestionIndex];
   
-  // Initialize question type and shuffle options when question changes
+  // Initialize question based on its type
   useEffect(() => {
-    if (currentQuestion) {
-      // Randomly decide quiz type - ordering or matching
-      setQuizType(Math.random() > 0.5 ? 'order' : 'match');
-      
-      const options = currentQuestion.options.map((text, originalIndex) => ({
-        text,
-        originalIndex
-      }));
-      
-      // Fisher-Yates shuffle
-      for (let i = options.length - 1; i > 0; i--) {
-        const j = Math.floor(Math.random() * (i + 1));
-        [options[i], options[j]] = [options[j], options[i]];
-      }
-      
-      setShuffledOptions(options);
+    if (!currentQuestion) return;
+    
+    setIsAnswered(false);
+    
+    switch(currentQuestion.type) {
+      case 'matching':
+        // Initialize matching pairs
+        const itemsList = currentQuestion.items.map((text, id) => ({ id, text }));
+        const descriptionsList = currentQuestion.descriptions.map((text, id) => ({ id, text }));
+        
+        // Shuffle descriptions
+        const shuffledDescriptions = [...descriptionsList];
+        for (let i = shuffledDescriptions.length - 1; i > 0; i--) {
+          const j = Math.floor(Math.random() * (i + 1));
+          [shuffledDescriptions[i], shuffledDescriptions[j]] = [shuffledDescriptions[j], shuffledDescriptions[i]];
+        }
+        
+        // Create pairs
+        const pairs = itemsList.map((item, index) => ({
+          item,
+          description: shuffledDescriptions[index]
+        }));
+        
+        setMatchingPairs(pairs);
+        break;
+        
+      case 'sequencing':
+        // Initialize sequence items and shuffle them
+        let seqItems = currentQuestion.steps.map((text, id) => ({ id, text }));
+        
+        // Fisher-Yates shuffle
+        for (let i = seqItems.length - 1; i > 0; i--) {
+          const j = Math.floor(Math.random() * (i + 1));
+          [seqItems[i], seqItems[j]] = [seqItems[j], seqItems[i]];
+        }
+        
+        setSequenceItems(seqItems);
+        break;
+        
+      case 'sorting':
+        // Initialize categories and items
+        const categories = currentQuestion.categories.map(cat => ({
+          category: cat,
+          items: []
+        }));
+        
+        // Add unsorted category for initial state
+        categories.push({
+          category: "Unsorted Items",
+          items: currentQuestion.activities.map((text, id) => ({ id, text }))
+        });
+        
+        // Shuffle unsorted items
+        const unsortedItems = categories[categories.length - 1].items;
+        for (let i = unsortedItems.length - 1; i > 0; i--) {
+          const j = Math.floor(Math.random() * (i + 1));
+          [unsortedItems[i], unsortedItems[j]] = [unsortedItems[j], unsortedItems[i]];
+        }
+        
+        setSortedItems(categories);
+        break;
+        
+      case 'multiple-choice':
+        // Initialize multiple choice options and shuffle them
+        const options = currentQuestion.options.map((text, id) => ({ id, text }));
+        
+        // Fisher-Yates shuffle
+        for (let i = options.length - 1; i > 0; i--) {
+          const j = Math.floor(Math.random() * (i + 1));
+          [options[i], options[j]] = [options[j], options[i]];
+        }
+        
+        setMultipleChoiceOptions(options);
+        break;
     }
+    
+    // Reset timer
+    setTimeRemaining(60);
   }, [currentQuestion, currentQuestionIndex]);
   
-  // Timer
+  // Timer effect
   useEffect(() => {
     if (isAnswered || isCompleted) return;
     
@@ -77,58 +170,50 @@ export const QuizComponent: React.FC<QuizProps> = ({ quiz, onComplete }) => {
     return () => clearInterval(timer);
   }, [currentQuestionIndex, isAnswered, isCompleted]);
   
-  // Reset timer when moving to next question
-  useEffect(() => {
-    setTimeRemaining(30);
-  }, [currentQuestionIndex]);
-
   const handleAnswer = () => {
-    if (isAnswered || isCompleted) return;
+    if (isAnswered || isCompleted || !currentQuestion) return;
     
-    // For ordering quiz type
-    if (quizType === 'order') {
-      // For ordering, we need to check the entire sequence
-      // Get the correct order based on the correctAnswer
-      const userOrderedIndexes = shuffledOptions.map(option => option.originalIndex);
-      
-      // In order type, correctAnswer represents the item that should be first
-      const correctItemIndex = currentQuestion.correctAnswer;
-      const isCorrect = userOrderedIndexes[0] === correctItemIndex;
-      
-      if (isCorrect) {
-        setScore(prev => prev + 1);
-      }
-      
-      setAnswers(prev => [
-        ...prev, 
-        {
-          question: currentQuestionIndex,
-          selected: userOrderedIndexes,
-          correct: correctItemIndex
-        }
-      ]);
-    } else {
-      // For matching quiz type
-      const selectedOption = shuffledOptions[0].originalIndex;
-      const isCorrect = selectedOption === currentQuestion.correctAnswer;
-      
-      if (isCorrect) {
-        setScore(prev => prev + 1);
-      }
-      
-      setAnswers(prev => [
-        ...prev, 
-        {
-          question: currentQuestionIndex,
-          selected: [selectedOption],
-          correct: currentQuestion.correctAnswer
-        }
-      ]);
+    let isCorrect = false;
+    
+    switch(currentQuestion.type) {
+      case 'matching':
+        // Check if all pairs match correctly
+        isCorrect = matchingPairs.every((pair, index) => 
+          pair.description.id === currentQuestion.correctPairs[pair.item.id]
+        );
+        break;
+        
+      case 'sequencing':
+        // Check if sequence is in correct order
+        isCorrect = sequenceItems.every((item, index) => 
+          item.id === currentQuestion.correctOrder[index]
+        );
+        break;
+        
+      case 'sorting':
+        // Check if items are in correct categories
+        const categorizedItems = sortedItems.slice(0, -1).flatMap(category => 
+          category.items.map(item => ({ item, categoryIndex: sortedItems.indexOf(category) }))
+        );
+        
+        isCorrect = categorizedItems.every(({ item, categoryIndex }) => 
+          categoryIndex === currentQuestion.correctCategories[item.id]
+        );
+        break;
+        
+      case 'multiple-choice':
+        // Check if first option is correct
+        isCorrect = multipleChoiceOptions[0].id === currentQuestion.correctAnswer;
+        break;
+    }
+    
+    if (isCorrect) {
+      setScore(prev => prev + 1);
     }
     
     setIsAnswered(true);
   };
-
+  
   const handleNextQuestion = () => {
     setIsAnswered(false);
     
@@ -139,25 +224,262 @@ export const QuizComponent: React.FC<QuizProps> = ({ quiz, onComplete }) => {
       onComplete(score);
     }
   };
-
-  const progress = ((currentQuestionIndex + (isAnswered ? 1 : 0)) / quiz.questions.length) * 100;
-
-  const renderFeedback = (option: QuizOptionType, index: number) => {
-    if (!isAnswered) return null;
+  
+  const swapMatchingPair = (itemIndex: number, descriptionIndex: number) => {
+    if (isAnswered) return;
     
-    if (quizType === 'order') {
-      // In ordering quizzes, the item that should be first gets a check
-      if (index === 0 && option.originalIndex === currentQuestion.correctAnswer) {
-        return <Check size={18} className="text-green-400 mr-3 flex-shrink-0" />;
-      } else if (index === 0) {
-        return <X size={18} className="text-red-400 mr-3 flex-shrink-0" />;
-      } else if (option.originalIndex === currentQuestion.correctAnswer) {
-        // Indicate which one should have been first
-        return <Check size={18} className="text-yellow-400 mr-3 flex-shrink-0" />;
-      }
+    setMatchingPairs(prev => {
+      const newPairs = [...prev];
+      const temp = newPairs[itemIndex].description;
+      newPairs[itemIndex].description = newPairs[descriptionIndex].description;
+      newPairs[descriptionIndex].description = temp;
+      return newPairs;
+    });
+  };
+  
+  const moveItemToCategory = (itemId: number, fromCategoryIndex: number, toCategoryIndex: number) => {
+    if (isAnswered) return;
+    
+    setSortedItems(prev => {
+      const newCategories = [...prev];
+      
+      // Find item in source category
+      const sourceCategory = newCategories[fromCategoryIndex];
+      const itemIndex = sourceCategory.items.findIndex(item => item.id === itemId);
+      if (itemIndex === -1) return prev;
+      
+      // Move item to destination category
+      const item = sourceCategory.items[itemIndex];
+      sourceCategory.items.splice(itemIndex, 1);
+      newCategories[toCategoryIndex].items.push(item);
+      
+      return newCategories;
+    });
+  };
+  
+  const getQuestionTitle = () => {
+    if (!currentQuestion) return "";
+    
+    switch(currentQuestion.type) {
+      case 'matching': return "Matching Blocks";
+      case 'sequencing': return "Sequencing";
+      case 'sorting': return "Sorting/Classification";
+      case 'multiple-choice': return "Multiple Choice";
+      default: return "Question";
     }
+  };
+  
+  const getQuestionInstructions = () => {
+    if (!currentQuestion) return "";
     
-    return null;
+    switch(currentQuestion.type) {
+      case 'matching': 
+        return "Match each item with its description by dragging to swap the descriptions.";
+      case 'sequencing': 
+        return "Arrange the steps in the correct order by dragging them into place.";
+      case 'sorting': 
+        return "Sort the items into their correct categories by dragging them.";
+      case 'multiple-choice': 
+        return "Drag the correct answer to the top position.";
+      default: 
+        return "";
+    }
+  };
+  
+  const progress = ((currentQuestionIndex + (isAnswered ? 1 : 0)) / quiz.questions.length) * 100;
+  
+  const renderMatchingQuestion = () => {
+    if (currentQuestion?.type !== 'matching') return null;
+    
+    return (
+      <div className="space-y-4">
+        {matchingPairs.map((pair, index) => (
+          <div key={index} className="flex flex-col sm:flex-row gap-2 sm:gap-4 items-stretch sm:items-center">
+            <div className="flex-1 bg-purple-900/30 p-3 rounded-lg text-white font-medium">
+              {pair.item.text}
+            </div>
+            <div className="w-8 flex justify-center my-1">
+              {isAnswered ? (
+                currentQuestion.correctPairs[pair.item.id] === pair.description.id ? (
+                  <Check size={20} className="text-green-400" />
+                ) : (
+                  <X size={20} className="text-red-400" />
+                )
+              ) : (
+                <span>→</span>
+              )}
+            </div>
+            <div 
+              className={`flex-1 p-3 rounded-lg cursor-pointer border-2 ${
+                isAnswered 
+                  ? currentQuestion.correctPairs[pair.item.id] === pair.description.id
+                    ? "border-green-500 bg-green-900/30"
+                    : "border-red-500 bg-red-900/30"
+                  : "border-gray-600 bg-gray-800 hover:bg-gray-700"
+              }`}
+              onClick={() => {
+                if (index < matchingPairs.length - 1) {
+                  swapMatchingPair(index, index + 1);
+                }
+              }}
+            >
+              {pair.description.text}
+            </div>
+          </div>
+        ))}
+      </div>
+    );
+  };
+  
+  const renderSequencingQuestion = () => {
+    if (currentQuestion?.type !== 'sequencing') return null;
+    
+    return (
+      <Reorder.Group 
+        axis="y" 
+        values={sequenceItems} 
+        onReorder={setSequenceItems}
+        className="space-y-2"
+      >
+        {sequenceItems.map((item, index) => (
+          <Reorder.Item
+            key={item.id}
+            value={item}
+            className={`w-full text-left p-4 rounded-lg border ${
+              isAnswered
+                ? item.id === currentQuestion.correctOrder[index]
+                  ? "bg-green-700/40 border-green-500 text-white"
+                  : "bg-red-700/20 border-red-500/50 text-white"
+                : "bg-gray-800 border-gray-700 cursor-grab active:cursor-grabbing"
+            }`}
+            disabled={isAnswered}
+          >
+            <div className="flex items-center">
+              {isAnswered ? (
+                item.id === currentQuestion.correctOrder[index] ? (
+                  <Check size={18} className="text-green-400 mr-3 flex-shrink-0" />
+                ) : (
+                  <X size={18} className="text-red-400 mr-3 flex-shrink-0" />
+                )
+              ) : (
+                <GripVertical size={18} className="text-gray-400 mr-3 flex-shrink-0" />
+              )}
+              <span>{item.text}</span>
+              {isAnswered && item.id !== currentQuestion.correctOrder[index] && (
+                <span className="text-yellow-300 text-sm ml-auto">
+                  Should be position {currentQuestion.correctOrder.indexOf(item.id) + 1}
+                </span>
+              )}
+            </div>
+          </Reorder.Item>
+        ))}
+      </Reorder.Group>
+    );
+  };
+  
+  const renderSortingQuestion = () => {
+    if (currentQuestion?.type !== 'sorting') return null;
+    
+    return (
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+        {sortedItems.map((category, categoryIndex) => (
+          <div 
+            key={categoryIndex} 
+            className={`p-4 rounded-lg border border-purple-600 ${
+              categoryIndex === sortedItems.length - 1 
+                ? "bg-gray-800/50" 
+                : "bg-purple-900/20"
+            }`}
+          >
+            <h4 className="font-medium text-lg mb-3 text-purple-300">
+              {category.category}
+            </h4>
+            
+            <div className="space-y-2 min-h-16">
+              {category.items.map((item) => (
+                <div 
+                  key={item.id}
+                  className={`p-3 rounded-lg cursor-pointer ${
+                    isAnswered
+                      ? currentQuestion.correctCategories[item.id] === categoryIndex
+                        ? "bg-green-700/40 border border-green-500"
+                        : "bg-red-700/20 border border-red-500/50"
+                      : "bg-gray-700 hover:bg-gray-600"
+                  }`}
+                  onClick={() => {
+                    if (!isAnswered && categoryIndex !== sortedItems.length - 1) {
+                      // Move to unsorted if not already there
+                      moveItemToCategory(item.id, categoryIndex, sortedItems.length - 1);
+                    } else if (!isAnswered && categoryIndex === sortedItems.length - 1) {
+                      // Move to first category if unsorted
+                      moveItemToCategory(item.id, categoryIndex, 0);
+                    }
+                  }}
+                >
+                  <div className="flex items-center">
+                    {isAnswered && (
+                      currentQuestion.correctCategories[item.id] === categoryIndex ? (
+                        <Check size={18} className="text-green-400 mr-2" />
+                      ) : (
+                        <X size={18} className="text-red-400 mr-2" />
+                      )
+                    )}
+                    {item.text}
+                  </div>
+                </div>
+              ))}
+              {category.items.length === 0 && (
+                <div className="p-3 rounded-lg border border-dashed border-gray-600 text-gray-400 text-center">
+                  {categoryIndex === sortedItems.length - 1 
+                    ? "All items sorted!" 
+                    : "Drag items here"
+                  }
+                </div>
+              )}
+            </div>
+          </div>
+        ))}
+      </div>
+    );
+  };
+  
+  const renderMultipleChoiceQuestion = () => {
+    if (currentQuestion?.type !== 'multiple-choice') return null;
+    
+    return (
+      <Reorder.Group 
+        axis="y" 
+        values={multipleChoiceOptions} 
+        onReorder={setMultipleChoiceOptions}
+        className="space-y-2"
+      >
+        {multipleChoiceOptions.map((option, index) => (
+          <Reorder.Item
+            key={option.id}
+            value={option}
+            className={`w-full text-left p-4 rounded-lg border ${
+              isAnswered
+                ? option.id === currentQuestion.correctAnswer
+                  ? "bg-green-700 border-green-500 text-white"
+                  : "bg-gray-800 border-gray-700"
+                : "bg-gray-800 border-gray-700 cursor-grab active:cursor-grabbing"
+            }`}
+            disabled={isAnswered}
+          >
+            <div className="flex items-center">
+              {isAnswered ? (
+                option.id === currentQuestion.correctAnswer ? (
+                  <Check size={18} className="text-green-400 mr-3 flex-shrink-0" />
+                ) : null
+              ) : (
+                <GripVertical size={18} className="text-gray-400 mr-3 flex-shrink-0" />
+              )}
+              <span>{option.text}</span>
+            </div>
+          </Reorder.Item>
+        ))}
+      </Reorder.Group>
+    );
   };
 
   return (
@@ -199,110 +521,22 @@ export const QuizComponent: React.FC<QuizProps> = ({ quiz, onComplete }) => {
           {/* Question */}
           <div className="mb-6">
             <h3 className="text-xl font-semibold text-white mb-1">
-              Question {currentQuestionIndex + 1}
+              {getQuestionTitle()}
             </h3>
-            <p className="text-lg text-gray-200">{currentQuestion.question}</p>
+            <p className="text-lg text-gray-200">{currentQuestion?.question}</p>
             
-            {quizType === 'order' ? (
-              <p className="text-sm text-purple-300 mt-2">
-                Drag to place the options in the correct order. The correct answer should be at the top.
-              </p>
-            ) : (
-              <p className="text-sm text-purple-300 mt-2">
-                Drag the correct answer to the golden area below.
-              </p>
-            )}
+            <p className="text-sm text-purple-300 mt-2">
+              {getQuestionInstructions()}
+            </p>
           </div>
           
           {/* Interactive Quiz Area */}
-          {quizType === 'order' ? (
-            // Ordering type quiz
-            <div className="space-y-2 mb-6">
-              <Reorder.Group 
-                axis="y" 
-                values={shuffledOptions} 
-                onReorder={setShuffledOptions}
-                className="space-y-2"
-              >
-                {shuffledOptions.map((option, index) => (
-                  <Reorder.Item
-                    key={option.originalIndex}
-                    value={option}
-                    className={`w-full text-left p-4 rounded-lg border 
-                      ${isAnswered 
-                        ? index === 0 && option.originalIndex === currentQuestion.correctAnswer
-                          ? 'bg-green-700 border-green-500 text-white'
-                          : option.originalIndex === currentQuestion.correctAnswer
-                          ? 'bg-yellow-700/30 border-yellow-500 text-white'
-                          : 'bg-gray-800 border-gray-700'
-                        : 'bg-gray-800 border-gray-700 cursor-grab active:cursor-grabbing'
-                      }`}
-                    disabled={isAnswered}
-                  >
-                    <div className="flex items-center">
-                      {isAnswered ? (
-                        renderFeedback(option, index)
-                      ) : (
-                        <GripVertical size={18} className="text-gray-400 mr-3 flex-shrink-0" />
-                      )}
-                      <span>{option.text}</span>
-                    </div>
-                  </Reorder.Item>
-                ))}
-              </Reorder.Group>
-            </div>
-          ) : (
-            // Matching type quiz
-            <div className="mb-6">
-              <div className="border-2 border-dashed border-yellow-500 rounded-lg p-4 mb-4 h-20 flex items-center justify-center bg-yellow-900/20">
-                {shuffledOptions.length > 0 && shuffledOptions[0] && (
-                  <motion.div 
-                    className={`w-full p-3 rounded-lg text-center
-                      ${isAnswered 
-                        ? shuffledOptions[0].originalIndex === currentQuestion.correctAnswer 
-                          ? 'bg-green-700 text-white' 
-                          : 'bg-red-700 text-white'
-                        : 'bg-purple-900/50 text-white'
-                      }`}
-                  >
-                    {shuffledOptions[0].text}
-                  </motion.div>
-                )}
-              </div>
-              
-              <Reorder.Group 
-                axis="y" 
-                values={shuffledOptions.slice(1)} 
-                onReorder={(newOrder) => {
-                  setShuffledOptions([shuffledOptions[0], ...newOrder]);
-                }}
-                className="space-y-2"
-              >
-                {shuffledOptions.slice(1).map((option) => (
-                  <Reorder.Item
-                    key={option.originalIndex}
-                    value={option}
-                    className={`w-full text-left p-4 rounded-lg border bg-gray-800 border-gray-700
-                      ${isAnswered 
-                        ? option.originalIndex === currentQuestion.correctAnswer 
-                          ? 'border-green-500' 
-                          : ''
-                        : 'cursor-grab active:cursor-grabbing'
-                      }`}
-                    disabled={isAnswered}
-                  >
-                    <div className="flex items-center">
-                      <GripVertical size={18} className="text-gray-400 mr-3 flex-shrink-0" />
-                      <span>{option.text}</span>
-                      {isAnswered && option.originalIndex === currentQuestion.correctAnswer && (
-                        <Check size={18} className="text-green-400 ml-auto" />
-                      )}
-                    </div>
-                  </Reorder.Item>
-                ))}
-              </Reorder.Group>
-            </div>
-          )}
+          <div className="mb-6">
+            {currentQuestion?.type === 'matching' && renderMatchingQuestion()}
+            {currentQuestion?.type === 'sequencing' && renderSequencingQuestion()}
+            {currentQuestion?.type === 'sorting' && renderSortingQuestion()}
+            {currentQuestion?.type === 'multiple-choice' && renderMultipleChoiceQuestion()}
+          </div>
           
           {/* Answer/Next button */}
           <div className="flex justify-between">

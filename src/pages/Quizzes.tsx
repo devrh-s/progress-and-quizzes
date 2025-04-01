@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
 import { QuizComponent } from '@/components/QuizComponent';
@@ -9,24 +8,62 @@ import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/
 import { PlayCircle } from 'lucide-react';
 import { cn } from '@/lib/utils';
 
-interface QuizTopic {
-  id: string;
-  title: string;
-  difficulty: 'easy' | 'medium' | 'hard';
-  questions: {
-    question: string;
-    options: string[];
-    correctAnswer: number;
-  }[];
-}
-
-const quizTopics: QuizTopic[] = [
+const quizTopics = [
+  {
+    id: "practical-ai-skills",
+    title: "Introduction to Practical AI Skills",
+    difficulty: 'medium',
+    questions: [
+      {
+        type: 'matching',
+        question: "Match each key component with its description by dragging the correct description next to the corresponding component.",
+        items: [
+          "AI Fluency",
+          "Critical Analysis",
+          "Role-Context-Query Method"
+        ],
+        descriptions: [
+          "Mastering AI tools to solve real business problems",
+          "Applying analytical thinking for informed decision-making",
+          "Breaking down tasks into roles, context, and precise queries"
+        ],
+        correctPairs: [0, 1, 2] // Indices of correct descriptions for each item
+      },
+      {
+        type: 'sequencing',
+        question: "Arrange the following steps to develop practical AI skills in the correct order by dragging them into place.",
+        steps: [
+          "Understanding basic AI concepts",
+          "Gaining hands-on experience",
+          "Applying AI tools in real projects",
+          "Evaluating outcomes and refining strategies"
+        ],
+        correctOrder: [0, 1, 2, 3] // Correct order of steps indices
+      },
+      {
+        type: 'sorting',
+        question: "Sort these activities into two categories: Practical Application and Theoretical Study.",
+        activities: [
+          "Participating in an AI workshop",
+          "Reading research papers on AI algorithms",
+          "Experimenting with AI tools in real projects",
+          "Attending academic lectures on AI fundamentals"
+        ],
+        categories: [
+          "Practical Application",
+          "Theoretical Study"
+        ],
+        correctCategories: [0, 1, 0, 1] // Category index for each activity
+      }
+    ]
+  },
   {
     id: "practical-skills-quiz",
     title: "Practical AI Skills Quiz",
     difficulty: 'easy',
     questions: [
       {
+        type: 'multiple-choice',
         question: "What is the main focus of practical AI skills compared to theoretical knowledge?",
         options: [
           "Understanding algorithm mathematics",
@@ -37,6 +74,7 @@ const quizTopics: QuizTopic[] = [
         correctAnswer: 1
       },
       {
+        type: 'multiple-choice',
         question: "Which of the following is NOT mentioned as a key concept in practical AI skills?",
         options: [
           "Developing effective prompting techniques",
@@ -47,6 +85,7 @@ const quizTopics: QuizTopic[] = [
         correctAnswer: 2
       },
       {
+        type: 'multiple-choice',
         question: "What is the first step in the proactive implementation framework?",
         options: [
           "Select appropriate tools",
@@ -57,6 +96,7 @@ const quizTopics: QuizTopic[] = [
         correctAnswer: 2
       },
       {
+        type: 'multiple-choice',
         question: "What does proactive implementation primarily focus on?",
         options: [
           "Waiting for problems to arise before applying AI solutions",
@@ -74,6 +114,7 @@ const quizTopics: QuizTopic[] = [
     difficulty: 'medium',
     questions: [
       {
+        type: 'multiple-choice',
         question: "What are the three components of the RCT Framework?",
         options: [
           "Research, Calculation, Testing",
@@ -84,6 +125,7 @@ const quizTopics: QuizTopic[] = [
         correctAnswer: 1
       },
       {
+        type: 'multiple-choice',
         question: "When defining roles in the RCT Framework, what is recommended?",
         options: [
           "Always use generic roles like 'assistant'",
@@ -94,6 +136,7 @@ const quizTopics: QuizTopic[] = [
         correctAnswer: 2
       },
       {
+        type: 'multiple-choice',
         question: "Which of the following is an element of effective context setting?",
         options: [
           "Making the context as brief as possible",
@@ -104,6 +147,7 @@ const quizTopics: QuizTopic[] = [
         correctAnswer: 2
       },
       {
+        type: 'multiple-choice',
         question: "What characterizes well-defined tasks in the RCT Framework?",
         options: [
           "They are always very broad in scope",
@@ -114,6 +158,7 @@ const quizTopics: QuizTopic[] = [
         correctAnswer: 1
       },
       {
+        type: 'multiple-choice',
         question: "How does the RCT Framework primarily improve AI interactions?",
         options: [
           "By making requests longer and more complicated",
@@ -131,6 +176,7 @@ const quizTopics: QuizTopic[] = [
     difficulty: 'hard',
     questions: [
       {
+        type: 'multiple-choice',
         question: "Which of these is NOT listed as a major category of AI tools?",
         options: [
           "Language Models",
@@ -141,6 +187,7 @@ const quizTopics: QuizTopic[] = [
         correctAnswer: 1
       },
       {
+        type: 'multiple-choice',
         question: "According to the course, what is critical for efficiency and quality when using AI tools?",
         options: [
           "Always using the newest AI models",
@@ -151,6 +198,7 @@ const quizTopics: QuizTopic[] = [
         correctAnswer: 2
       },
       {
+        type: 'multiple-choice',
         question: "Which of these is a selection criterion for choosing AI tools?",
         options: [
           "The popularity of the tool on social media",
@@ -161,6 +209,7 @@ const quizTopics: QuizTopic[] = [
         correctAnswer: 2
       },
       {
+        type: 'multiple-choice',
         question: "When evaluating AI tool effectiveness, what is recommended as the first step?",
         options: [
           "Define success metrics",
@@ -171,6 +220,7 @@ const quizTopics: QuizTopic[] = [
         correctAnswer: 0
       },
       {
+        type: 'multiple-choice',
         question: "What type of visualization is recommended for showing improvement over time?",
         options: [
           "Heat maps",
@@ -181,6 +231,7 @@ const quizTopics: QuizTopic[] = [
         correctAnswer: 1
       },
       {
+        type: 'multiple-choice',
         question: "Which AI model is specifically mentioned as excelling at general knowledge tasks?",
         options: [
           "Elicit",
@@ -253,7 +304,6 @@ const Quizzes: React.FC = () => {
     }
   };
 
-  // Function to render stars based on score
   const renderStars = (score: number, total: number) => {
     const stars = [];
     for (let i = 0; i < total; i++) {
