@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
 import { Progress } from '@/components/ui/progress';
@@ -44,7 +45,7 @@ interface QuizProps {
     title: string;
     difficulty: string;
     questions: QuizQuestion[];
-    timeLimit: number; // New property for time limit
+    timeLimit: number;
   };
   onComplete: (score: number) => void;
 }
@@ -60,7 +61,7 @@ export const QuizComponent: React.FC<QuizProps> = ({ quiz, onComplete }) => {
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
   const [score, setScore] = useState(0);
   const [isAnswered, setIsAnswered] = useState(false);
-  const [timeRemaining, setTimeRemaining] = useState(quiz.timeLimit || 60); // Use provided time limit or default to 60
+  const [timeRemaining, setTimeRemaining] = useState(quiz.timeLimit || 60);
   const [isCompleted, setIsCompleted] = useState(false);
   
   // State for different question types
@@ -71,6 +72,11 @@ export const QuizComponent: React.FC<QuizProps> = ({ quiz, onComplete }) => {
   const [selectedOption, setSelectedOption] = useState<number | null>(null);
   const [loading, setLoading] = useState(true);
   
+  // Drag state
+  const [dragItem, setDragItem] = useState<any>(null);
+  const [dragItemType, setDragItemType] = useState<'matching' | 'sequencing' | 'sorting' | null>(null);
+  const [draggedOverCategory, setDraggedOverCategory] = useState<number | null>(null);
+  
   const currentQuestion = quiz.questions[currentQuestionIndex];
   
   // Initialize question based on its type
@@ -80,6 +86,9 @@ export const QuizComponent: React.FC<QuizProps> = ({ quiz, onComplete }) => {
     setIsAnswered(false);
     setLoading(true);
     setSelectedOption(null);
+    setDragItem(null);
+    setDragItemType(null);
+    setDraggedOverCategory(null);
     
     // Small delay to ensure state is reset between questions
     const timer = setTimeout(() => {
@@ -156,7 +165,7 @@ export const QuizComponent: React.FC<QuizProps> = ({ quiz, onComplete }) => {
       }
       
       // Reset timer
-      setTimeRemaining(60);
+      setTimeRemaining(quiz.timeLimit || 60);
       setLoading(false);
     }, 300);
     
@@ -240,16 +249,100 @@ export const QuizComponent: React.FC<QuizProps> = ({ quiz, onComplete }) => {
     }
   };
   
-  const swapMatchingPair = (itemIndex: number, descriptionIndex: number) => {
+  // ====== MATCHING QUESTION HANDLERS ======
+  const handleDragStartMatching = (pairIndex: number) => {
     if (isAnswered) return;
+    
+    setDragItem({ type: 'pair', index: pairIndex });
+    setDragItemType('matching');
+  };
+  
+  const handleDragOverMatching = (e: React.DragEvent, pairIndex: number) => {
+    e.preventDefault();
+    if (isAnswered || !dragItem || dragItemType !== 'matching') return;
+  };
+  
+  const handleDropMatching = (targetIndex: number) => {
+    if (isAnswered || !dragItem || dragItemType !== 'matching') return;
+    
+    const sourceIndex = dragItem.index;
+    
+    if (sourceIndex === targetIndex) return;
     
     setMatchingPairs(prev => {
       const newPairs = [...prev];
-      const temp = newPairs[itemIndex].description;
-      newPairs[itemIndex].description = newPairs[descriptionIndex].description;
-      newPairs[descriptionIndex].description = temp;
+      const temp = newPairs[sourceIndex].description;
+      newPairs[sourceIndex].description = newPairs[targetIndex].description;
+      newPairs[targetIndex].description = temp;
       return newPairs;
     });
+    
+    setDragItem(null);
+    setDragItemType(null);
+  };
+  
+  // ====== SEQUENCING QUESTION HANDLERS ======
+  const handleDragStartSequencing = (itemIndex: number) => {
+    if (isAnswered) return;
+    
+    setDragItem({ type: 'sequence', index: itemIndex });
+    setDragItemType('sequencing');
+  };
+  
+  const handleDragOverSequencing = (e: React.DragEvent, itemIndex: number) => {
+    e.preventDefault();
+    if (isAnswered || !dragItem || dragItemType !== 'sequencing') return;
+  };
+  
+  const handleDropSequencing = (targetIndex: number) => {
+    if (isAnswered || !dragItem || dragItemType !== 'sequencing') return;
+    
+    const sourceIndex = dragItem.index;
+    
+    if (sourceIndex === targetIndex) return;
+    
+    setSequenceItems(prev => {
+      const newItems = [...prev];
+      const movedItem = newItems.splice(sourceIndex, 1)[0];
+      newItems.splice(targetIndex, 0, movedItem);
+      return newItems;
+    });
+    
+    setDragItem(null);
+    setDragItemType(null);
+  };
+  
+  // ====== SORTING QUESTION HANDLERS ======
+  const handleDragStartSorting = (itemId: number, categoryIndex: number) => {
+    if (isAnswered) return;
+    
+    setDragItem({ type: 'sort', itemId, categoryIndex });
+    setDragItemType('sorting');
+  };
+  
+  const handleDragOverCategory = (e: React.DragEvent, categoryIndex: number) => {
+    e.preventDefault();
+    if (isAnswered || !dragItem || dragItemType !== 'sorting') return;
+    
+    setDraggedOverCategory(categoryIndex);
+  };
+  
+  const handleDragLeaveCategory = () => {
+    setDraggedOverCategory(null);
+  };
+  
+  const handleDropSorting = (targetCategoryIndex: number) => {
+    if (isAnswered || !dragItem || dragItemType !== 'sorting') return;
+    
+    const { itemId, categoryIndex: sourceCategoryIndex } = dragItem;
+    
+    if (sourceCategoryIndex === targetCategoryIndex) return;
+    
+    moveItemToCategory(itemId, sourceCategoryIndex, targetCategoryIndex);
+    
+    setDragItem(null);
+    setDragItemType(null);
+    setDraggedOverCategory(null);
   };
   
   const moveItemToCategory = (itemId: number, fromCategoryIndex: number, toCategoryIndex: number) => {
@@ -293,11 +386,11 @@ export const QuizComponent: React.FC<QuizProps> = ({ quiz, onComplete }) => {
     
     switch(currentQuestion.type) {
       case 'matching': 
-        return "Match each item with its description by clicking to swap the descriptions.";
+        return "Match each item with its description by dragging the descriptions into the correct places.";
       case 'sequencing': 
         return "Arrange the steps in the correct order by dragging them into place.";
       case 'sorting': 
-        return "Sort the items into their correct categories by clicking on them.";
+        return "Sort the items into their correct categories by dragging them.";
       case 'multiple-choice': 
         return "Select the correct answer.";
       default: 
@@ -313,7 +406,10 @@ export const QuizComponent: React.FC<QuizProps> = ({ quiz, onComplete }) => {
     return (
       <div className="space-y-4">
         {matchingPairs.map((pair, index) => (
-          <div key={index} className="flex flex-col sm:flex-row gap-2 sm:gap-4 items-stretch sm:items-center">
+          <div 
+            key={index} 
+            className="flex flex-col sm:flex-row gap-2 sm:gap-4 items-stretch sm:items-center"
+          >
             <div className="flex-1 bg-purple-900/30 p-3 rounded-lg text-white font-medium">
               {pair.item.text}
             </div>
@@ -328,25 +424,26 @@ export const QuizComponent: React.FC<QuizProps> = ({ quiz, onComplete }) => {
                 <span>→</span>
               )}
             </div>
-            <button 
-              className={`flex-1 p-3 rounded-lg cursor-pointer border-2 text-left ${
+            <div 
+              className={`flex-1 p-3 rounded-lg cursor-grab border-2 text-left ${
                 isAnswered 
                   ? currentQuestion.correctPairs[pair.item.id] === pair.description.id
                     ? "border-green-500 bg-green-900/30"
                     : "border-red-500 bg-red-900/30"
                   : "border-gray-600 bg-gray-800 hover:bg-gray-700"
               }`}
-              onClick={() => {
-                if (index < matchingPairs.length - 1 && !isAnswered) {
-                  swapMatchingPair(index, index + 1);
-                } else if (index > 0 && !isAnswered) {
-                  swapMatchingPair(index, index - 1);
-                }
-              }}
-              disabled={isAnswered}
+              draggable={!isAnswered}
+              onDragStart={() => handleDragStartMatching(index)}
+              onDragOver={(e) => handleDragOverMatching(e, index)}
+              onDrop={() => handleDropMatching(index)}
             >
-              {pair.description.text}
-            </button>
+              <div className="flex items-center">
+                {!isAnswered && (
+                  <GripVertical size={18} className="text-gray-400 mr-3 flex-shrink-0" />
+                )}
+                {pair.description.text}
+              </div>
+            </div>
           </div>
         ))}
       </div>
@@ -368,6 +465,10 @@ export const QuizComponent: React.FC<QuizProps> = ({ quiz, onComplete }) => {
                   : "bg-red-700/20 border-red-500/50 text-white"
                 : "bg-gray-800 border-gray-700 cursor-grab active:cursor-grabbing"
             }`}
+            draggable={!isAnswered}
+            onDragStart={() => handleDragStartSequencing(index)}
+            onDragOver={(e) => handleDragOverSequencing(e, index)}
+            onDrop={() => handleDropSequencing(index)}
           >
             <div className="flex items-center">
               {isAnswered ? (
@@ -400,11 +501,16 @@ export const QuizComponent: React.FC<QuizProps> = ({ quiz, onComplete }) => {
         {sortedItems.map((category, categoryIndex) => (
           <div 
             key={categoryIndex} 
-            className={`p-4 rounded-lg border border-purple-600 ${
+            className={`p-4 rounded-lg border ${
               categoryIndex === sortedItems.length - 1 
-                ? "bg-gray-800/50" 
-                : "bg-purple-900/20"
+                ? "bg-gray-800/50 border-gray-600" 
+                : `bg-purple-900/20 border-purple-600 ${
+                    draggedOverCategory === categoryIndex ? "border-yellow-500 border-2" : ""
+                  }`
             }`}
+            onDragOver={(e) => handleDragOverCategory(e, categoryIndex)}
+            onDragLeave={handleDragLeaveCategory}
+            onDrop={() => handleDropSorting(categoryIndex)}
           >
             <h4 className="font-medium text-lg mb-3 text-purple-300">
               {category.category}
@@ -414,33 +520,25 @@ export const QuizComponent: React.FC<QuizProps> = ({ quiz, onComplete }) => {
               {category.items.map((item) => (
                 <div 
                   key={item.id}
-                  className={`p-3 rounded-lg cursor-pointer ${
+                  className={`p-3 rounded-lg ${
                     isAnswered
                       ? currentQuestion.correctCategories[item.id] === categoryIndex
                         ? "bg-green-700/40 border border-green-500"
                         : "bg-red-700/20 border border-red-500/50"
-                      : "bg-gray-700 hover:bg-gray-600"
+                      : "bg-gray-700 hover:bg-gray-600 cursor-grab active:cursor-grabbing"
                   }`}
-                  onClick={() => {
-                    if (isAnswered) return;
-                    
-                    // Toggle between current category and unsorted/first category
-                    if (categoryIndex === sortedItems.length - 1) {
-                      // Move from unsorted to first category
-                      moveItemToCategory(item.id, categoryIndex, 0);
-                    } else if (categoryIndex < sortedItems.length - 1) {
-                      // Move from category to unsorted
-                      moveItemToCategory(item.id, categoryIndex, sortedItems.length - 1);
-                    }
-                  }}
+                  draggable={!isAnswered}
+                  onDragStart={() => handleDragStartSorting(item.id, categoryIndex)}
                 >
                   <div className="flex items-center">
-                    {isAnswered && (
+                    {isAnswered ? (
                       currentQuestion.correctCategories[item.id] === categoryIndex ? (
                         <Check size={18} className="text-green-400 mr-2" />
                       ) : (
                         <X size={18} className="text-red-400 mr-2" />
                       )
+                    ) : (
+                      <GripVertical size={18} className="text-gray-400 mr-2 flex-shrink-0" />
                     )}
                     {item.text}
                     {isAnswered && currentQuestion.correctCategories[item.id] !== categoryIndex && (
@@ -455,7 +553,7 @@ export const QuizComponent: React.FC<QuizProps> = ({ quiz, onComplete }) => {
                 <div className="p-3 rounded-lg border border-dashed border-gray-600 text-gray-400 text-center">
                   {categoryIndex === sortedItems.length - 1 
                     ? "All items sorted!" 
-                    : "Click items to move them here"
+                    : "Drag items here"
                   }
                 </div>
               )}
