@@ -6,6 +6,7 @@ import { CourseContent } from '@/components/CourseContent';
 import { TableOfContents } from '@/components/TableOfContents';
 import { toast } from '@/components/ui/use-toast';
 import { Home, Clock, Users, BookOpen, GraduationCap, Star } from 'lucide-react';
+import { QuizComponent } from '@/components/QuizComponent';
 
 interface Section {
   id: string;
@@ -18,6 +19,180 @@ interface Subtopic {
   title: string;
   content: string;
 }
+
+// Quiz data for each section
+const quizzes = {
+  "practical-skills-intro": {
+    id: "practical-skills-intro-quiz",
+    title: "Practical AI Skills Quiz",
+    difficulty: "Mixed",
+    questions: [
+      {
+        question: "Identify the component that emphasizes mastering AI tools for real business problems.",
+        options: ["AI Fluency", "Critical Analysis", "Role-Context-Query Method", "Workflow Planning"],
+        correctAnswer: 0
+      },
+      {
+        question: "Sort the following activities into two groups: Practical (Hands-On Experience) and Theoretical.",
+        options: [
+          "Experimenting with AI tools in projects and participating in AI workshops are practical, while reading academic papers and attending lectures are theoretical.",
+          "Reading academic papers and participating in workshops are practical, while experimenting with tools and attending lectures are theoretical.",
+          "All four activities are primarily theoretical in nature.",
+          "All four activities are primarily practical in nature."
+        ],
+        correctAnswer: 0
+      },
+      {
+        question: "Arrange the steps for developing AI competencies in the correct order.",
+        options: [
+          "Understanding basic concepts → Applying AI tools in real projects → Evaluating outcomes → Refining strategies",
+          "Applying AI tools → Understanding concepts → Refining strategies → Evaluating outcomes",
+          "Evaluating outcomes → Understanding concepts → Applying AI tools → Refining strategies",
+          "Refining strategies → Applying AI tools → Understanding concepts → Evaluating outcomes"
+        ],
+        correctAnswer: 0
+      }
+    ]
+  },
+  "proactive-implementation": {
+    id: "proactive-implementation-quiz",
+    title: "Proactive Implementation Quiz",
+    difficulty: "Mixed",
+    questions: [
+      {
+        question: "Identify the element that supports quickly testing AI hypotheses.",
+        options: ["Rapid Testing", "Change Management", "Tool Selection", "Strategic Analysis"],
+        correctAnswer: 0
+      },
+      {
+        question: "Match each element with its primary function correctly.",
+        options: [
+          "Rapid Testing → Quick pilot launches, Change Management → Facilitating adoption, Tool Selection → Choosing suitable AI tools",
+          "Rapid Testing → Strategic planning, Change Management → Tool integration, Tool Selection → User feedback",
+          "Rapid Testing → Continuous refinement, Change Management → Documentation, Tool Selection → Implementation",
+          "Rapid Testing → Testing procedures, Change Management → Technical deployment, Tool Selection → Team assignment"
+        ],
+        correctAnswer: 0
+      },
+      {
+        question: "Arrange the strategic steps for successful AI adoption in order.",
+        options: [
+          "Analyze business needs → Launch pilot projects → Collect and analyze feedback → Scale successful solutions",
+          "Launch pilot projects → Analyze business needs → Scale successful solutions → Collect feedback",
+          "Collect feedback → Analyze business needs → Launch pilot projects → Scale successful solutions",
+          "Scale successful solutions → Launch pilot projects → Analyze business needs → Collect feedback"
+        ],
+        correctAnswer: 0
+      }
+    ]
+  },
+  "personal-ai-development": {
+    id: "personal-ai-quiz",
+    title: "Personal AI Development Quiz",
+    difficulty: "Mixed",
+    questions: [
+      {
+        question: "Identify the three core components of structured AI learning mentioned in the content.",
+        options: [
+          "Skills Assessment, Project Focus, Continuous Learning",
+          "Skills Assessment, Theoretical Study, Random Practice",
+          "Project Focus, Research, Documentation",
+          "Continuous Learning, Self-Critique, Evaluation"
+        ],
+        correctAnswer: 0
+      },
+      {
+        question: "Match each component with its description correctly.",
+        options: [
+          "Skills Assessment → Identifying areas for improvement, Project Focus → Applying learning to real projects, Continuous Learning → Regular practice through hands-on exercises",
+          "Skills Assessment → Creating theoretical plans, Project Focus → Documentation, Continuous Learning → Academic research",
+          "Skills Assessment → Team collaboration, Project Focus → Market research, Continuous Learning → Technical documentation",
+          "Skills Assessment → Academic study, Project Focus → Tool selection, Continuous Learning → Strategic planning"
+        ],
+        correctAnswer: 0
+      },
+      {
+        question: "Arrange the steps for personal AI development in a logical order.",
+        options: [
+          "Conduct a skills assessment → Apply knowledge through projects → Engage in continuous learning",
+          "Engage in continuous learning → Conduct a skills assessment → Apply knowledge through projects",
+          "Apply knowledge through projects → Engage in continuous learning → Conduct a skills assessment",
+          "All steps should happen simultaneously"
+        ],
+        correctAnswer: 0
+      }
+    ]
+  },
+  "final-project": {
+    id: "final-project-quiz",
+    title: "Final Project Quiz",
+    difficulty: "Mixed",
+    questions: [
+      {
+        question: "Identify the main task of the final project.",
+        options: [
+          "Develop and present an AI-driven solution for a specific business challenge",
+          "Write a theoretical paper on AI trends",
+          "Create a simple AI chatbot",
+          "Design a marketing strategy using AI"
+        ],
+        correctAnswer: 0
+      },
+      {
+        question: "Match each step of the project with its description correctly.",
+        options: [
+          "Analysis → Identify opportunities for AI implementation, Tools → Select and implement appropriate AI solutions, Execute → Build and test with stakeholder feedback, Present → Demonstrate results and outline future plans",
+          "Analysis → Documentation, Tools → Implementation, Execute → Research, Present → Publication",
+          "Analysis → Market research, Tools → Technical documentation, Execute → Developing theories, Present → Statistical review",
+          "Analysis → Team formation, Tools → Resource allocation, Execute → Timeline planning, Present → Budget review"
+        ],
+        correctAnswer: 0
+      },
+      {
+        question: "Arrange the following steps to implement the AI solution for business process improvement.",
+        options: [
+          "Analyze business needs → Select appropriate AI tools → Build and test the solution → Present the outcomes and future plans",
+          "Select appropriate AI tools → Analyze business needs → Present the outcomes → Build and test the solution",
+          "Build and test the solution → Analyze business needs → Select appropriate AI tools → Present the outcomes",
+          "Present the outcomes → Build and test the solution → Select appropriate AI tools → Analyze business needs"
+        ],
+        correctAnswer: 0
+      }
+    ]
+  },
+  "key-focus-areas": {
+    id: "key-focus-areas-quiz",
+    title: "Key Focus Areas Quiz",
+    difficulty: "Mixed",
+    questions: [
+      {
+        question: "Identify one of the key focus areas mentioned in the content.",
+        options: ["Practical Skills", "Market Research", "Theoretical Analysis", "Customer Engagement"],
+        correctAnswer: 0
+      },
+      {
+        question: "Sort the focus areas in the order they appear in the text.",
+        options: [
+          "Practical Skills → Implementation → Results",
+          "Results → Implementation → Practical Skills",
+          "Implementation → Practical Skills → Results",
+          "Practical Skills → Results → Implementation"
+        ],
+        correctAnswer: 0
+      },
+      {
+        question: "Match each key focus area with its corresponding description.",
+        options: [
+          "Practical Skills → Hands-on experience with AI tools, Implementation → Strategic deployment of AI solutions, Results → Measurable improvements in workflow efficiency",
+          "Practical Skills → Theoretical knowledge, Implementation → Research methods, Results → Documentation standards",
+          "Practical Skills → Team management, Implementation → Budget allocation, Results → Project timeline",
+          "Practical Skills → Academic research, Implementation → Publication, Results → Peer review"
+        ],
+        correctAnswer: 0
+      }
+    ]
+  }
+};
 
 const courseSections: Section[] = [
   {
@@ -590,12 +765,16 @@ const Guide: React.FC = () => {
   const [progress, setProgress] = useState(0);
   const [completedSections, setCompletedSections] = useState<string[]>([]);
   const [xp, setXp] = useState(0);
+  const [showQuiz, setShowQuiz] = useState(false);
+  const [currentQuiz, setCurrentQuiz] = useState<any>(null);
+
+  // Calculate total number of topics
+  const totalTopics = courseSections.reduce((acc, section) => acc + section.subtopics.length, 0);
 
   useEffect(() => {
-    const totalSubtopics = courseSections.reduce((acc, section) => acc + section.subtopics.length, 0);
-    const newProgress = (completedSections.length / totalSubtopics) * 100;
+    const newProgress = (completedSections.length / totalTopics) * 100;
     setProgress(Math.round(newProgress));
-  }, [completedSections]);
+  }, [completedSections, totalTopics]);
 
   const handleSectionChange = (sectionId: string) => {
     const section = courseSections.find(s => s.id === sectionId);
@@ -634,118 +813,31 @@ const Guide: React.FC = () => {
           variant: "default",
         });
       }
+
+      // Hide quiz when changing subtopics
+      setShowQuiz(false);
     }
   };
 
-  const handleNextSubtopic = () => {
-    const currentIndex = activeSection.subtopics.findIndex(s => s.id === activeSubtopic.id);
-    if (currentIndex < activeSection.subtopics.length - 1) {
-      handleSubtopicChange(activeSection.subtopics[currentIndex + 1].id);
+  const handleQuizComplete = (score: number) => {
+    setShowQuiz(false);
+    const pointsEarned = score * 5;
+    setXp(prev => prev + pointsEarned);
+    
+    if (pointsEarned > 0) {
+      toast({
+        title: "Quiz Completed!",
+        description: `You earned ${pointsEarned} XP for completing the quiz!`,
+        variant: "default",
+      });
+    }
+  };
+
+  const handleTakeQuiz = () => {
+    const quiz = quizzes[activeSubtopic.id as keyof typeof quizzes];
+    if (quiz) {
+      setCurrentQuiz(quiz);
+      setShowQuiz(true);
     } else {
-      const currentSectionIndex = courseSections.findIndex(s => s.id === activeSection.id);
-      if (currentSectionIndex < courseSections.length - 1) {
-        const nextSection = courseSections[currentSectionIndex + 1];
-        setActiveSection(nextSection);
-        setActiveSubtopic(nextSection.subtopics[0]);
-        if (!completedSections.includes(nextSection.subtopics[0].id)) {
-          setCompletedSections([...completedSections, nextSection.subtopics[0].id]);
-          setXp(xp + 5);
-          toast({
-            title: "XP Gained!",
-            description: "Gained 5 XP for moving to a new section!",
-            variant: "default",
-          });
-        }
-      }
-    }
-  };
-
-  const handlePreviousSubtopic = () => {
-    const currentIndex = activeSection.subtopics.findIndex(s => s.id === activeSubtopic.id);
-    if (currentIndex > 0) {
-      handleSubtopicChange(activeSection.subtopics[currentIndex - 1].id);
-    } else {
-      const currentSectionIndex = courseSections.findIndex(s => s.id === activeSection.id);
-      if (currentSectionIndex > 0) {
-        const prevSection = courseSections[currentSectionIndex - 1];
-        setActiveSection(prevSection);
-        setActiveSubtopic(prevSection.subtopics[prevSection.subtopics.length - 1]);
-      }
-    }
-  };
-
-  return (
-    <div className="min-h-screen flex flex-col md:flex-row">
-      <div className="md:w-1/4 bg-gray-900 p-4 md:p-6 space-y-6 border-r border-purple-900">
-        <div className="fantasy-card p-4">
-          <h3 className="text-lg font-semibold text-white mb-2">Course Progress</h3>
-          <Progress value={progress} className="h-2 mb-2" />
-          <div className="flex justify-between text-purple-300 text-sm">
-            <span className="bg-clip-text text-transparent bg-gradient-to-r from-purple-400 via-pink-300 to-indigo-400 animate-shimmer bg-[length:200%_100%]">{progress}% complete</span>
-            <span>{completedSections.length} topics</span>
-          </div>
-          <div className="mt-2 text-yellow-300 font-semibold">
-            {xp} XP ✨
-          </div>
-          <div className="mt-3 space-y-1 text-sm text-purple-200">
-            <div className="flex items-center"><BookOpen size={14} className="mr-2 text-blue-300" /> Languages: English</div>
-            <div className="flex items-center"><Clock size={14} className="mr-2 text-green-300" /> Estimated Effort: 2 hours</div>
-            <div className="flex items-center"><Users size={14} className="mr-2 text-pink-300" /> Location: Global</div>
-          </div>
-        </div>
-        
-        <Button
-          variant="outline"
-          className="w-full border-purple-500 text-purple-300 hover:text-white hover:bg-purple-700 flex items-center justify-center gap-2"
-          onClick={() => navigate('/')}
-        >
-          <Home size={16} />
-          Return to Home
-        </Button>
-        
-        <TableOfContents 
-          sections={courseSections}
-          activeSection={activeSection.id}
-          activeSubtopic={activeSubtopic.id}
-          completedSections={completedSections}
-          onSectionChange={handleSectionChange}
-          onSubtopicChange={handleSubtopicChange}
-        />
-      </div>
-      
-      <div className="flex-1 p-4 md:p-8 overflow-y-auto">
-        <CourseContent
-          section={activeSection}
-          subtopic={activeSubtopic}
-        />
-        
-        <div className="flex justify-between mt-8">
-          <Button
-            variant="outline"
-            onClick={handlePreviousSubtopic}
-            className="border-purple-500 text-purple-300 hover:text-white hover:bg-purple-700"
-          >
-            Previous
-          </Button>
-          <Button
-            variant="outline"
-            onClick={handleNextSubtopic}
-            className="border-purple-500 text-purple-300 hover:text-white hover:bg-purple-700"
-          >
-            Next
-          </Button>
-        </div>
-        
-        <div className="mt-6 text-center">
-          <Link to="/quizzes">
-            <Button className="bg-gradient-to-r from-purple-600 to-indigo-600 text-white">
-              Take Knowledge Tests
-            </Button>
-          </Link>
-        </div>
-      </div>
-    </div>
-  );
-};
-
-export default Guide;
+      toast({
+        title: "No Quiz Available",
