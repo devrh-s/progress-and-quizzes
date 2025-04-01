@@ -657,6 +657,341 @@ const quizzes = {
         correctCategories: [0, 0, 1, 1, 2, 2]
       }
     ]
+  },
+  "core-components": {
+    id: "core-components-quiz",
+    title: "Core Components of AI Project Development Quiz",
+    difficulty: "Mixed",
+    timeLimit: 120,
+    questions: [
+      {
+        type: "sequencing",
+        question: "Rank the following project phases in the order they should logically occur during AI project development.",
+        steps: [
+          "Problem Formulation",
+          "Tool Selection",
+          "Workflow Development",
+          "Testing & Optimization"
+        ],
+        correctOrder: [0, 1, 2, 3]
+      },
+      {
+        type: "sequencing",
+        question: "Arrange the steps that describe the overall process of developing an AI project.",
+        steps: [
+          "Define the business problem and set KPIs",
+          "Choose AI tools based on requirements and expertise",
+          "Create a lifecycle plan with defined roles and feedback loops",
+          "Implement testing protocols and refine using feedback"
+        ],
+        correctOrder: [0, 1, 2, 3]
+      },
+      {
+        type: "matching",
+        question: "Identify each phase by assigning its key focus.",
+        items: [
+          "Problem Formulation",
+          "Tool Selection",
+          "Workflow Development",
+          "Testing & Optimization"
+        ],
+        descriptions: [
+          "Define the business challenge and establish KPIs",
+          "Choose tools based on task needs and team expertise",
+          "Plan project roles, lifecycle, and feedback mechanisms",
+          "Validate performance, monitor metrics, and improve processes"
+        ],
+        correctPairs: [0, 1, 2, 3]
+      }
+    ]
+  },
+  "tool-selection": {
+    id: "tool-selection-quiz",
+    title: "Tool Selection for AI Projects Quiz",
+    difficulty: "Mixed",
+    timeLimit: 120,
+    questions: [
+      {
+        type: "matching",
+        question: "Match each AI tool with its primary purpose for selection in an AI project.",
+        items: [
+          "Claude AI",
+          "Perplexity AI",
+          "Grok"
+        ],
+        descriptions: [
+          "Document processing and analysis",
+          "Information search and verification",
+          "Workflow automation"
+        ],
+        correctPairs: [0, 1, 2]
+      },
+      {
+        type: "sorting",
+        question: "Sort the following tools into the correct function category.",
+        activities: [
+          "Claude AI",
+          "Perplexity AI",
+          "Grok"
+        ],
+        categories: [
+          "Content Analysis",
+          "Data Verification",
+          "Process Automation"
+        ],
+        correctCategories: [0, 1, 2]
+      },
+      {
+        type: "sequencing",
+        question: "Sequence the key considerations in selecting the right AI tool.",
+        steps: [
+          "Assess task requirements and data needs",
+          "Evaluate team expertise and available resources",
+          "Match tool capabilities to project objectives"
+        ],
+        correctOrder: [0, 1, 2]
+      }
+    ]
+  },
+  "workflow-development": {
+    id: "workflow-development-quiz",
+    title: "Workflow Development Quiz",
+    difficulty: "Mixed",
+    timeLimit: 120,
+    questions: [
+      {
+        type: "sequencing",
+        question: "Rank the workflow development steps in the order they should be executed within an AI project.",
+        steps: [
+          "Data Collection",
+          "Analysis",
+          "Content Generation",
+          "Iteration"
+        ],
+        correctOrder: [0, 1, 2, 3]
+      },
+      {
+        type: "matching",
+        question: "Identify each step in the workflow by labeling it with its corresponding action.",
+        items: [
+          "Data Collection",
+          "Analysis",
+          "Content Generation",
+          "Iteration"
+        ],
+        descriptions: [
+          "Gather research data using Perplexity AI",
+          "Process and interpret data using Claude AI",
+          "Create outputs with AI assistance",
+          "Refine outputs based on feedback"
+        ],
+        correctPairs: [0, 1, 2, 3]
+      },
+      {
+        type: "matching",
+        question: "Match each workflow step with the AI tool most recommended for that step.",
+        items: [
+          "Data Collection",
+          "Analysis",
+          "Content Generation"
+        ],
+        descriptions: [
+          "Perplexity AI",
+          "Claude AI",
+          "General AI assistance for content generation"
+        ],
+        correctPairs: [0, 1, 2]
+      }
+    ]
+  },
+  "testing-optimization": {
+    id: "testing-optimization-quiz",
+    title: "Testing & Optimization Quiz",
+    difficulty: "Mixed",
+    timeLimit: 120,
+    questions: [
+      {
+        type: "sequencing",
+        question: "Sequence the following steps of the testing and optimization phase.",
+        steps: [
+          "Validate functionality and performance",
+          "Monitor key metrics",
+          "Optimize processes based on performance data",
+          "Incorporate user feedback"
+        ],
+        correctOrder: [0, 1, 2, 3]
+      },
+      {
+        type: "sorting",
+        question: "Sort the following activities into the categories of Testing, Optimization, and Feedback.",
+        activities: [
+          "Running validation tests",
+          "Tracking performance metrics",
+          "Adjusting process parameters",
+          "Gathering user input"
+        ],
+        categories: [
+          "Testing",
+          "Optimization",
+          "Feedback"
+        ],
+        correctCategories: [0, 1, 1, 2]
+      },
+      {
+        type: "sequencing",
+        question: "Rank the following aspects of the testing & optimization process by their impact on overall project quality.",
+        steps: [
+          "Validation (ensuring functionality)",
+          "Optimization (refining processes)",
+          "Monitoring (tracking performance)",
+          "Feedback (incorporating user insights)"
+        ],
+        correctOrder: [0, 1, 2, 3]
+      }
+    ]
+  },
+  "build-prototype": {
+    id: "build-prototype-quiz",
+    title: "Build a Working Prototype Quiz",
+    difficulty: "Mixed",
+    timeLimit: 120,
+    questions: [
+      {
+        type: "sequencing",
+        question: "Arrange the following actions in the correct sequence for building a working prototype.",
+        steps: [
+          "Define workflow requirements",
+          "Implement AI tools",
+          "Test and validate results",
+          "Monitor performance metrics",
+          "Gather user feedback"
+        ],
+        correctOrder: [0, 1, 2, 3, 4]
+      },
+      {
+        type: "sequencing",
+        question: "Rank the following components of a working prototype from most to least critical.",
+        steps: [
+          "Clear Objective",
+          "Appropriate Tools",
+          "Effective Implementation",
+          "Continuous Optimization"
+        ],
+        correctOrder: [0, 1, 2, 3]
+      },
+      {
+        type: "sorting",
+        question: "Label each step as either part of the Implementation Phase or the Optimization Phase.",
+        activities: [
+          "Define workflow requirements",
+          "Implement AI tools",
+          "Test and validate results",
+          "Monitor performance metrics",
+          "Gather user feedback"
+        ],
+        categories: [
+          "Implementation Phase",
+          "Optimization Phase"
+        ],
+        correctCategories: [0, 0, 0, 1, 1]
+      }
+    ]
+  },
+  "tools-overview": {
+    id: "tools-overview-quiz",
+    title: "Comprehensive Tools Overview Quiz",
+    difficulty: "Mixed",
+    timeLimit: 120,
+    questions: [
+      {
+        type: "matching",
+        question: "Match each tool with its primary purpose as given in the table.",
+        items: [
+          "Claude AI",
+          "Perplexity",
+          "Grok",
+          "Notebook LM"
+        ],
+        descriptions: [
+          "Text generation",
+          "Research",
+          "Text processing",
+          "Analysis"
+        ],
+        correctPairs: [0, 1, 2, 3]
+      },
+      {
+        type: "sorting",
+        question: "Sort the following tools into two categories: Creative & Multimedia and Analytical & Development.",
+        activities: [
+          "ChatGPT",
+          "Midjourney",
+          "Gemini",
+          "Claude AI",
+          "Perplexity",
+          "Grok"
+        ],
+        categories: [
+          "Creative & Multimedia",
+          "Analytical & Development"
+        ],
+        correctCategories: [0, 0, 0, 1, 1, 1]
+      },
+      {
+        type: "sequencing",
+        question: "Rank these four tools by the order you would typically use them in an AI project lifecycle.",
+        steps: [
+          "Perplexity (Research)",
+          "ChatGPT (Content Creation)",
+          "Notebook LM (Analysis)",
+          "Cursor Pro (Development)"
+        ],
+        correctOrder: [0, 1, 2, 3]
+      }
+    ]
+  },
+  "practical-tips": {
+    id: "practical-tips-quiz",
+    title: "Practical Tips for Implementation Quiz",
+    difficulty: "Mixed",
+    timeLimit: 120,
+    questions: [
+      {
+        type: "sequencing",
+        question: "Rank the following practical tips in the order they should be implemented when starting an AI project.",
+        steps: [
+          "Start Small",
+          "Collaborate",
+          "Monitor"
+        ],
+        correctOrder: [0, 1, 2]
+      },
+      {
+        type: "sequencing",
+        question: "Sequence the steps to integrate practical tips into your project lifecycle.",
+        steps: [
+          "Begin with a Minimum Viable Product (MVP)",
+          "Engage stakeholders throughout the project",
+          "Continuously track metrics to optimize performance"
+        ],
+        correctOrder: [0, 1, 2]
+      },
+      {
+        type: "matching",
+        question: "Label each practical tip with its primary benefit.",
+        items: [
+          "Start Small",
+          "Collaborate",
+          "Monitor"
+        ],
+        descriptions: [
+          "Validates concepts with minimal investment",
+          "Enhances stakeholder engagement",
+          "Enables continuous improvement through data tracking"
+        ],
+        correctPairs: [0, 1, 2]
+      }
+    ]
   }
 };
 
