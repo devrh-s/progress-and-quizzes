@@ -20,7 +20,6 @@ interface Subtopic {
   content: string;
 }
 
-// Quiz data for each section
 const quizzes = {
   "practical-skills-intro": {
     id: "practical-skills-intro-quiz",
@@ -768,7 +767,6 @@ const Guide: React.FC = () => {
   const [showQuiz, setShowQuiz] = useState(false);
   const [currentQuiz, setCurrentQuiz] = useState<any>(null);
 
-  // Calculate total number of topics
   const totalTopics = courseSections.reduce((acc, section) => acc + section.subtopics.length, 0);
 
   useEffect(() => {
@@ -814,7 +812,6 @@ const Guide: React.FC = () => {
         });
       }
 
-      // Hide quiz when changing subtopics
       setShowQuiz(false);
     }
   };
@@ -841,3 +838,17 @@ const Guide: React.FC = () => {
     } else {
       toast({
         title: "No Quiz Available",
+        description: "There is no quiz available for this topic yet.",
+        variant: "default",
+      });
+    }
+  };
+
+  return (
+    <div>
+      {/* Component JSX */}
+    </div>
+  );
+};
+
+export default Guide;
