@@ -1054,8 +1054,316 @@ const quizzes = {
   }
 };
 
-const Guide = ({ courseSections, quizzes }) => {
-  // Existing component implementation
+const courseSections = [
+  {
+    id: "introduction",
+    title: "Introduction",
+    subtopics: [
+      {
+        id: "what-you-will-learn",
+        title: "What You Will Learn",
+        content: "Learn the basics of practical AI skills and how to apply them in real-world scenarios."
+      },
+      {
+        id: "practical-skills",
+        title: "Practical Skills",
+        content: "Develop hands-on experience with AI tools and techniques."
+      },
+      {
+        id: "rct-framework",
+        title: "Role-Context-Task Framework",
+        content: "Understand and apply the RCT Framework for effective AI interactions."
+      },
+      {
+        id: "ai-tools",
+        title: "AI Tools Overview",
+        content: "Explore different AI tools and their applications."
+      },
+      {
+        id: "rct-framework-basics",
+        title: "RCT Framework Basics",
+        content: "Learn the fundamentals of the RCT Framework."
+      },
+      {
+        id: "effective-prompting-principles",
+        title: "Effective Prompting Principles",
+        content: "Master the art of crafting effective prompts."
+      },
+      {
+        id: "document-processing-with-rct",
+        title: "Document Processing with RCT",
+        content: "Learn how to process documents using the RCT Framework."
+      },
+      {
+        id: "information-search-with-rct",
+        title: "Information Search with RCT",
+        content: "Master information search techniques using the RCT Framework."
+      },
+      {
+        id: "why-the-rct-framework-works",
+        title: "Why the RCT Framework Works",
+        content: "Understand the benefits of the RCT Framework."
+      },
+      {
+        id: "personal-ai-development",
+        title: "Personal AI Development",
+        content: "Develop your own AI skills and strategies."
+      },
+      {
+        id: "final-project",
+        title: "Final Project",
+        content: "Apply your knowledge to a real-world project."
+      },
+      {
+        id: "key-focus-areas",
+        title: "Key Focus Areas",
+        content: "Understand the key focus areas for successful AI adoption."
+      },
+      {
+        id: "text-generation-analysis",
+        title: "Text Generation & Analysis",
+        content: "Learn how to generate and analyze text."
+      },
+      {
+        id: "content-creation-design",
+        title: "Content Creation & Design",
+        content: "Learn how to create and design content."
+      },
+      {
+        id: "development-automation",
+        title: "Development & Automation",
+        content: "Learn how to automate workflows."
+      },
+      {
+        id: "key-applications",
+        title: "Key Applications",
+        content: "Learn how to use key applications."
+      },
+      {
+        id: "problem-description",
+        title: "Problem Description",
+        content: "Learn how to describe a workplace problem."
+      },
+      {
+        id: "tools-implementation",
+        title: "AI Tools and Implementation",
+        content: "Learn how to implement AI tools."
+      },
+      {
+        id: "results-impact",
+        title: "Results and Impact",
+        content: "Learn how to measure the impact of AI."
+      },
+      {
+        id: "future-development",
+        title: "Future Development",
+        content: "Learn about future developments in AI."
+      },
+      {
+        id: "presentation-guidelines",
+        title: "Presentation Guidelines",
+        content: "Learn how to present your project."
+      }
+    ]
+  }
+];
+
+const Guide: React.FC = () => {
+  const [activeSection, setActiveSection] = useState({ id: "introduction", title: "Introduction" });
+  const [activeSubtopic, setActiveSubtopic] = useState({ id: "what-you-will-learn", title: "What You Will Learn", content: "" });
+  const [completedSections, setCompletedSections] = useState<string[]>([]);
+  const [progress, setProgress] = useState(0);
+  const [xp, setXp] = useState(0);
+  const [showQuiz, setShowQuiz] = useState(false);
+  const [currentQuiz, setCurrentQuiz] = useState<any>(null);
+  
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    // Find the section
+    const foundSection = courseSections.find(section => section.id === activeSection.id);
+    if (foundSection) {
+      // Find the subtopic
+      const foundSubtopic = foundSection.subtopics.find(subtopic => subtopic.id === activeSubtopic.id);
+      if (foundSubtopic) {
+        setActiveSubtopic(foundSubtopic);
+      } else if (foundSection.subtopics.length > 0) {
+        // Default to first subtopic if current is not found
+        setActiveSubtopic(foundSection.subtopics[0]);
+      }
+    }
+    
+    // Calculate progress
+    if (courseSections.length > 0) {
+      let totalSubtopics = 0;
+      courseSections.forEach(section => {
+        totalSubtopics += section.subtopics.length;
+      });
+      
+      const progressPercentage = Math.round((completedSections.length / totalSubtopics) * 100);
+      setProgress(progressPercentage);
+      setXp(completedSections.length * 5); // 5 XP per completed section
+    }
+  }, [activeSection, activeSubtopic.id, completedSections]);
+
+  const handleSectionChange = (sectionId: string) => {
+    const section = courseSections.find(s => s.id === sectionId);
+    if (section) {
+      setActiveSection(section);
+      // If there are subtopics, set the first one as active
+      if (section.subtopics.length > 0) {
+        setActiveSubtopic(section.subtopics[0]);
+      }
+    }
+  };
+
+  const handleSubtopicChange = (subtopicId: string) => {
+    // Find the section containing this subtopic
+    const section = courseSections.find(s => 
+      s.subtopics.some(sub => sub.id === subtopicId)
+    );
+    
+    if (section) {
+      setActiveSection(section);
+      
+      // Find and set the active subtopic
+      const subtopic = section.subtopics.find(sub => sub.id === subtopicId);
+      if (subtopic) {
+        setActiveSubtopic(subtopic);
+        
+        // Mark as completed if not already
+        if (!completedSections.includes(subtopicId)) {
+          const newCompletedSections = [...completedSections, subtopicId];
+          setCompletedSections(newCompletedSections);
+          
+          // Show toast for new completion
+          toast({
+            title: "Section completed!",
+            description: `You earned 5 XP for completing "${subtopic.title}"`,
+            variant: "success",
+          });
+        }
+      }
+    }
+    
+    // Hide quiz if it was showing
+    setShowQuiz(false);
+  };
+
+  const handleStartQuiz = () => {
+    const quiz = quizzes[activeSubtopic.id];
+    if (quiz) {
+      setCurrentQuiz(quiz);
+      setShowQuiz(true);
+    }
+  };
+
+  const handleQuizComplete = (score: number, totalQuestions: number) => {
+    // Calculate XP based on score
+    const earnedXP = Math.round((score / totalQuestions) * 10);
+    setXp(prev => prev + earnedXP);
+    
+    // Show toast
+    toast({
+      title: "Quiz Completed!",
+      description: `You scored ${score}/${totalQuestions} and earned ${earnedXP} XP`,
+      variant: "success",
+    });
+    
+    // Hide quiz
+    setShowQuiz(false);
+  };
+
+  return (
+    <div className="flex flex-col min-h-screen pb-12">
+      <div className="container mx-auto px-4 py-6 flex-1 flex flex-col lg:flex-row gap-6">
+        {/* Sidebar */}
+        <div className="lg:w-1/3 xl:w-1/4 space-y-6">
+          {/* Course Progress */}
+          <div className="fantasy-card p-4">
+            <div className="flex justify-between items-center mb-2">
+              <h3 className="text-lg font-semibold text-white">Course Progress</h3>
+              <span className="text-purple-400 font-semibold">{progress}%</span>
+            </div>
+            <Progress value={progress} className="h-2 mb-2" />
+            <div className="text-sm text-purple-300 flex items-center gap-2 mt-3">
+              <Star size={14} className="text-yellow-300" />
+              <span>XP: {xp}</span>
+            </div>
+            
+            {/* Course Info Tags - Moved from content section */}
+            <div className="flex flex-wrap gap-2 mt-4">
+              <div className="px-3 py-1 bg-purple-900/30 rounded-full text-sm text-purple-300 flex items-center">
+                <Clock size={14} className="mr-2" />
+                <span>5-10 min</span>
+              </div>
+              <div className="px-3 py-1 bg-purple-900/30 rounded-full text-sm text-purple-300 flex items-center">
+                <BookOpen size={14} className="mr-2" />
+                <span>Beginner</span>
+              </div>
+              <div className="px-3 py-1 bg-purple-900/30 rounded-full text-sm text-purple-300 flex items-center">
+                <Briefcase size={14} className="mr-2" />
+                <span>any profession</span>
+              </div>
+            </div>
+          </div>
+          
+          {/* Table of Contents */}
+          <div className="fantasy-card p-4">
+            <TableOfContents 
+              sections={courseSections}
+              activeSection={activeSection.id}
+              activeSubtopic={activeSubtopic.id}
+              completedSections={completedSections}
+              onSectionChange={handleSectionChange}
+              onSubtopicChange={handleSubtopicChange}
+            />
+          </div>
+        </div>
+        
+        {/* Main Content */}
+        <div className="lg:w-2/3 xl:w-3/4 space-y-6">
+          <div className="fantasy-card p-6">
+            <div className="mb-4">
+              <h2 className="text-2xl font-bold mb-1 text-white glow-text">
+                {activeSection.title}
+              </h2>
+              <h3 className="text-xl font-semibold text-purple-300 mb-4">
+                {activeSubtopic.title}
+              </h3>
+            </div>
+            
+            {showQuiz ? (
+              <QuizComponent 
+                quiz={currentQuiz}
+                onComplete={handleQuizComplete}
+              />
+            ) : (
+              <>
+                <CourseContent content={activeSubtopic.content} />
+                
+                {quizzes[activeSubtopic.id] && 
+                 !activeSubtopic.content.includes('Take Quiz') && (
+                  <div className="mt-6 pt-6 border-t border-purple-800/30 flex justify-end">
+                    <Button 
+                      onClick={handleStartQuiz}
+                      className="group relative overflow-hidden px-6 py-2 shadow-lg text-white rounded-lg magical-border"
+                    >
+                      <div className="absolute inset-0 bg-gradient-to-br from-purple-500 to-purple-700 opacity-70 group-hover:opacity-80 transition-opacity"></div>
+                      <span className="relative flex items-center font-medium text-lg">
+                        <GraduationCap className="mr-2 h-5 w-5" />
+                        Take Quiz
+                      </span>
+                    </Button>
+                  </div>
+                )}
+              </>
+            )}
+          </div>
+        </div>
+      </div>
+    </div>
+  );
 };
 
 export default Guide;
