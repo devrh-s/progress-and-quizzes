@@ -5,7 +5,7 @@ import { Progress } from '@/components/ui/progress';
 import { CourseContent } from '@/components/CourseContent';
 import { TableOfContents } from '@/components/TableOfContents';
 import { toast } from '@/hooks/use-toast';
-import { Home, Clock, Users, BookOpen, GraduationCap, Star } from 'lucide-react';
+import { Home, Clock, Users, BookOpen, GraduationCap, Star, Globe } from 'lucide-react';
 import { QuizComponent } from '@/components/QuizComponent';
 
 interface Section {
@@ -384,7 +384,7 @@ const courseSections: Section[] = [
                 </tr>
                 <tr class="border-t border-purple-800/30 bg-purple-900/10">
                   <td class="px-4 py-2 text-white">User Base</td>
-                  <td class-4 py-2 text-white">2.5M</td>
+                  <td class="px-4 py-2 text-white">2.5M</td>
                   <td class="px-4 py-2 text-green-400">15%</td>
                   <td class="px-4 py-2 text-gray-300">Analytics</td>
                 </tr>
@@ -779,13 +779,6 @@ const Guide: React.FC = () => {
   const [completedQuizzes, setCompletedQuizzes] = useState<string[]>([]);
 
   const totalTopics = courseSections.reduce((acc, section) => acc + section.subtopics.length, 0);
-  const totalSections = courseSections.length;
-  const completedSectionsCount = [...new Set(completedSections.map(id => {
-    const sectionId = courseSections.find(section => 
-      section.subtopics.some(subtopic => subtopic.id === id)
-    )?.id;
-    return sectionId;
-  }))].filter(Boolean).length;
 
   useEffect(() => {
     const newProgress = (completedSections.length / totalTopics) * 100;
@@ -887,29 +880,40 @@ const Guide: React.FC = () => {
 
       <div className="fantasy-card p-4 mb-6">
         <h3 className="text-lg font-semibold text-white mb-3">Course Progress</h3>
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-3">
+        
+        <div className="grid grid-cols-1 gap-4 mb-4">
           <div className="bg-purple-900/30 p-3 rounded-lg">
             <div className="flex items-center justify-between mb-2">
-              <span className="text-purple-200">Overall Progress</span>
+              <span className="text-purple-200">Progress ({completedSections.length}/{totalTopics} topics completed)</span>
               <span className="text-white font-medium">{progress}%</span>
             </div>
             <Progress value={progress} className="h-2" />
           </div>
-          
-          <div className="bg-purple-900/30 p-3 rounded-lg">
-            <div className="flex items-center justify-between mb-2">
-              <span className="text-purple-200">Sections Completed</span>
-              <span className="text-white font-medium">{completedSectionsCount}/{totalSections}</span>
+        </div>
+        
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-4">
+          <div className="bg-purple-900/20 p-3 rounded-lg flex items-center">
+            <Globe className="h-5 w-5 text-purple-400 mr-3" />
+            <div>
+              <p className="text-sm text-purple-200">Location</p>
+              <p className="text-white font-medium">Global</p>
             </div>
-            <Progress value={(completedSectionsCount / totalSections) * 100} className="h-2" />
           </div>
           
-          <div className="bg-purple-900/30 p-3 rounded-lg">
-            <div className="flex items-center justify-between mb-2">
-              <span className="text-purple-200">Topics Explored</span>
-              <span className="text-white font-medium">{completedSections.length}/{totalTopics}</span>
+          <div className="bg-purple-900/20 p-3 rounded-lg flex items-center">
+            <Clock className="h-5 w-5 text-purple-400 mr-3" />
+            <div>
+              <p className="text-sm text-purple-200">Estimated Effort</p>
+              <p className="text-white font-medium">2 hours</p>
             </div>
-            <Progress value={(completedSections.length / totalTopics) * 100} className="h-2" />
+          </div>
+          
+          <div className="bg-purple-900/20 p-3 rounded-lg flex items-center">
+            <BookOpen className="h-5 w-5 text-purple-400 mr-3" />
+            <div>
+              <p className="text-sm text-purple-200">Language</p>
+              <p className="text-white font-medium">English</p>
+            </div>
           </div>
         </div>
         
