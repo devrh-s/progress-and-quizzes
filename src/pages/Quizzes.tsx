@@ -254,6 +254,559 @@ const quizTopics = [
         correctAnswer: 2
       }
     ]
+  },
+  {
+    id: "rct-framework-basics",
+    title: "RCT Framework Basics",
+    difficulty: 'easy',
+    timeLimit: 180,
+    questions: [
+      {
+        type: 'sequencing',
+        question: "Rank the RCT framework elements by the order in which they should be considered when constructing a prompt.",
+        steps: [
+          "Role",
+          "Context",
+          "Task"
+        ],
+        correctOrder: [0, 1, 2]
+      },
+      {
+        type: 'sequencing',
+        question: "Sequence the steps to build an effective RCT prompt. Drag the steps into the correct order.",
+        steps: [
+          "Specify the AI's role",
+          "Provide relevant background information and requirements",
+          "Clearly state what needs to be done and in what format"
+        ],
+        correctOrder: [0, 1, 2]
+      },
+      {
+        type: 'matching',
+        question: "Identify each element of the RCT Framework by assigning its correct function.",
+        items: [
+          "Role",
+          "Context",
+          "Task"
+        ],
+        descriptions: [
+          "Specifies the AI's assigned expertise (e.g., \"Documentation Specialist\")",
+          "Provides the necessary background details and requirements",
+          "Clearly defines the desired action and output format"
+        ],
+        correctPairs: [0, 1, 2]
+      }
+    ]
+  },
+  {
+    id: "effective-prompting-principles",
+    title: "Effective Prompting Principles",
+    difficulty: 'medium',
+    timeLimit: 240,
+    questions: [
+      {
+        type: 'sequencing',
+        question: "Rank the following prompting principles in the order you would apply them when crafting a prompt.",
+        steps: [
+          "Precision",
+          "Context Relevance",
+          "Task Breakdown",
+          "Clear Formatting",
+          "Iteration"
+        ],
+        correctOrder: [0, 1, 2, 3, 4]
+      },
+      {
+        type: 'sequencing',
+        question: "Sequence the steps for developing an effective prompt based on the principles.",
+        steps: [
+          "Identify and state specific requirements",
+          "Include all relevant background information",
+          "Break down complex tasks into smaller steps",
+          "Define the exact output format",
+          "Refine the prompt based on feedback"
+        ],
+        correctOrder: [0, 1, 2, 3, 4]
+      },
+      {
+        type: 'matching',
+        question: "Identify and label each effective prompting principle with its corresponding description.",
+        items: [
+          "Precision",
+          "Context Relevance",
+          "Task Breakdown",
+          "Clear Formatting",
+          "Iteration"
+        ],
+        descriptions: [
+          "Being specific in your request (e.g., \"Create a summary in 5 bullet points\")",
+          "Including necessary background information",
+          "Splitting a complex request into smaller, manageable steps",
+          "Specifying how the output should be presented",
+          "Refining the prompt based on initial outcomes"
+        ],
+        correctPairs: [0, 1, 2, 3, 4]
+      }
+    ]
+  },
+  {
+    id: "document-processing-with-rct",
+    title: "Document Processing with RCT",
+    difficulty: 'medium',
+    timeLimit: 180,
+    questions: [
+      {
+        type: 'sequencing',
+        question: "Rank the following steps from first to last in the process described by the document processing prompt.",
+        steps: [
+          "Analyze the meeting transcript",
+          "Extract key decisions",
+          "Identify action items",
+          "Format the findings as a bulleted list"
+        ],
+        correctOrder: [0, 1, 2, 3]
+      },
+      {
+        type: 'sequencing',
+        question: "Sequence the operational steps a Documentation Specialist should follow when processing a document prompt.",
+        steps: [
+          "Read the transcript",
+          "Identify the significant decisions",
+          "Note action items",
+          "Organize the information into bullet points"
+        ],
+        correctOrder: [0, 1, 2, 3]
+      },
+      {
+        type: 'matching',
+        question: "Identify the key components of the document processing prompt by labeling each with its function.",
+        items: [
+          "Role",
+          "Task (Action)",
+          "Output Format"
+        ],
+        descriptions: [
+          "\"Documentation Specialist\" (assigns specific expertise)",
+          "Analyze the meeting transcript and extract key decisions and action items",
+          "Format the result as a bulleted list"
+        ],
+        correctPairs: [0, 1, 2]
+      }
+    ]
+  },
+  {
+    id: "information-search-with-rct",
+    title: "Information Search with RCT",
+    difficulty: 'medium',
+    timeLimit: 240,
+    questions: [
+      {
+        type: 'sequencing',
+        question: "Rank the following industry statistic rows based on their growth rate from highest to lowest.",
+        steps: [
+          "Market Size (12%)",
+          "User Base (15%)",
+          "ROI (8%)"
+        ],
+        correctOrder: [1, 0, 2]
+      },
+      {
+        type: 'sequencing',
+        question: "Sequence the steps a Research Assistant should follow when conducting an information search based on the given prompt.",
+        steps: [
+          "Define the research focus (industry statistics, market growth, and trends)",
+          "Gather relevant data and statistics",
+          "Organize the data into a table with clear categories",
+          "Verify the source of each data point"
+        ],
+        correctOrder: [0, 1, 2, 3]
+      },
+      {
+        type: 'matching',
+        question: "Identify the key components from the information search prompt by labeling each with its correct role.",
+        items: [
+          "Assigned Role",
+          "Research Focus",
+          "Expected Output Format"
+        ],
+        descriptions: [
+          "\"Research Assistant\"",
+          "Finding relevant industry statistics with emphasis on market growth and trends",
+          "A table with columns (Category, Current Value, Growth Rate, Source)"
+        ],
+        correctPairs: [0, 1, 2]
+      }
+    ]
+  },
+  {
+    id: "why-the-rct-framework-works",
+    title: "Why the RCT Framework Works",
+    difficulty: 'easy',
+    timeLimit: 180,
+    questions: [
+      {
+        type: 'sequencing',
+        question: "Rank the benefits of the RCT framework by the order in which they contribute to effective prompting.",
+        steps: [
+          "Clear Roles",
+          "Detailed Context",
+          "Structured Output"
+        ],
+        correctOrder: [0, 1, 2]
+      },
+      {
+        type: 'sequencing',
+        question: "Sequence the rationale behind the RCT framework's effectiveness. Arrange the following steps in order.",
+        steps: [
+          "Assign a clear role to the AI",
+          "Provide detailed and relevant context",
+          "Deliver a structured and organized output"
+        ],
+        correctOrder: [0, 1, 2]
+      },
+      {
+        type: 'matching',
+        question: "Identify each benefit of the RCT framework by labeling its corresponding effect.",
+        items: [
+          "Clear Roles",
+          "Detailed Context",
+          "Structured Output"
+        ],
+        descriptions: [
+          "Ensures the AI has specific expertise for the task",
+          "Provides well-defined parameters and background information",
+          "Organizes the delivered information in a consistent format"
+        ],
+        correctPairs: [0, 1, 2]
+      }
+    ]
+  },
+  {
+    id: "personal-ai-development", 
+    title: "Personal AI Development",
+    difficulty: 'medium',
+    timeLimit: 200,
+    questions: [
+      {
+        type: 'sequencing',
+        question: "Arrange the steps for personal AI development in the correct order.",
+        steps: [
+          "Conduct a skills assessment",
+          "Apply learning to real projects",
+          "Engage in continuous practice and refinement"
+        ],
+        correctOrder: [0, 1, 2]
+      },
+      {
+        type: 'matching',
+        question: "Match each component of personal AI development with its description.",
+        items: [
+          "Skills Assessment",
+          "Project Focus",
+          "Continuous Learning"
+        ],
+        descriptions: [
+          "Identifying areas for improvement in AI tool usage",
+          "Applying learning to practical projects",
+          "Regular practice to refine and enhance skills"
+        ],
+        correctPairs: [0, 1, 2]
+      },
+      {
+        type: 'sorting',
+        question: "Sort the following project planning elements into two categories: Strategy and Measurement.",
+        activities: [
+          "Define clear objectives",
+          "Outline action steps",
+          "Establish success metrics",
+          "Set timelines"
+        ],
+        categories: [
+          "Strategy",
+          "Measurement"
+        ],
+        correctCategories: [0, 0, 1, 1]
+      }
+    ]
+  },
+  {
+    id: "final-project", 
+    title: "Final Project",
+    difficulty: 'medium',
+    timeLimit: 240,
+    questions: [
+      {
+        type: 'sequencing',
+        question: "Arrange the final project implementation steps in the correct order.",
+        steps: [
+          "Analysis (Identify AI opportunities)",
+          "Tool Selection (Choose and implement AI solutions)",
+          "Execution (Build and test with stakeholder feedback)",
+          "Presentation (Demonstrate results and future plans)"
+        ],
+        correctOrder: [0, 1, 2, 3]
+      },
+      {
+        type: 'matching',
+        question: "Match each final project step with its function.",
+        items: [
+          "Analysis",
+          "Tools",
+          "Execute",
+          "Present"
+        ],
+        descriptions: [
+          "Identifying opportunities for AI implementation",
+          "Selecting and applying appropriate AI solutions",
+          "Building and testing the solution with feedback",
+          "Demonstrating outcomes and outlining next steps"
+        ],
+        correctPairs: [0, 1, 2, 3]
+      },
+      {
+        type: 'sorting',
+        question: "Sort the following aspects of business process improvement with AI into two categories: Operational Efficiency and Data Accuracy.",
+        activities: [
+          "Speeding up task completion",
+          "Streamlining communication",
+          "Reducing manual errors",
+          "Enhancing data processing"
+        ],
+        categories: [
+          "Operational Efficiency",
+          "Data Accuracy"
+        ],
+        correctCategories: [0, 0, 1, 1]
+      }
+    ]
+  },
+  {
+    id: "key-focus-areas", 
+    title: "Key Focus Areas",
+    difficulty: 'easy',
+    timeLimit: 180,
+    questions: [
+      {
+        type: 'matching',
+        question: "Match each key focus area with its description by dragging the correct description block next to the corresponding focus area.",
+        items: [
+          "Practical Skills",
+          "Implementation",
+          "Results"
+        ],
+        descriptions: [
+          "Hands‑on experience with AI tools",
+          "Strategic deployment of AI solutions",
+          "Measurable improvements in workflow efficiency"
+        ],
+        correctPairs: [0, 1, 2]
+      },
+      {
+        type: 'sequencing',
+        question: "Arrange the key focus areas in the order they are emphasized for successful AI adoption.",
+        steps: [
+          "Practical Skills",
+          "Implementation",
+          "Results"
+        ],
+        correctOrder: [0, 1, 2]
+      },
+      {
+        type: 'sorting',
+        question: "Sort these factors into two groups: Relevant Factors and Irrelevant Factors for AI success.",
+        activities: [
+          "Practical Expertise",
+          "Strategic Thinking",
+          "Effective Implementation",
+          "Creative Design",
+          "Random Experimentation"
+        ],
+        categories: [
+          "Relevant Factors",
+          "Irrelevant Factors"
+        ],
+        correctCategories: [0, 0, 0, 1, 1]
+      }
+    ]
+  },
+  {
+    id: "text-generation-analysis",
+    title: "Text Generation & Analysis",
+    difficulty: 'medium',
+    timeLimit: 240,
+    questions: [
+      {
+        type: 'sequencing',
+        question: "Rank the three AI tools based on the type of content they primarily handle—from most document‑focused to most geared toward dynamic text processing.",
+        steps: [
+          "Claude AI",
+          "Perplexity AI",
+          "Grok"
+        ],
+        correctOrder: [0, 1, 2]
+      },
+      {
+        type: 'sequencing',
+        question: "Arrange the following steps that a comprehensive text analysis workflow might follow when using these tools.",
+        steps: [
+          "Process a large volume of text.",
+          "Analyze and generate a detailed report.",
+          "Verify facts and provide cited research."
+        ],
+        correctOrder: [0, 1, 2]
+      },
+      {
+        type: 'matching',
+        question: "Identify the primary function of each tool by labeling them with the correct role.",
+        items: [
+          "Claude AI",
+          "Perplexity AI",
+          "Grok"
+        ],
+        descriptions: [
+          "Document creation and analysis",
+          "Research verification and fact‑checking",
+          "Bulk text processing and interactive learning"
+        ],
+        correctPairs: [0, 1, 2]
+      }
+    ]
+  },
+  {
+    id: "content-creation-design",
+    title: "Content Creation & Design",
+    difficulty: 'medium',
+    timeLimit: 210,
+    questions: [
+      {
+        type: 'matching',
+        question: "Match each tool with its primary creative function.",
+        items: [
+          "ChatGPT",
+          "Gemini"
+        ],
+        descriptions: [
+          "Supports creative ideation and content generation.",
+          "Manages both text and image tasks."
+        ],
+        correctPairs: [0, 1]
+      },
+      {
+        type: 'sorting',
+        question: "Sort the following creative functions into the appropriate tool category.",
+        activities: [
+          "Content generation",
+          "Idea brainstorming",
+          "Image processing",
+          "Multi‑modal creative tasks"
+        ],
+        categories: [
+          "ChatGPT",
+          "Gemini"
+        ],
+        correctCategories: [0, 0, 1, 1]
+      },
+      {
+        type: 'sequencing',
+        question: "Sequence the steps in a content creation workflow that leverages these tools.",
+        steps: [
+          "Brainstorm creative ideas.",
+          "Generate textual content.",
+          "Enhance content with relevant images."
+        ],
+        correctOrder: [0, 1, 2]
+      }
+    ]
+  },
+  {
+    id: "development-automation",
+    title: "Development & Automation",
+    difficulty: 'medium',
+    timeLimit: 210,
+    questions: [
+      {
+        type: 'sequencing',
+        question: "Rank the following benefits of workflow automation (as enabled by Make.com) in order of impact on operational efficiency.",
+        steps: [
+          "Reduced manual tasks",
+          "Increased efficiency",
+          "Improved consistency"
+        ],
+        correctOrder: [0, 1, 2]
+      },
+      {
+        type: 'matching',
+        question: "Identify the main advantage of using Make.com by labeling its core function.",
+        items: [
+          "Make.com"
+        ],
+        descriptions: [
+          "Automates workflows across platforms, reducing manual tasks"
+        ],
+        correctPairs: [0]
+      },
+      {
+        type: 'matching',
+        question: "Match each step in an automation process with its description.",
+        items: [
+          "Identify repetitive manual tasks.",
+          "Configure automated workflows.",
+          "Monitor and optimize automation."
+        ],
+        descriptions: [
+          "Recognize tasks best suited for automation.",
+          "Set up systems to perform tasks automatically.",
+          "Analyze and adjust processes for improved efficiency."
+        ],
+        correctPairs: [0, 1, 2]
+      }
+    ]
+  },
+  {
+    id: "key-applications",
+    title: "Key Applications",
+    difficulty: 'medium',
+    timeLimit: 240,
+    questions: [
+      {
+        type: 'sequencing',
+        question: "Sequence the steps a Remote Helper might follow to manage a project using these key applications.",
+        steps: [
+          "Transcribe and summarize meetings in real time.",
+          "Prioritize tasks and track deadlines.",
+          "Automate scheduling and data entry processes."
+        ],
+        correctOrder: [0, 1, 2]
+      },
+      {
+        type: 'sequencing',
+        question: "Rank the key applications based on their potential to reduce manual workload—from highest to lowest impact.",
+        steps: [
+          "Process Automation",
+          "Task Management",
+          "Communication"
+        ],
+        correctOrder: [0, 1, 2]
+      },
+      {
+        type: 'sorting',
+        question: "Sort the following functions into the appropriate key application category.",
+        activities: [
+          "Real‑time transcription",
+          "Automated summaries",
+          "AI‑driven prioritization",
+          "Deadline tracking",
+          "Streamlined scheduling",
+          "Data entry and analysis"
+        ],
+        categories: [
+          "Communication",
+          "Task Management",
+          "Process Automation"
+        ],
+        correctCategories: [0, 0, 1, 1, 2, 2]
+      }
+    ]
   }
 ];
 
