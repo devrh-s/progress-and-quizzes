@@ -46,8 +46,7 @@ export const TableOfContents: React.FC<TableOfContentsProps> = ({
   // Function to determine if a subtopic should show a quiz button
   const shouldShowQuizButton = (sectionTitle: string, subtopicTitle: string) => {
     const quizSections = [
-      "Creating an AI Project", 
-      "Final AI Project Presentation Structure"
+      "Creating an AI Project"
     ];
     
     return quizSections.includes(sectionTitle);
@@ -128,7 +127,7 @@ export const TableOfContents: React.FC<TableOfContentsProps> = ({
                         }}
                       >
                         <PlayCircle size={12} className="mr-1 text-purple-400" />
-                        Take Quiz {section.title === "Creating an AI Project" ? "🧠" : "🎯"}
+                        Take Quiz 🧠
                       </Button>
                     )}
                   </div>
