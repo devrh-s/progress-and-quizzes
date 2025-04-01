@@ -87,8 +87,13 @@ export const QuizComponent: React.FC<QuizProps> = ({ quiz, onComplete }) => {
     
     // For ordering quiz type
     if (quizType === 'order') {
+      // For ordering, we need to check the entire sequence
+      // Get the correct order based on the correctAnswer
       const userOrderedIndexes = shuffledOptions.map(option => option.originalIndex);
-      const isCorrect = userOrderedIndexes[0] === currentQuestion.correctAnswer;
+      
+      // In order type, correctAnswer represents the item that should be first
+      const correctItemIndex = currentQuestion.correctAnswer;
+      const isCorrect = userOrderedIndexes[0] === correctItemIndex;
       
       if (isCorrect) {
         setScore(prev => prev + 1);
@@ -99,16 +104,13 @@ export const QuizComponent: React.FC<QuizProps> = ({ quiz, onComplete }) => {
         {
           question: currentQuestionIndex,
           selected: userOrderedIndexes,
-          correct: currentQuestion.correctAnswer
+          correct: correctItemIndex
         }
       ]);
     } else {
       // For matching quiz type
-      const correctOptionIndex = shuffledOptions.findIndex(
-        option => option.originalIndex === currentQuestion.correctAnswer
-      );
-      
-      const isCorrect = correctOptionIndex === 0; // If first option is correct
+      const selectedOption = shuffledOptions[0].originalIndex;
+      const isCorrect = selectedOption === currentQuestion.correctAnswer;
       
       if (isCorrect) {
         setScore(prev => prev + 1);
@@ -118,7 +120,7 @@ export const QuizComponent: React.FC<QuizProps> = ({ quiz, onComplete }) => {
         ...prev, 
         {
           question: currentQuestionIndex,
-          selected: [shuffledOptions[0].originalIndex],
+          selected: [selectedOption],
           correct: currentQuestion.correctAnswer
         }
       ]);
@@ -139,6 +141,24 @@ export const QuizComponent: React.FC<QuizProps> = ({ quiz, onComplete }) => {
   };
 
   const progress = ((currentQuestionIndex + (isAnswered ? 1 : 0)) / quiz.questions.length) * 100;
+
+  const renderFeedback = (option: QuizOptionType, index: number) => {
+    if (!isAnswered) return null;
+    
+    if (quizType === 'order') {
+      // In ordering quizzes, the item that should be first gets a check
+      if (index === 0 && option.originalIndex === currentQuestion.correctAnswer) {
+        return <Check size={18} className="text-green-400 mr-3 flex-shrink-0" />;
+      } else if (index === 0) {
+        return <X size={18} className="text-red-400 mr-3 flex-shrink-0" />;
+      } else if (option.originalIndex === currentQuestion.correctAnswer) {
+        // Indicate which one should have been first
+        return <Check size={18} className="text-yellow-400 mr-3 flex-shrink-0" />;
+      }
+    }
+    
+    return null;
+  };
 
   return (
     <div className="fantasy-card p-6">
@@ -185,7 +205,7 @@ export const QuizComponent: React.FC<QuizProps> = ({ quiz, onComplete }) => {
             
             {quizType === 'order' ? (
               <p className="text-sm text-purple-300 mt-2">
-                Drag to reorder the options. Place the correct answer at the top.
+                Drag to place the options in the correct order. The correct answer should be at the top.
               </p>
             ) : (
               <p className="text-sm text-purple-300 mt-2">
@@ -210,8 +230,10 @@ export const QuizComponent: React.FC<QuizProps> = ({ quiz, onComplete }) => {
                     value={option}
                     className={`w-full text-left p-4 rounded-lg border 
                       ${isAnswered 
-                        ? option.originalIndex === currentQuestion.correctAnswer 
-                          ? 'bg-green-700 border-green-500 text-white' 
+                        ? index === 0 && option.originalIndex === currentQuestion.correctAnswer
+                          ? 'bg-green-700 border-green-500 text-white'
+                          : option.originalIndex === currentQuestion.correctAnswer
+                          ? 'bg-yellow-700/30 border-yellow-500 text-white'
                           : 'bg-gray-800 border-gray-700'
                         : 'bg-gray-800 border-gray-700 cursor-grab active:cursor-grabbing'
                       }`}
@@ -219,11 +241,7 @@ export const QuizComponent: React.FC<QuizProps> = ({ quiz, onComplete }) => {
                   >
                     <div className="flex items-center">
                       {isAnswered ? (
-                        option.originalIndex === currentQuestion.correctAnswer ? (
-                          <Check size={18} className="text-green-400 mr-3 flex-shrink-0" />
-                        ) : (
-                          <X size={18} className="text-red-400 mr-3 flex-shrink-0" />
-                        )
+                        renderFeedback(option, index)
                       ) : (
                         <GripVertical size={18} className="text-gray-400 mr-3 flex-shrink-0" />
                       )}
