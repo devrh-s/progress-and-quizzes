@@ -840,4 +840,4 @@ const Guide: React.FC = () => {
       setShowQuiz(true);
     } else {
       toast({
-        title: "No Quiz Available
+        title: "No Quiz Available",
