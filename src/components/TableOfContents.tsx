@@ -43,15 +43,6 @@ export const TableOfContents: React.FC<TableOfContentsProps> = ({
     onSectionChange(sectionId);
   };
 
-  // Function to determine if a subtopic should show a quiz button
-  const shouldShowQuizButton = (sectionTitle: string, subtopicTitle: string) => {
-    const quizSections = [
-      "Creating an AI Project"
-    ];
-    
-    return quizSections.includes(sectionTitle);
-  };
-
   return (
     <div className="space-y-2 w-full">
       <div className="flex justify-between items-center mb-4">
@@ -115,21 +106,6 @@ export const TableOfContents: React.FC<TableOfContentsProps> = ({
                         +5 <Star size={10} className="ml-0.5" />
                       </span>
                     </Button>
-                    
-                    {shouldShowQuizButton(section.title, subtopic.title) && (
-                      <Button
-                        variant="ghost"
-                        size="sm"
-                        className="w-full justify-start text-left text-xs h-auto py-1 pl-8 text-purple-300 hover:text-purple-200 hover:bg-purple-900/30"
-                        onClick={() => {
-                          // Navigate to quiz page with specific subtopic
-                          window.location.href = `/quizzes?section=${encodeURIComponent(section.title)}&subtopic=${encodeURIComponent(subtopic.title)}`;
-                        }}
-                      >
-                        <PlayCircle size={12} className="mr-1 text-purple-400" />
-                        Take Quiz 🧠
-                      </Button>
-                    )}
                   </div>
                 ))}
               </div>
