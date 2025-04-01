@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
@@ -5,6 +6,7 @@ import { Progress } from '@/components/ui/progress';
 import { CourseContent } from '@/components/CourseContent';
 import { TableOfContents } from '@/components/TableOfContents';
 import { toast } from '@/components/ui/use-toast';
+import { Home } from 'lucide-react';
 
 interface Section {
   id: string;
@@ -446,7 +448,21 @@ const Guide: React.FC = () => {
           <div className="mt-2 text-yellow-300 font-semibold">
             {xp} XP ✨
           </div>
+          <div className="mt-3 space-y-1 text-sm text-purple-200">
+            <div>Languages: English</div>
+            <div>Estimated Effort: Intermediate</div>
+            <div>Location: Global</div>
+          </div>
         </div>
+        
+        <Button
+          variant="outline"
+          className="w-full border-purple-500 text-purple-300 hover:text-white hover:bg-purple-700 flex items-center justify-center gap-2"
+          onClick={() => navigate('/')}
+        >
+          <Home size={16} />
+          Return to Home
+        </Button>
         
         <TableOfContents 
           sections={courseSections}
