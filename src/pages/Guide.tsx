@@ -5,7 +5,7 @@ import { Button } from '@/components/ui/button';
 import { Progress } from '@/components/ui/progress';
 import { CourseContent } from '@/components/CourseContent';
 import { TableOfContents } from '@/components/TableOfContents';
-import { toast } from '@/components/ui/use-toast';
+import { toast } from '@/hooks/use-toast';
 import { Home, Clock, Users, BookOpen, GraduationCap, Star } from 'lucide-react';
 import { QuizComponent } from '@/components/QuizComponent';
 
@@ -767,8 +767,16 @@ const Guide: React.FC = () => {
   const [xp, setXp] = useState(0);
   const [showQuiz, setShowQuiz] = useState(false);
   const [currentQuiz, setCurrentQuiz] = useState<any>(null);
+  const [completedQuizzes, setCompletedQuizzes] = useState<string[]>([]);
 
   const totalTopics = courseSections.reduce((acc, section) => acc + section.subtopics.length, 0);
+  const totalSections = courseSections.length;
+  const completedSectionsCount = [...new Set(completedSections.map(id => {
+    const sectionId = courseSections.find(section => 
+      section.subtopics.some(subtopic => subtopic.id === id)
+    )?.id;
+    return sectionId;
+  }))].filter(Boolean).length;
 
   useEffect(() => {
     const newProgress = (completedSections.length / totalTopics) * 100;
@@ -805,7 +813,7 @@ const Guide: React.FC = () => {
       
       if (!completedSections.includes(subtopicId)) {
         setCompletedSections([...completedSections, subtopicId]);
-        setXp(xp + 5);
+        setXp(xp + 5); // +5 XP for reading a new topic
         toast({
           title: "XP Gained!",
           description: "Gained 5 XP for exploring a new topic!",
@@ -819,13 +827,15 @@ const Guide: React.FC = () => {
 
   const handleQuizComplete = (score: number) => {
     setShowQuiz(false);
-    const pointsEarned = score * 5;
-    setXp(prev => prev + pointsEarned);
     
-    if (pointsEarned > 0) {
+    if (!completedQuizzes.includes(activeSubtopic.id)) {
+      const quizXp = 15; // +15 XP for completing a quiz
+      setXp(prev => prev + quizXp);
+      setCompletedQuizzes([...completedQuizzes, activeSubtopic.id]);
+      
       toast({
         title: "Quiz Completed!",
-        description: `You earned ${pointsEarned} XP for completing the quiz!`,
+        description: `You earned ${quizXp} XP for completing the quiz!`,
         variant: "default",
       });
     }
@@ -866,12 +876,44 @@ const Guide: React.FC = () => {
         </div>
       </div>
 
-      <div className="mb-6">
-        <div className="flex justify-between items-center mb-2">
-          <span className="text-white">Progress: {progress}%</span>
-          <span className="text-white">{completedSections.length}/{totalTopics} topics</span>
+      <div className="fantasy-card p-4 mb-6">
+        <h3 className="text-lg font-semibold text-white mb-3">Course Progress</h3>
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-3">
+          <div className="bg-purple-900/30 p-3 rounded-lg">
+            <div className="flex items-center justify-between mb-2">
+              <span className="text-purple-200">Overall Progress</span>
+              <span className="text-white font-medium">{progress}%</span>
+            </div>
+            <Progress value={progress} className="h-2" />
+          </div>
+          
+          <div className="bg-purple-900/30 p-3 rounded-lg">
+            <div className="flex items-center justify-between mb-2">
+              <span className="text-purple-200">Sections Completed</span>
+              <span className="text-white font-medium">{completedSectionsCount}/{totalSections}</span>
+            </div>
+            <Progress value={(completedSectionsCount / totalSections) * 100} className="h-2" />
+          </div>
+          
+          <div className="bg-purple-900/30 p-3 rounded-lg">
+            <div className="flex items-center justify-between mb-2">
+              <span className="text-purple-200">Topics Explored</span>
+              <span className="text-white font-medium">{completedSections.length}/{totalTopics}</span>
+            </div>
+            <Progress value={(completedSections.length / totalTopics) * 100} className="h-2" />
+          </div>
         </div>
-        <Progress value={progress} className="h-2" />
+        
+        <div className="flex flex-wrap gap-3 text-sm">
+          <div className="bg-purple-900/20 px-3 py-1 rounded-full flex items-center">
+            <BookOpen className="mr-2 h-4 w-4 text-purple-400" />
+            <span className="text-purple-200">Reading a topic: <span className="text-yellow-300 font-medium">+5 <Star className="inline h-3 w-3" /></span></span>
+          </div>
+          <div className="bg-purple-900/20 px-3 py-1 rounded-full flex items-center">
+            <GraduationCap className="mr-2 h-4 w-4 text-purple-400" />
+            <span className="text-purple-200">Completing a quiz: <span className="text-yellow-300 font-medium">+15 <Star className="inline h-3 w-3" /></span></span>
+          </div>
+        </div>
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-4 gap-6">

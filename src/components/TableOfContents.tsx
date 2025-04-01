@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
 import { cn } from '@/lib/utils';
-import { BookOpen, CheckCircle, Circle } from 'lucide-react';
+import { BookOpen, CheckCircle, Circle, Star } from 'lucide-react';
 
 interface Section {
   id: string;
@@ -93,7 +93,9 @@ export const TableOfContents: React.FC<TableOfContentsProps> = ({
                         <Circle size={14} className="text-gray-400" />}
                     </span>
                     {subtopic.title}
-                    <span className="ml-auto text-xs text-yellow-300">+5 XP</span>
+                    <span className="ml-auto text-xs text-yellow-300 flex items-center">
+                      +5 <Star size={10} className="ml-0.5" />
+                    </span>
                   </Button>
                 ))}
               </div>
