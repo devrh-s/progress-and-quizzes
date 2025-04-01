@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
 import { QuizComponent } from '@/components/QuizComponent';
@@ -7,6 +8,14 @@ import { toast } from '@/components/ui/use-toast';
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
 import { PlayCircle } from 'lucide-react';
 import { cn } from '@/lib/utils';
+
+// Define the QuizTopic interface
+interface QuizTopic {
+  id: string;
+  title: string;
+  difficulty: string;
+  questions: any[]; // Using any[] for now as the exact question structure depends on QuizComponent implementation
+}
 
 const quizTopics = [
   {
