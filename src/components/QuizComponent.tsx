@@ -3,7 +3,7 @@ import React, { useState, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
 import { Progress } from '@/components/ui/progress';
 import { motion, Reorder } from 'framer-motion';
-import { Check, X, DragHandleDots2 } from 'lucide-react';
+import { Check, X, GripVertical } from 'lucide-react';
 
 interface QuizQuestion {
   question: string;
@@ -225,7 +225,7 @@ export const QuizComponent: React.FC<QuizProps> = ({ quiz, onComplete }) => {
                           <X size={18} className="text-red-400 mr-3 flex-shrink-0" />
                         )
                       ) : (
-                        <DragHandleDots2 size={18} className="text-gray-400 mr-3 flex-shrink-0" />
+                        <GripVertical size={18} className="text-gray-400 mr-3 flex-shrink-0" />
                       )}
                       <span>{option.text}</span>
                     </div>
@@ -274,7 +274,7 @@ export const QuizComponent: React.FC<QuizProps> = ({ quiz, onComplete }) => {
                     disabled={isAnswered}
                   >
                     <div className="flex items-center">
-                      <DragHandleDots2 size={18} className="text-gray-400 mr-3 flex-shrink-0" />
+                      <GripVertical size={18} className="text-gray-400 mr-3 flex-shrink-0" />
                       <span>{option.text}</span>
                       {isAnswered && option.originalIndex === currentQuestion.correctAnswer && (
                         <Check size={18} className="text-green-400 ml-auto" />
