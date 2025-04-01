@@ -67,6 +67,7 @@ export const QuizComponent: React.FC<QuizProps> = ({ quiz, onComplete }) => {
   const [sequenceItems, setSequenceItems] = useState<DraggableItem[]>([]);
   const [sortedItems, setSortedItems] = useState<{category: string, items: DraggableItem[]}[]>([]);
   const [multipleChoiceOptions, setMultipleChoiceOptions] = useState<DraggableItem[]>([]);
+  const [loading, setLoading] = useState(true);
   
   const currentQuestion = quiz.questions[currentQuestionIndex];
   
@@ -75,86 +76,93 @@ export const QuizComponent: React.FC<QuizProps> = ({ quiz, onComplete }) => {
     if (!currentQuestion) return;
     
     setIsAnswered(false);
+    setLoading(true);
+
+    // Small delay to ensure state is reset between questions
+    const timer = setTimeout(() => {
+      switch(currentQuestion.type) {
+        case 'matching':
+          // Initialize matching pairs
+          const itemsList = currentQuestion.items.map((text, id) => ({ id, text }));
+          const descriptionsList = currentQuestion.descriptions.map((text, id) => ({ id, text }));
+          
+          // Shuffle descriptions
+          const shuffledDescriptions = [...descriptionsList];
+          for (let i = shuffledDescriptions.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            [shuffledDescriptions[i], shuffledDescriptions[j]] = [shuffledDescriptions[j], shuffledDescriptions[i]];
+          }
+          
+          // Create pairs
+          const pairs = itemsList.map((item, index) => ({
+            item,
+            description: shuffledDescriptions[index]
+          }));
+          
+          setMatchingPairs(pairs);
+          break;
+          
+        case 'sequencing':
+          // Initialize sequence items and shuffle them
+          let seqItems = currentQuestion.steps.map((text, id) => ({ id, text }));
+          
+          // Fisher-Yates shuffle
+          for (let i = seqItems.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            [seqItems[i], seqItems[j]] = [seqItems[j], seqItems[i]];
+          }
+          
+          setSequenceItems(seqItems);
+          break;
+          
+        case 'sorting':
+          // Initialize categories and items
+          const categories = currentQuestion.categories.map(cat => ({
+            category: cat,
+            items: []
+          }));
+          
+          // Add unsorted category for initial state
+          categories.push({
+            category: "Unsorted Items",
+            items: currentQuestion.activities.map((text, id) => ({ id, text }))
+          });
+          
+          // Shuffle unsorted items
+          const unsortedItems = categories[categories.length - 1].items;
+          for (let i = unsortedItems.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            [unsortedItems[i], unsortedItems[j]] = [unsortedItems[j], unsortedItems[i]];
+          }
+          
+          setSortedItems(categories);
+          break;
+          
+        case 'multiple-choice':
+          // Initialize multiple choice options and shuffle them
+          const options = currentQuestion.options.map((text, id) => ({ id, text }));
+          
+          // Fisher-Yates shuffle
+          for (let i = options.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            [options[i], options[j]] = [options[j], options[i]];
+          }
+          
+          setMultipleChoiceOptions(options);
+          break;
+      }
+      
+      // Reset timer
+      setTimeRemaining(60);
+      setLoading(false);
+    }, 300);
     
-    switch(currentQuestion.type) {
-      case 'matching':
-        // Initialize matching pairs
-        const itemsList = currentQuestion.items.map((text, id) => ({ id, text }));
-        const descriptionsList = currentQuestion.descriptions.map((text, id) => ({ id, text }));
-        
-        // Shuffle descriptions
-        const shuffledDescriptions = [...descriptionsList];
-        for (let i = shuffledDescriptions.length - 1; i > 0; i--) {
-          const j = Math.floor(Math.random() * (i + 1));
-          [shuffledDescriptions[i], shuffledDescriptions[j]] = [shuffledDescriptions[j], shuffledDescriptions[i]];
-        }
-        
-        // Create pairs
-        const pairs = itemsList.map((item, index) => ({
-          item,
-          description: shuffledDescriptions[index]
-        }));
-        
-        setMatchingPairs(pairs);
-        break;
-        
-      case 'sequencing':
-        // Initialize sequence items and shuffle them
-        let seqItems = currentQuestion.steps.map((text, id) => ({ id, text }));
-        
-        // Fisher-Yates shuffle
-        for (let i = seqItems.length - 1; i > 0; i--) {
-          const j = Math.floor(Math.random() * (i + 1));
-          [seqItems[i], seqItems[j]] = [seqItems[j], seqItems[i]];
-        }
-        
-        setSequenceItems(seqItems);
-        break;
-        
-      case 'sorting':
-        // Initialize categories and items
-        const categories = currentQuestion.categories.map(cat => ({
-          category: cat,
-          items: []
-        }));
-        
-        // Add unsorted category for initial state
-        categories.push({
-          category: "Unsorted Items",
-          items: currentQuestion.activities.map((text, id) => ({ id, text }))
-        });
-        
-        // Shuffle unsorted items
-        const unsortedItems = categories[categories.length - 1].items;
-        for (let i = unsortedItems.length - 1; i > 0; i--) {
-          const j = Math.floor(Math.random() * (i + 1));
-          [unsortedItems[i], unsortedItems[j]] = [unsortedItems[j], unsortedItems[i]];
-        }
-        
-        setSortedItems(categories);
-        break;
-        
-      case 'multiple-choice':
-        // Initialize multiple choice options and shuffle them
-        const options = currentQuestion.options.map((text, id) => ({ id, text }));
-        
-        // Fisher-Yates shuffle
-        for (let i = options.length - 1; i > 0; i--) {
-          const j = Math.floor(Math.random() * (i + 1));
-          [options[i], options[j]] = [options[j], options[i]];
-        }
-        
-        setMultipleChoiceOptions(options);
-        break;
-    }
-    
-    // Reset timer
-    setTimeRemaining(60);
+    return () => clearTimeout(timer);
   }, [currentQuestion, currentQuestionIndex]);
   
   // Timer effect
   useEffect(() => {
-    if (isAnswered || isCompleted) return;
+    if (isAnswered || isCompleted || loading) return;
     
     const timer = setInterval(() => {
       setTimeRemaining(prev => {
@@ -168,7 +176,7 @@ export const QuizComponent: React.FC<QuizProps> = ({ quiz, onComplete }) => {
     }, 1000);
     
     return () => clearInterval(timer);
-  }, [currentQuestionIndex, isAnswered, isCompleted]);
+  }, [currentQuestionIndex, isAnswered, isCompleted, loading]);
   
   const handleAnswer = () => {
     if (isAnswered || isCompleted || !currentQuestion) return;
@@ -178,7 +186,7 @@ export const QuizComponent: React.FC<QuizProps> = ({ quiz, onComplete }) => {
     switch(currentQuestion.type) {
       case 'matching':
         // Check if all pairs match correctly
-        isCorrect = matchingPairs.every((pair, index) => 
+        isCorrect = matchingPairs.every((pair) => 
           pair.description.id === currentQuestion.correctPairs[pair.item.id]
         );
         break;
@@ -192,17 +200,21 @@ export const QuizComponent: React.FC<QuizProps> = ({ quiz, onComplete }) => {
         
       case 'sorting':
         // Check if items are in correct categories
-        const categorizedItems = sortedItems.slice(0, -1).flatMap(category => 
-          category.items.map(item => ({ item, categoryIndex: sortedItems.indexOf(category) }))
+        const categorizedItems = sortedItems.slice(0, -1).flatMap((category, categoryIndex) => 
+          category.items.map(item => ({ item, categoryIndex }))
         );
         
-        isCorrect = categorizedItems.every(({ item, categoryIndex }) => 
-          categoryIndex === currentQuestion.correctCategories[item.id]
-        );
+        if (categorizedItems.length === currentQuestion.activities.length) {
+          isCorrect = categorizedItems.every(({ item, categoryIndex }) => 
+            categoryIndex === currentQuestion.correctCategories[item.id]
+          );
+        } else {
+          isCorrect = false; // Not all items are sorted
+        }
         break;
         
       case 'multiple-choice':
-        // Check if first option is correct
+        // Check if selected option is correct
         isCorrect = multipleChoiceOptions[0].id === currentQuestion.correctAnswer;
         break;
     }
@@ -274,11 +286,11 @@ export const QuizComponent: React.FC<QuizProps> = ({ quiz, onComplete }) => {
     
     switch(currentQuestion.type) {
       case 'matching': 
-        return "Match each item with its description by dragging to swap the descriptions.";
+        return "Match each item with its description by clicking to swap the descriptions.";
       case 'sequencing': 
         return "Arrange the steps in the correct order by dragging them into place.";
       case 'sorting': 
-        return "Sort the items into their correct categories by dragging them.";
+        return "Sort the items into their correct categories by clicking on them.";
       case 'multiple-choice': 
         return "Drag the correct answer to the top position.";
       default: 
@@ -318,8 +330,10 @@ export const QuizComponent: React.FC<QuizProps> = ({ quiz, onComplete }) => {
                   : "border-gray-600 bg-gray-800 hover:bg-gray-700"
               }`}
               onClick={() => {
-                if (index < matchingPairs.length - 1) {
+                if (index < matchingPairs.length - 1 && !isAnswered) {
                   swapMatchingPair(index, index + 1);
+                } else if (index > 0 && !isAnswered) {
+                  swapMatchingPair(index, index - 1);
                 }
               }}
             >
@@ -343,7 +357,7 @@ export const QuizComponent: React.FC<QuizProps> = ({ quiz, onComplete }) => {
       >
         {sequenceItems.map((item, index) => (
           <Reorder.Item
-            key={item.id}
+            key={item.id.toString()}
             value={item}
             className={`w-full text-left p-4 rounded-lg border ${
               isAnswered
@@ -407,12 +421,15 @@ export const QuizComponent: React.FC<QuizProps> = ({ quiz, onComplete }) => {
                       : "bg-gray-700 hover:bg-gray-600"
                   }`}
                   onClick={() => {
-                    if (!isAnswered && categoryIndex !== sortedItems.length - 1) {
-                      // Move to unsorted if not already there
-                      moveItemToCategory(item.id, categoryIndex, sortedItems.length - 1);
-                    } else if (!isAnswered && categoryIndex === sortedItems.length - 1) {
-                      // Move to first category if unsorted
+                    if (isAnswered) return;
+                    
+                    // Toggle between current category and unsorted/first category
+                    if (categoryIndex === sortedItems.length - 1) {
+                      // Move from unsorted to first category
                       moveItemToCategory(item.id, categoryIndex, 0);
+                    } else if (categoryIndex < sortedItems.length - 1) {
+                      // Move from category to unsorted
+                      moveItemToCategory(item.id, categoryIndex, sortedItems.length - 1);
                     }
                   }}
                 >
@@ -425,6 +442,11 @@ export const QuizComponent: React.FC<QuizProps> = ({ quiz, onComplete }) => {
                       )
                     )}
                     {item.text}
+                    {isAnswered && currentQuestion.correctCategories[item.id] !== categoryIndex && (
+                      <span className="text-yellow-300 text-xs ml-auto">
+                        Should be in {currentQuestion.categories[currentQuestion.correctCategories[item.id]]}
+                      </span>
+                    )}
                   </div>
                 </div>
               ))}
@@ -432,7 +454,7 @@ export const QuizComponent: React.FC<QuizProps> = ({ quiz, onComplete }) => {
                 <div className="p-3 rounded-lg border border-dashed border-gray-600 text-gray-400 text-center">
                   {categoryIndex === sortedItems.length - 1 
                     ? "All items sorted!" 
-                    : "Drag items here"
+                    : "Click items to move them here"
                   }
                 </div>
               )}
@@ -453,9 +475,9 @@ export const QuizComponent: React.FC<QuizProps> = ({ quiz, onComplete }) => {
         onReorder={setMultipleChoiceOptions}
         className="space-y-2"
       >
-        {multipleChoiceOptions.map((option, index) => (
+        {multipleChoiceOptions.map((option) => (
           <Reorder.Item
-            key={option.id}
+            key={option.id.toString()}
             value={option}
             className={`w-full text-left p-4 rounded-lg border ${
               isAnswered
@@ -532,10 +554,18 @@ export const QuizComponent: React.FC<QuizProps> = ({ quiz, onComplete }) => {
           
           {/* Interactive Quiz Area */}
           <div className="mb-6">
-            {currentQuestion?.type === 'matching' && renderMatchingQuestion()}
-            {currentQuestion?.type === 'sequencing' && renderSequencingQuestion()}
-            {currentQuestion?.type === 'sorting' && renderSortingQuestion()}
-            {currentQuestion?.type === 'multiple-choice' && renderMultipleChoiceQuestion()}
+            {loading ? (
+              <div className="flex justify-center items-center h-40">
+                <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-purple-500"></div>
+              </div>
+            ) : (
+              <>
+                {currentQuestion?.type === 'matching' && renderMatchingQuestion()}
+                {currentQuestion?.type === 'sequencing' && renderSequencingQuestion()}
+                {currentQuestion?.type === 'sorting' && renderSortingQuestion()}
+                {currentQuestion?.type === 'multiple-choice' && renderMultipleChoiceQuestion()}
+              </>
+            )}
           </div>
           
           {/* Answer/Next button */}
@@ -544,6 +574,7 @@ export const QuizComponent: React.FC<QuizProps> = ({ quiz, onComplete }) => {
               <Button 
                 onClick={handleAnswer}
                 className="w-full bg-gradient-to-r from-purple-600 to-indigo-600 text-white"
+                disabled={loading}
               >
                 Submit Answer
               </Button>
