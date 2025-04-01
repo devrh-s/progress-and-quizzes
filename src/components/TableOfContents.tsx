@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
 import { cn } from '@/lib/utils';
-import { BookOpen, CheckCircle, Circle, Star, Home, Briefcase, PlayCircle } from 'lucide-react';
+import { BookOpen, CheckCircle, Circle, Star, Home, PlayCircle } from 'lucide-react';
 import { Link } from 'react-router-dom';
 
 interface Section {
