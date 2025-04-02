@@ -526,6 +526,20 @@ const quizzes = {
 
 const courseSections = [
   {
+    id: "introduction",
+    title: "Introduction",
+    subtopics: [
+      {
+        id: "course-overview",
+        title: "Course Overview",
+        content: `# Course Overview
+
+This course is dedicated to the AI tools used by our company. Throughout your learning journey, you will encounter tests with a few questions to reinforce the material. These tests are mandatory and should not be skipped. There will also be practical assignments.`,
+        hasQuiz: false
+      }
+    ]
+  },
+  {
     id: "practical-skills",
     title: "Practical Skills & Proactive Implementation",
     subtopics: [
@@ -822,39 +836,24 @@ Describe the specific workplace process or challenge your AI solution aims to im
         hasQuiz: false
       },
       {
-        id: "tools-implementation",
-        title: "AI Tools and Implementation",
-        content: `# AI Tools and Implementation
+        id: "combined-implementation",
+        title: "Project Implementation, Results, and Future Plans",
+        content: `# Project Implementation, Results, and Future Plans
 
-Detail your chosen AI tools and approach:
-
+## AI Tools and Implementation
 - Selected AI tools (Claude AI, Perplexity AI, or Grok)
     - Specific use cases for each tool
     - Integration into your workflow
 - Key features utilized
-- Implementation process and timeline`,
-        hasQuiz: false
-      },
-      {
-        id: "results-impact",
-        title: "Results and Impact",
-        content: `# Results and Impact
+- Implementation process and timeline
 
-Present your achievements:
-
+## Results and Impact
 - Time saved on tasks
 - Quality improvements in output
 - Workflow efficiency gains
-- Team feedback and adoption`,
-        hasQuiz: false
-      },
-      {
-        id: "future-development",
-        title: "Future Development",
-        content: `# Future Development
+- Team feedback and adoption
 
-Outline your next steps:
-
+## Future Development
 - Short-term: Expand use cases and team training
 - Mid-term: Integration with more work processes
 - Long-term: Department-wide AI adoption strategy`,
@@ -879,7 +878,7 @@ Key elements to include:
 
 const Guide: React.FC = () => {
   const [activeSection, setActiveSection] = useState({ id: "introduction", title: "Introduction" });
-  const [activeSubtopic, setActiveSubtopic] = useState({ id: "what-you-will-learn", title: "What You Will Learn", content: "" });
+  const [activeSubtopic, setActiveSubtopic] = useState({ id: "course-overview", title: "Course Overview", content: "" });
   const [completedSections, setCompletedSections] = useState<string[]>([]);
   const [progress, setProgress] = useState(0);
   const [xp, setXp] = useState(0);
@@ -921,137 +920,4 @@ const Guide: React.FC = () => {
     }
   };
 
-  const handleSubtopicChange = (subtopicId: string) => {
-    const section = courseSections.find(s => 
-      s.subtopics.some(sub => sub.id === subtopicId)
-    );
-    
-    if (section) {
-      setActiveSection(section);
-      
-      const subtopic = section.subtopics.find(sub => sub.id === subtopicId);
-      if (subtopic) {
-        setActiveSubtopic(subtopic);
-        
-        if (!completedSections.includes(subtopicId)) {
-          const newCompletedSections = [...completedSections, subtopicId];
-          setCompletedSections(newCompletedSections);
-          
-          toast({
-            title: "Section completed!",
-            description: `You earned 5 XP for completing "${subtopic.title}"`,
-            variant: "default",
-          });
-        }
-      }
-    }
-    
-    setShowQuiz(false);
-  };
-
-  const handleStartQuiz = () => {
-    const quiz = quizzes[activeSubtopic.id];
-    if (quiz) {
-      setCurrentQuiz(quiz);
-      setShowQuiz(true);
-    }
-  };
-
-  const handleTakeQuiz = (quizId: string) => {
-    const quiz = quizzes[quizId];
-    if (quiz) {
-      setCurrentQuiz(quiz);
-      setShowQuiz(true);
-    }
-  };
-
-  const handleQuizComplete = (score: number) => {
-    const totalQuestions = currentQuiz?.questions?.length || 1;
-    const earnedXP = Math.round((score / totalQuestions) * 10);
-    setXp(prev => prev + earnedXP);
-    
-    toast({
-      title: "Quiz Completed!",
-      description: `You scored ${score}/${totalQuestions} and earned ${earnedXP} XP`,
-      variant: "default",
-    });
-    
-    setShowQuiz(false);
-  };
-
-  return (
-    <div className="flex flex-col min-h-screen pb-12">
-      <div className="container mx-auto px-4 py-6 flex-1 flex flex-col lg:flex-row gap-6">
-        <div className="lg:w-1/3 xl:w-1/4 space-y-6">
-          <div className="fantasy-card p-4">
-            <div className="flex justify-between items-center mb-2">
-              <h3 className="text-lg font-semibold text-white">Course Progress</h3>
-              <span className="text-purple-400 font-semibold">{progress}%</span>
-            </div>
-            <Progress value={progress} className="h-2 mb-2" />
-            <div className="text-sm text-purple-300 flex items-center gap-2 mt-3">
-              <Star size={14} className="text-yellow-300" />
-              <span>XP: {xp}</span>
-            </div>
-            
-            <div className="flex flex-wrap gap-2 mt-4">
-              <div className="px-3 py-1 bg-purple-900/30 rounded-full text-sm text-purple-300 flex items-center">
-                <Clock size={14} className="mr-2" />
-                <span>5-10 min</span>
-              </div>
-              <div className="px-3 py-1 bg-purple-900/30 rounded-full text-sm text-purple-300 flex items-center">
-                <BookOpen size={14} className="mr-2" />
-                <span>Beginner</span>
-              </div>
-              <div className="px-3 py-1 bg-purple-900/30 rounded-full text-sm text-purple-300 flex items-center">
-                <Briefcase size={14} className="mr-2" />
-                <span>any profession</span>
-              </div>
-            </div>
-          </div>
-          
-          <div className="fantasy-card p-4">
-            <TableOfContents 
-              sections={courseSections}
-              activeSection={activeSection.id}
-              activeSubtopic={activeSubtopic.id}
-              completedSections={completedSections}
-              onSectionChange={handleSectionChange}
-              onSubtopicChange={handleSubtopicChange}
-            />
-          </div>
-        </div>
-        
-        <div className="lg:w-2/3 xl:w-3/4 space-y-6">
-          <div className="fantasy-card p-6">
-            <div className="mb-4">
-              <h2 className="text-2xl font-bold mb-1 text-white glow-text">
-                {activeSection.title}
-              </h2>
-              <h3 className="text-xl font-semibold text-purple-300 mb-4">
-                {activeSubtopic.title}
-              </h3>
-            </div>
-            
-            {showQuiz ? (
-              <QuizComponent 
-                quiz={currentQuiz}
-                onComplete={handleQuizComplete}
-              />
-            ) : (
-              <>
-                <CourseContent 
-                  content={activeSubtopic.content}
-                  quizId={activeSubtopic.hasQuiz ? activeSubtopic.id : undefined}
-                  onTakeQuiz={handleTakeQuiz}
-                />
-              </>
-            )}
-          </div>
-        </div>
-      </div>
-    </div>
-  );
-};
-
-export default Guide;
+  const handleSubtopicChange = (subtopicId: string)
