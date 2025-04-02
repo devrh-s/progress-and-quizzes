@@ -1017,21 +1017,24 @@ const Guide: React.FC = () => {
   };
 
   return (
-    <div className="flex h-full flex-col md:flex-row bg-gray-900">
+    <div className="flex h-full flex-col md:flex-row">
+      {/* Full screen background */}
+      <div className="fixed inset-0 bg-gray-900 -z-10"></div>
+      
       {/* Left Sidebar - Table of Contents */}
-      <div className="w-full md:w-64 md:min-w-64 bg-gray-800 p-4 md:h-full overflow-auto">
-        {/* Course Progress Section - Now aligned left */}
-        <div className="mb-8 space-y-2">
-          <div className="flex items-center justify-between">
-            <h2 className="text-2xl font-bold text-purple-300">Course Progress</h2>
+      <div className="w-full md:w-64 md:min-w-64 bg-gray-800 p-4 md:h-full overflow-auto z-10">
+        {/* Course Progress Section - Formatted as a separate block */}
+        <div className="mb-8 p-4 bg-gray-700/50 rounded-xl border border-purple-800/30">
+          <div className="flex items-center justify-between mb-2">
+            <h2 className="text-xl font-bold text-purple-300">Course Progress</h2>
             <div className="flex items-center space-x-1 text-yellow-300">
               <span>{xp}</span>
               <Star size={14} />
               <span className="text-xs text-gray-400">XP</span>
             </div>
           </div>
-          <Progress value={progress} className="h-2 bg-gray-700" />
-          <div className="flex justify-between text-sm text-gray-400">
+          <Progress value={progress} className="h-2 bg-gray-700 mb-3" />
+          <div className="grid grid-cols-2 gap-2 text-sm text-gray-400">
             <div className="flex items-center">
               <Clock size={14} className="mr-1" />
               <span>Duration: 2 hours</span>
@@ -1054,7 +1057,7 @@ const Guide: React.FC = () => {
       </div>
       
       {/* Main Content */}
-      <div className="flex-1 p-4 md:p-6 overflow-auto">
+      <div className="flex-1 p-4 md:p-6 overflow-auto z-0">
         {showQuiz ? (
           <QuizComponent 
             quiz={currentQuiz} 
