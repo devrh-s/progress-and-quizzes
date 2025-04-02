@@ -12,6 +12,7 @@ interface Section {
   subtopics: {
     id: string;
     title: string;
+    hasQuiz?: boolean; // Optional flag to indicate if subtopic has a quiz
   }[];
 }
 
@@ -22,6 +23,7 @@ interface TableOfContentsProps {
   completedSections: string[];
   onSectionChange: (sectionId: string) => void;
   onSubtopicChange: (subtopicId: string) => void;
+  onTakeQuiz?: (quizId: string, subtopicTitle: string) => void; // New callback for quiz button
 }
 
 export const TableOfContents: React.FC<TableOfContentsProps> = ({
@@ -30,7 +32,8 @@ export const TableOfContents: React.FC<TableOfContentsProps> = ({
   activeSubtopic,
   completedSections,
   onSectionChange,
-  onSubtopicChange
+  onSubtopicChange,
+  onTakeQuiz
 }) => {
   const [expandedSections, setExpandedSections] = useState<string[]>([activeSection]);
 
@@ -83,29 +86,44 @@ export const TableOfContents: React.FC<TableOfContentsProps> = ({
               <div className="space-y-1 pl-4 border-l border-purple-800/50">
                 {section.subtopics.map((subtopic) => (
                   <div key={subtopic.id} className="space-y-1">
-                    <Button
-                      variant="ghost"
-                      size="sm"
-                      className={cn(
-                        "w-full justify-start text-left text-sm h-auto py-1",
-                        activeSubtopic === subtopic.id 
-                          ? "bg-purple-900/50 text-purple-300"
-                          : completedSections.includes(subtopic.id)
-                          ? "text-green-400 hover:text-green-300"
-                          : "text-gray-300 hover:text-white"
-                      )}
-                      onClick={() => onSubtopicChange(subtopic.id)}
-                    >
-                      <span className="mr-2 flex-shrink-0">
-                        {completedSections.includes(subtopic.id) ? 
-                          <CheckCircle size={14} className="text-green-400" /> : 
-                          <Circle size={14} className="text-gray-400" />}
-                      </span>
-                      <span className="truncate max-w-[200px]">{subtopic.title}</span>
-                      <span className="ml-auto text-xs text-yellow-300 flex items-center flex-shrink-0">
-                        +5 <Star size={10} className="ml-0.5" />
-                      </span>
-                    </Button>
+                    <div className="flex items-center w-full">
+                      <Button
+                        variant="ghost"
+                        size="sm"
+                        className={cn(
+                          "w-full justify-start text-left text-sm h-auto py-1",
+                          activeSubtopic === subtopic.id 
+                            ? "bg-purple-900/50 text-purple-300"
+                            : completedSections.includes(subtopic.id)
+                            ? "text-green-400 hover:text-green-300"
+                            : "text-gray-300 hover:text-white"
+                        )}
+                        onClick={() => onSubtopicChange(subtopic.id)}
+                      >
+                        <span className="mr-2 flex-shrink-0">
+                          {completedSections.includes(subtopic.id) ? 
+                            <CheckCircle size={14} className="text-green-400" /> : 
+                            <Circle size={14} className="text-gray-400" />}
+                        </span>
+                        <span className="truncate max-w-[200px]">{subtopic.title}</span>
+                        <span className="ml-auto text-xs text-yellow-300 flex items-center flex-shrink-0">
+                          +5 <Star size={10} className="ml-0.5" />
+                        </span>
+                      </Button>
+                    </div>
+                    
+                    {/* Add Quiz Button if the subtopic has a quiz */}
+                    {subtopic.hasQuiz && onTakeQuiz && (
+                      <Button
+                        variant="ghost"
+                        size="sm"
+                        className="ml-6 text-xs flex items-center gap-1 text-purple-300 hover:text-purple-200 hover:bg-purple-900/30 py-1 px-2"
+                        onClick={() => onTakeQuiz(subtopic.id, subtopic.title)}
+                      >
+                        <PlayCircle size={12} className="text-purple-400" />
+                        Take Quiz
+                      </Button>
+                    )}
                   </div>
                 ))}
               </div>
