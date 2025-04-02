@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
@@ -920,4 +921,123 @@ const Guide: React.FC = () => {
     }
   };
 
-  const handleSubtopicChange = (subtopicId: string)
+  const handleSubtopicChange = (subtopicId: string) => {
+    const foundSection = courseSections.find(section => 
+      section.subtopics.some(subtopic => subtopic.id === subtopicId)
+    );
+    
+    if (foundSection) {
+      setActiveSection(foundSection);
+      const foundSubtopic = foundSection.subtopics.find(subtopic => subtopic.id === subtopicId);
+      if (foundSubtopic) {
+        setActiveSubtopic(foundSubtopic);
+        if (!completedSections.includes(subtopicId)) {
+          setCompletedSections(prev => [...prev, subtopicId]);
+          toast({
+            title: "New topic completed!",
+            description: `You've earned 5 XP for completing "${foundSubtopic.title}"`,
+            duration: 3000,
+          });
+        }
+      }
+    }
+  };
+
+  const handleTakeQuiz = (quizId: string) => {
+    const quiz = quizzes[quizId as keyof typeof quizzes];
+    if (quiz) {
+      setCurrentQuiz(quiz);
+      setShowQuiz(true);
+    } else {
+      toast({
+        title: "Quiz not found",
+        description: "This quiz is not available yet.",
+        variant: "destructive",
+      });
+    }
+  };
+
+  const handleQuizComplete = (results: any) => {
+    setShowQuiz(false);
+    setCurrentQuiz(null);
+    
+    // Mark the current subtopic as completed if it's not already
+    if (!completedSections.includes(activeSubtopic.id)) {
+      setCompletedSections(prev => [...prev, activeSubtopic.id]);
+    }
+    
+    toast({
+      title: "Quiz Completed!",
+      description: `You've completed the quiz and earned 10 XP`,
+      duration: 3000,
+    });
+  };
+
+  return (
+    <div className="flex h-full flex-col md:flex-row">
+      {/* Left Sidebar - Table of Contents */}
+      <div className="w-full md:w-64 md:min-w-64 bg-gray-800 p-4 md:h-full overflow-auto">
+        <TableOfContents 
+          sections={courseSections}
+          activeSection={activeSection.id}
+          activeSubtopic={activeSubtopic.id}
+          completedSections={completedSections}
+          onSectionChange={handleSectionChange}
+          onSubtopicChange={handleSubtopicChange}
+        />
+      </div>
+      
+      {/* Main Content */}
+      <div className="flex-1 p-4 md:p-6 overflow-auto">
+        {showQuiz ? (
+          <QuizComponent 
+            quiz={currentQuiz} 
+            onComplete={handleQuizComplete} 
+          />
+        ) : (
+          <div className="max-w-3xl mx-auto">
+            {/* Course Progress */}
+            <div className="mb-8 space-y-2">
+              <div className="flex items-center justify-between">
+                <h2 className="text-2xl font-bold text-purple-300">Course Progress</h2>
+                <div className="flex items-center space-x-1 text-yellow-300">
+                  <span>{xp}</span>
+                  <Star size={14} />
+                  <span className="text-xs text-gray-400">XP</span>
+                </div>
+              </div>
+              <Progress value={progress} className="h-2 bg-gray-700" />
+              <div className="flex justify-between text-sm text-gray-400">
+                <div className="flex items-center">
+                  <Clock size={14} className="mr-1" />
+                  <span>Duration: 2 hours</span>
+                </div>
+                <div className="flex items-center">
+                  <GraduationCap size={14} className="mr-1" />
+                  <span>Level: English</span>
+                </div>
+              </div>
+            </div>
+            
+            {/* Content Title */}
+            <div className="mb-6 border-b border-purple-800/30 pb-2">
+              <h1 className="text-3xl font-bold text-white">{activeSubtopic.title}</h1>
+              <p className="text-gray-400 text-sm mt-1">
+                {activeSection.title}
+              </p>
+            </div>
+            
+            {/* Content */}
+            <CourseContent 
+              content={activeSubtopic.content} 
+              quizId={activeSubtopic.hasQuiz ? activeSubtopic.id : undefined}
+              onTakeQuiz={handleTakeQuiz}
+            />
+          </div>
+        )}
+      </div>
+    </div>
+  );
+};
+
+export default Guide;
