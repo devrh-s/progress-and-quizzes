@@ -182,13 +182,18 @@ export const CourseContent: React.FC<CourseContentProps> = ({ content, quizId, o
       
       {quizId && onTakeQuiz && (
         <div className="mt-6 flex justify-end">
-          <Button 
-            onClick={() => onTakeQuiz(quizId)}
-            className="bg-purple-700 hover:bg-purple-600 transition-all hover:scale-105"
+          <motion.div
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
           >
-            <GraduationCap className="mr-2 h-4 w-4" />
-            Take Quiz
-          </Button>
+            <Button 
+              onClick={() => onTakeQuiz(quizId)}
+              className="bg-purple-700 hover:bg-purple-600 transition-all"
+            >
+              <GraduationCap className="mr-2 h-4 w-4" />
+              Take Quiz
+            </Button>
+          </motion.div>
         </div>
       )}
       

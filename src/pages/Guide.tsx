@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
@@ -522,6 +521,49 @@ const quizzes = {
         correctCategories: [0, 1, 2, 3]
       }
     ]
+  },
+  "combined-implementation": {
+    id: "combined-implementation-quiz",
+    title: "Project Implementation Quiz",
+    difficulty: "Intermediate",
+    timeLimit: 120,
+    questions: [
+      {
+        type: "matching",
+        question: "Match each project section with its corresponding details.",
+        items: ["AI Tools and Implementation", "Results and Impact", "Future Development"],
+        descriptions: [
+          "Selected AI tools (Claude AI, Perplexity AI, or Grok), specific use cases, key features utilized, implementation process, and timeline.",
+          "Time saved on tasks, quality improvements in output, workflow efficiency gains, team feedback, and adoption.",
+          "Short-term: Expand use cases and team training; Mid-term: Integration with more work processes; Long-term: Department-wide AI adoption strategy."
+        ],
+        correctPairs: [0, 1, 2]
+      },
+      {
+        type: "sequencing",
+        question: "Arrange the Future Development steps in the correct order as described in the material.",
+        steps: [
+          "Short-term: Expand use cases and team training",
+          "Mid-term: Integration with more work processes",
+          "Long-term: Department-wide AI adoption strategy"
+        ],
+        correctOrder: [0, 1, 2]
+      },
+      {
+        type: "sorting",
+        question: "For each description below, assign the correct project section.",
+        activities: [
+          "Time saved on tasks and workflow efficiency gains",
+          "Integration with more work processes",
+          "Selected AI tools and their specific use cases",
+          "Team feedback and adoption rates",
+          "Department-wide AI adoption strategy",
+          "Implementation process and timeline"
+        ],
+        categories: ["AI Tools and Implementation", "Results and Impact", "Future Development"],
+        correctCategories: [1, 2, 0, 1, 2, 0]
+      }
+    ]
   }
 };
 
@@ -858,7 +900,7 @@ Describe the specific workplace process or challenge your AI solution aims to im
 - Short-term: Expand use cases and team training
 - Mid-term: Integration with more work processes
 - Long-term: Department-wide AI adoption strategy`,
-        hasQuiz: false
+        hasQuiz: true
       },
       {
         id: "presentation-guidelines",
