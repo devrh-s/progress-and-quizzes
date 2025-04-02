@@ -480,7 +480,7 @@ const Guide: React.FC = () => {
     }
   };
 
-  const handleTakeQuiz = (quizId: string, subtopicTitle: string) => {
+  const handleTakeQuiz = (quizId: string) => {
     const quiz = quizzes[quizId];
     if (quiz) {
       setCurrentQuiz(quiz);
@@ -541,7 +541,6 @@ const Guide: React.FC = () => {
               completedSections={completedSections}
               onSectionChange={handleSectionChange}
               onSubtopicChange={handleSubtopicChange}
-              onTakeQuiz={handleTakeQuiz}
             />
           </div>
         </div>
@@ -570,8 +569,7 @@ const Guide: React.FC = () => {
                   quizId={activeSubtopic.id}
                 />
                 
-                {quizzes[activeSubtopic.id] && 
-                 !activeSubtopic.content.includes('Take Quiz') && (
+                {quizzes[activeSubtopic.id] && (
                   <div className="mt-6 pt-6 border-t border-purple-800/30 flex justify-end">
                     <Button 
                       onClick={handleStartQuiz}

@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
 import { cn } from '@/lib/utils';
-import { BookOpen, CheckCircle, Circle, Star, Home, PlayCircle } from 'lucide-react';
+import { BookOpen, CheckCircle, Circle, Star, Home } from 'lucide-react';
 import { Link } from 'react-router-dom';
 
 interface Section {
@@ -23,7 +23,6 @@ interface TableOfContentsProps {
   completedSections: string[];
   onSectionChange: (sectionId: string) => void;
   onSubtopicChange: (subtopicId: string) => void;
-  onTakeQuiz?: (quizId: string, subtopicTitle: string) => void; // New callback for quiz button
 }
 
 export const TableOfContents: React.FC<TableOfContentsProps> = ({
@@ -32,8 +31,7 @@ export const TableOfContents: React.FC<TableOfContentsProps> = ({
   activeSubtopic,
   completedSections,
   onSectionChange,
-  onSubtopicChange,
-  onTakeQuiz
+  onSubtopicChange
 }) => {
   const [expandedSections, setExpandedSections] = useState<string[]>([activeSection]);
 
@@ -111,19 +109,6 @@ export const TableOfContents: React.FC<TableOfContentsProps> = ({
                         </span>
                       </Button>
                     </div>
-                    
-                    {/* Add Quiz Button if the subtopic has a quiz */}
-                    {subtopic.hasQuiz && onTakeQuiz && (
-                      <Button
-                        variant="ghost"
-                        size="sm"
-                        className="ml-6 text-xs flex items-center gap-1 text-purple-300 hover:text-purple-200 hover:bg-purple-900/30 py-1 px-2"
-                        onClick={() => onTakeQuiz(subtopic.id, subtopic.title)}
-                      >
-                        <PlayCircle size={12} className="text-purple-400" />
-                        Take Quiz
-                      </Button>
-                    )}
                   </div>
                 ))}
               </div>
