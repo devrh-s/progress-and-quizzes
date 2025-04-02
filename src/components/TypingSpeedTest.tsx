@@ -101,7 +101,7 @@ export const TypingSpeedTest: React.FC = () => {
   const [isActive, setIsActive] = useState(false);
   const [isComplete, setIsComplete] = useState(false);
   const [startTime, setStartTime] = useState(0);
-  const [wpm, setWpm] = useState(0);
+  const [cpm, setCpm] = useState(0); // Changed from wpm to cpm
   const [accuracy, setAccuracy] = useState(100);
   const [showFireworks, setShowFireworks] = useState(false);
   const [isExpanded, setIsExpanded] = useState(false);
@@ -138,7 +138,7 @@ export const TypingSpeedTest: React.FC = () => {
     setTimer(0);
     setIsActive(false);
     setIsComplete(false);
-    setWpm(0);
+    setCpm(0); // Changed from wpm to cpm
     setAccuracy(100);
     setShowFireworks(false);
     setIsExpanded(false);
@@ -152,10 +152,10 @@ export const TypingSpeedTest: React.FC = () => {
     if (value === text) {
       const endTime = Date.now();
       const timeInMinutes = (endTime - startTime) / 60000;
-      const wordsCount = text.split(' ').length;
-      const calculatedWpm = Math.round(wordsCount / timeInMinutes);
+      const charactersCount = text.length; // Count characters instead of words
+      const calculatedCpm = Math.round(charactersCount / timeInMinutes); // Calculate CPM instead of WPM
       
-      setWpm(calculatedWpm);
+      setCpm(calculatedCpm); // Changed from wpm to cpm
       setIsActive(false);
       setIsComplete(true);
       
@@ -165,7 +165,7 @@ export const TypingSpeedTest: React.FC = () => {
         setTimeout(() => setShowFireworks(false), 3000); // Hide fireworks after 3 seconds
       }
       
-      toast.success(`Test completed! Your speed: ${calculatedWpm} WPM`, {
+      toast.success(`Test completed! Your speed: ${calculatedCpm} CPM`, { // Changed from WPM to CPM
         description: `Accuracy: ${accuracy}%`
       });
     }
@@ -282,7 +282,7 @@ export const TypingSpeedTest: React.FC = () => {
                   <div className={accuracy === 100 ? "text-yellow-300 font-bold animate-pulse" : ""}>
                     Accuracy: {accuracy}%
                   </div>
-                  {isComplete && <div>Speed: {wpm} WPM</div>}
+                  {isComplete && <div>Speed: {cpm} CPM</div>} {/* Changed from WPM to CPM */}
                 </div>
               </>
             ) : (
