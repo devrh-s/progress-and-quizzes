@@ -602,35 +602,22 @@ Key phases include:
         hasQuiz: false
       },
       {
-        id: "tool-selection",
-        title: "Tool Selection",
-        content: `# Tool Selection
+        id: "implementation-workflow",
+        title: "Implementation Workflow & Optimization",
+        content: `# Implementation Workflow & Optimization
 
-Essential AI tools for our work:
-
+## Essential AI Tools
 - **Claude AI**: Document processing and analysis
 - **Perplexity AI**: Information search and verification
-- **Grok**: Workflow automation`,
-        hasQuiz: false
-      },
-      {
-        id: "workflow-development",
-        title: "Workflow Development",
-        content: `# Workflow Development
+- **Grok**: Workflow automation
 
-Implementation structure:
-
+## Implementation Structure
 1. **Data Collection**: Use Perplexity AI for research
 2. **Analysis**: Apply Claude AI for processing
 3. **Content Generation**: Create outputs with AI assistance
-4. **Iteration**: Refine based on feedback`,
-        hasQuiz: false
-      },
-      {
-        id: "testing-optimization",
-        title: "Testing & Optimization",
-        content: `# Testing & Optimization
+4. **Iteration**: Refine based on feedback
 
+## Testing & Optimization
 - **Validation**: Test functionality and performance
 - **Monitoring**: Track key metrics
 - **Optimization**: Improve processes
@@ -645,16 +632,21 @@ Implementation structure:
 Example: Process optimization project
 
 1. **Objective**: Create an automated workflow
+   - Define clear goals
+   - Establish success metrics
+   
 2. **Tools**:
-    - **Claude AI**: Document processing
-    - **Perplexity AI**: Information verification
+   - **Claude AI**: Document processing
+   - **Perplexity AI**: Information verification
+   
 3. **Steps**:
-    - Define workflow requirements
-    - Implement AI tools
-    - Test and validate results
+   - Define workflow requirements
+   - Implement AI tools
+   - Test and validate results
+   
 4. **Optimization**:
-    - Monitor performance metrics
-    - Gather user feedback`,
+   - Monitor performance metrics
+   - Gather user feedback`,
         hasQuiz: false
       },
       {
