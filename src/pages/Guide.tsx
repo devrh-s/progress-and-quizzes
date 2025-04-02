@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
@@ -240,31 +241,74 @@ const courseSections = [
       {
         id: "developing-practical-ai-skills",
         title: "Developing Practical AI Skills",
-        content: "Learn how to develop practical AI skills through the key components of AI Fluency, Critical Analysis, and the Role-Context-Query Method. Master these skills through hands-on experience and real-world application. QUIZ_BUTTON_PLACEHOLDER",
+        content: `# Developing Practical AI Skills
+
+In today's digital world, practical AI skills are essential for tech professionals. This training focuses on developing AI competencies through hands-on experience:
+
+- **AI Fluency**: Master tools like ChatGPT, Claude, and Perplexity AI for solving real business problems. Focus on strategic implementation rather than basic prompting.
+- **Critical Analysis**: Apply critical thinking for decision-making and problem-solving with AI tools.
+- **Role-Context-Query Method**: Learn precise formulation and task decomposition for effective AI interaction.
+
+**Practical Exercise**: Create an AI-assisted workflow optimization plan with clear metrics and validation steps.`,
         hasQuiz: true
       },
       {
         id: "proactive-ai-implementation",
         title: "Proactive AI Implementation",
-        content: "Understand strategies for proactive AI implementation including analyzing business needs, rapid testing, change management, and appropriate tool selection. QUIZ_BUTTON_PLACEHOLDER",
+        content: `# Proactive AI Implementation
+
+Success in AI adoption requires strategic planning:
+
+- **Rapid Testing**: Launch small pilots quickly, learn from results, and scale successful approaches.
+- **Change Management**: Drive adoption through clear communication and demonstrable benefits.
+- **Tool Selection**: Choose appropriate AI tools based on specific professional roles and needs.
+
+**Example**: Develop practical solutions using Claude AI for documents and Perplexity AI for information verification.`,
         hasQuiz: true
       },
       {
         id: "personal-ai-development",
         title: "Personal AI Development",
-        content: "Develop your own AI skills through skills assessment, project-focused learning, and continuous practice to refine your abilities. QUIZ_BUTTON_PLACEHOLDER",
+        content: `# Personal AI Development
+
+Accelerate your AI expertise through structured learning:
+
+- **Skills Assessment**: Identify areas for improvement in AI tool usage and implementation.
+- **Project Focus**: Apply learning to real projects aligned with course objectives.
+- **Continuous Learning**: Practice AI skills through hands-on projects and exercises.
+
+**Planning**: Create detailed project plans with measurable outcomes.`,
         hasQuiz: true
       },
       {
         id: "final-project",
         title: "Final Project",
-        content: "Apply your knowledge to a real-world project through analysis, tool selection, execution with stakeholder feedback, and presentation of results. QUIZ_BUTTON_PLACEHOLDER",
+        content: `# Final Project
+
+Implement an AI solution for business process improvement:
+
+**Task**: Develop and present an AI-driven solution for a specific business challenge.
+
+**Steps**:
+
+1. **Analysis**: Identify opportunities for AI implementation.
+2. **Tools**: Select and implement appropriate AI solutions.
+3. **Execute**: Build and test solutions with stakeholder feedback.
+4. **Present**: Demonstrate results and future development plans.
+
+**Example**: Workflow optimization using AI tools covered in the course.`,
         hasQuiz: true
       },
       {
         id: "key-focus-areas",
         title: "Key Focus Areas",
-        content: "Focus on developing practical skills, implementing strategic solutions, and achieving measurable results in your AI adoption journey. QUIZ_BUTTON_PLACEHOLDER",
+        content: `# Key Focus Areas
+
+- **Practical Skills**: Hands-on experience with AI tools and applications.
+- **Implementation**: Strategic approach to AI solution deployment.
+- **Results**: Measurable improvements in workflow efficiency.
+
+Success requires practical expertise, strategic thinking, and effective implementation of AI technologies.`,
         hasQuiz: true
       }
     ]
@@ -564,8 +608,7 @@ const Guide: React.FC = () => {
             ) : (
               <>
                 <CourseContent 
-                  content={activeSubtopic.content} 
-                  onTakeQuiz={handleTakeQuiz}
+                  content={activeSubtopic.content}
                   quizId={activeSubtopic.id}
                 />
                 
