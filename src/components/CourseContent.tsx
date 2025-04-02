@@ -180,6 +180,18 @@ export const CourseContent: React.FC<CourseContentProps> = ({ content, quizId, o
         dangerouslySetInnerHTML={{ __html: animateKeywords(content) }}
       />
       
+      {quizId && onTakeQuiz && (
+        <div className="mt-6 flex justify-end">
+          <Button 
+            onClick={() => onTakeQuiz(quizId)}
+            className="bg-purple-700 hover:bg-purple-600"
+          >
+            <GraduationCap className="mr-2 h-4 w-4" />
+            Take Quiz
+          </Button>
+        </div>
+      )}
+      
       <div className="mt-6 border-t border-purple-800/30 pt-4 text-sm text-purple-300">
         <p>Take your time to understand these concepts before moving on.</p>
       </div>

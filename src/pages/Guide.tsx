@@ -687,31 +687,61 @@ These practices ensure efficient AI project development while maintaining qualit
       {
         id: "problem-description",
         title: "Problem Description",
-        content: "Learn how to effectively describe the problem your AI project addresses.",
+        content: `# Problem Description
+
+Describe the specific workplace process or challenge your AI solution aims to improve. Focus on how AI tools can enhance productivity, automate routine tasks, or improve decision-making in your role. Include specific examples from your daily work that show the need for AI assistance.`,
         hasQuiz: false
       },
       {
         id: "tools-implementation",
         title: "AI Tools and Implementation",
-        content: "Understand how to present the tools and implementation details of your project.",
+        content: `# AI Tools and Implementation
+
+Detail your chosen AI tools and approach:
+
+- Selected AI tools (Claude AI, Perplexity AI, or Grok)
+    - Specific use cases for each tool
+    - Integration into your workflow
+- Key features utilized
+- Implementation process and timeline`,
         hasQuiz: false
       },
       {
         id: "results-impact",
         title: "Results and Impact",
-        content: "Learn how to demonstrate the results and impact of your AI project.",
+        content: `# Results and Impact
+
+Present your achievements:
+
+- Time saved on tasks
+- Quality improvements in output
+- Workflow efficiency gains
+- Team feedback and adoption`,
         hasQuiz: false
       },
       {
         id: "future-development",
         title: "Future Development",
-        content: "Explore strategies for presenting future development plans.",
+        content: `# Future Development
+
+Outline your next steps:
+
+- Short-term: Expand use cases and team training
+- Mid-term: Integration with more work processes
+- Long-term: Department-wide AI adoption strategy`,
         hasQuiz: false
       },
       {
         id: "presentation-guidelines",
         title: "Presentation Guidelines",
-        content: "Master guidelines for delivering an effective project presentation.",
+        content: `# Presentation Guidelines
+
+Key elements to include:
+
+- Show practical examples of AI tools in use
+- Demonstrate actual workflow improvements
+- Share lessons learned and best practices
+- Provide recommendations for others`,
         hasQuiz: false
       }
     ]
