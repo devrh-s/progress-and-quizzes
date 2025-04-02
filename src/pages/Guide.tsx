@@ -16,7 +16,7 @@ interface Section {
     id: string;
     title: string;
     content: string;
-    hasQuiz?: boolean;
+    hasQuiz?: boolean;  // Added this optional property
   }[];
 }
 

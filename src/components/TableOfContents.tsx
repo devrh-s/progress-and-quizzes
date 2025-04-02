@@ -1,5 +1,4 @@
-
-import React, { useState } from 'react';
+import React from 'react';
 import { Button } from '@/components/ui/button';
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
 import { cn } from '@/lib/utils';
@@ -33,14 +32,10 @@ export const TableOfContents: React.FC<TableOfContentsProps> = ({
   onSectionChange,
   onSubtopicChange
 }) => {
-  const [expandedSections, setExpandedSections] = useState<string[]>([activeSection]);
+  // Always keep all sections expanded
+  const allSectionIds = sections.map(section => section.id);
 
-  const toggleSection = (sectionId: string) => {
-    setExpandedSections(prev => 
-      prev.includes(sectionId) 
-        ? prev.filter(id => id !== sectionId)
-        : [...prev, sectionId]
-    );
+  const handleSectionClick = (sectionId: string) => {
     onSectionChange(sectionId);
   };
 
@@ -58,8 +53,8 @@ export const TableOfContents: React.FC<TableOfContentsProps> = ({
       
       <Accordion 
         type="multiple" 
-        defaultValue={[activeSection]} 
-        value={expandedSections}
+        defaultValue={allSectionIds} 
+        value={allSectionIds}
         className="space-y-2 w-full"
       >
         {sections.map((section) => (
@@ -69,11 +64,12 @@ export const TableOfContents: React.FC<TableOfContentsProps> = ({
             className="fantasy-card border-0 overflow-hidden mb-2 w-full"
           >
             <AccordionTrigger 
-              onClick={() => toggleSection(section.id)}
+              onClick={() => handleSectionClick(section.id)}
               className={cn(
                 "px-4 py-3 text-left text-sm font-medium hover:bg-purple-900/30 w-full",
                 activeSection === section.id ? "text-purple-300" : "text-white"
               )}
+              aria-hidden={true}
             >
               <div className="flex items-center w-full pr-4">
                 <BookOpen size={16} className="mr-2 text-purple-400 flex-shrink-0" />
