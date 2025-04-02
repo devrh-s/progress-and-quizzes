@@ -1,5 +1,5 @@
 
-import React, { useState } from 'react';
+import React from 'react';
 import { Link } from 'react-router-dom';
 import { TypingSpeedTest } from '@/components/TypingSpeedTest';
 import { Testimonial } from '@/components/Testimonial';
@@ -57,9 +57,9 @@ const Index = () => {
         />
       </div>
 
-      {/* Typing Speed Test - increased size */}
-      <div className="w-full max-w-4xl my-8 fantasy-card p-8 z-10">
-        <h2 className="text-2xl font-bold text-white mb-6 text-center">Typing Speed Test</h2>
+      {/* Typing Speed Test - Compact/Expandable */}
+      <div className="w-full max-w-4xl my-8 fantasy-card p-6 z-10">
+        <h2 className="text-2xl font-bold text-white mb-4 text-center">Typing Speed Test</h2>
         <TypingSpeedTest />
       </div>
 

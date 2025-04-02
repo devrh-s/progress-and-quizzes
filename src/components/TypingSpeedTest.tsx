@@ -2,6 +2,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { Button } from '@/components/ui/button';
 import { toast } from 'sonner';
+import { motion, AnimatePresence } from 'framer-motion';
 
 // Sample texts for typing test
 const sampleTexts = [
@@ -103,23 +104,44 @@ export const TypingSpeedTest: React.FC = () => {
   const [wpm, setWpm] = useState(0);
   const [accuracy, setAccuracy] = useState(100);
   const [showFireworks, setShowFireworks] = useState(false);
+  const [isExpanded, setIsExpanded] = useState(false);
   const inputRef = useRef<HTMLTextAreaElement>(null);
 
   const startTest = () => {
-    // Get a random text from the sample texts
-    const randomText = sampleTexts[Math.floor(Math.random() * sampleTexts.length)];
-    setText(randomText);
+    // Set expanded state first for animation
+    setIsExpanded(true);
+    
+    // Small delay to allow animation to play before starting the test
+    setTimeout(() => {
+      // Get a random text from the sample texts
+      const randomText = sampleTexts[Math.floor(Math.random() * sampleTexts.length)];
+      setText(randomText);
+      setUserInput('');
+      setTimer(0);
+      setIsActive(true);
+      setIsComplete(false);
+      setStartTime(Date.now());
+      setShowFireworks(false);
+      
+      // Focus the input after expansion animation
+      setTimeout(() => {
+        if (inputRef.current) {
+          inputRef.current.focus();
+        }
+      }, 300);
+    }, 400);
+  };
+
+  const resetTest = () => {
+    setText('');
     setUserInput('');
     setTimer(0);
-    setIsActive(true);
+    setIsActive(false);
     setIsComplete(false);
-    setStartTime(Date.now());
+    setWpm(0);
+    setAccuracy(100);
     setShowFireworks(false);
-    setTimeout(() => {
-      if (inputRef.current) {
-        inputRef.current.focus();
-      }
-    }, 0);
+    setIsExpanded(false);
   };
 
   const handleChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
@@ -188,60 +210,89 @@ export const TypingSpeedTest: React.FC = () => {
     <div className="space-y-6 relative">
       {showFireworks && <FantasyFirework />}
       
-      <div className="flex justify-between items-center mb-4">
-        <Button 
-          onClick={startTest} 
-          variant="outline"
-          className="border-purple-500 text-purple-300 hover:text-white hover:bg-purple-700"
-        >
-          {isActive ? 'Restart Test' : 'Start Test'}
-        </Button>
-        {isActive && (
-          <div className="text-white font-mono text-lg">
-            {formatTime(timer)}
-          </div>
-        )}
-      </div>
-      
-      {isActive || isComplete ? (
-        <>
-          <div className="relative mb-4">
-            {/* Text display - using min-height to ensure sufficient space */}
-            <div className="absolute inset-0 p-4 text-gray-500 pointer-events-none font-mono text-lg bg-transparent whitespace-pre-wrap min-h-[180px] overflow-y-auto">
-              {text}
+      <AnimatePresence>
+        {!isExpanded ? (
+          // Initial small window with centered button
+          <motion.div 
+            key="small-view"
+            initial={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="flex justify-center items-center py-10"
+          >
+            <Button 
+              onClick={startTest} 
+              variant="outline"
+              className="border-purple-500 text-purple-300 hover:text-white hover:bg-purple-700 px-8 py-6 text-lg"
+            >
+              Start Test
+            </Button>
+          </motion.div>
+        ) : (
+          // Expanded view with the typing test
+          <motion.div
+            key="expanded-view"
+            initial={{ opacity: 0, height: 0 }}
+            animate={{ opacity: 1, height: 'auto' }}
+            exit={{ opacity: 0, height: 0 }}
+            transition={{ duration: 0.4, ease: "easeInOut" }}
+          >
+            <div className="flex justify-between items-center mb-4">
+              <Button 
+                onClick={isComplete ? resetTest : startTest} 
+                variant="outline"
+                className="border-purple-500 text-purple-300 hover:text-white hover:bg-purple-700"
+              >
+                {isComplete ? 'New Test' : isActive ? 'Restart Test' : 'Start Test'}
+              </Button>
+              {isActive && (
+                <div className="text-white font-mono text-lg">
+                  {formatTime(timer)}
+                </div>
+              )}
             </div>
-            {/* User input field */}
-            <div className="relative">
-              <textarea
-                ref={inputRef}
-                value={userInput}
-                onChange={handleChange}
-                disabled={isComplete}
-                className="w-full p-4 bg-transparent border border-purple-500/50 rounded-md font-mono text-lg text-white caretColor-purple-500 outline-none focus:border-purple-500 min-h-[180px]"
-                style={{ color: 'transparent', caretColor: 'white', resize: 'none' }}
-              />
-              <div className="absolute inset-0 p-4 pointer-events-none font-mono text-lg whitespace-pre-wrap min-h-[180px] overflow-y-auto">
-                {userInput.split('').map((char, index) => (
-                  <span key={index} className={char === text[index] ? 'text-green-400' : 'text-red-500'}>
-                    {char}
-                  </span>
-                ))}
+            
+            {isActive || isComplete ? (
+              <>
+                <div className="relative mb-4">
+                  {/* Text display - using min-height to ensure sufficient space */}
+                  <div className="absolute inset-0 p-4 text-gray-500 pointer-events-none font-mono text-lg bg-transparent whitespace-pre-wrap min-h-[180px] overflow-y-auto">
+                    {text}
+                  </div>
+                  {/* User input field */}
+                  <div className="relative">
+                    <textarea
+                      ref={inputRef}
+                      value={userInput}
+                      onChange={handleChange}
+                      disabled={isComplete}
+                      className="w-full p-4 bg-transparent border border-purple-500/50 rounded-md font-mono text-lg text-white caretColor-purple-500 outline-none focus:border-purple-500 min-h-[180px]"
+                      style={{ color: 'transparent', caretColor: 'white', resize: 'none' }}
+                    />
+                    <div className="absolute inset-0 p-4 pointer-events-none font-mono text-lg whitespace-pre-wrap min-h-[180px] overflow-y-auto">
+                      {userInput.split('').map((char, index) => (
+                        <span key={index} className={char === text[index] ? 'text-green-400' : 'text-red-500'}>
+                          {char}
+                        </span>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+                
+                <div className="flex justify-between text-purple-200">
+                  <div className={accuracy === 100 ? "text-yellow-300 font-bold animate-pulse" : ""}>
+                    Accuracy: {accuracy}%
+                  </div>
+                  {isComplete && <div>Speed: {wpm} WPM</div>}
+                </div>
+              </>
+            ) : (
+              <div className="text-center text-purple-200 p-4 min-h-[180px] flex items-center justify-center">
+                Click the button above to start a typing test
               </div>
-            </div>
-          </div>
-          
-          <div className="flex justify-between text-purple-200">
-            <div className={accuracy === 100 ? "text-yellow-300 font-bold animate-pulse" : ""}>
-              Accuracy: {accuracy}%
-            </div>
-            {isComplete && <div>Speed: {wpm} WPM</div>}
-          </div>
-        </>
-      ) : (
-        <div className="text-center text-purple-200 p-4 min-h-[180px] flex items-center justify-center">
-          Click the button above to start a typing test
-        </div>
-      )}
+            )}
+          </motion.div>
+        )}
+      </AnimatePresence>
     </div>
   );
 };
