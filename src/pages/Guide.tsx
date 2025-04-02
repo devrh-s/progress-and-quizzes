@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
@@ -5,7 +6,7 @@ import { Progress } from '@/components/ui/progress';
 import { CourseContent } from '@/components/CourseContent';
 import { TableOfContents } from '@/components/TableOfContents';
 import { toast } from '@/hooks/use-toast';
-import { Home, Clock, Users, BookOpen, GraduationCap, Star, Briefcase, PlayCircle } from 'lucide-react';
+import { Home, Clock, Users, BookOpen, GraduationCap, Star, Briefcase, PlayCircle, BookOpen as BookIcon, Bookmark } from 'lucide-react';
 import { QuizComponent } from '@/components/QuizComponent';
 
 interface Section {
@@ -1016,9 +1017,32 @@ const Guide: React.FC = () => {
   };
 
   return (
-    <div className="flex h-full flex-col md:flex-row">
+    <div className="flex h-full flex-col md:flex-row bg-gray-900">
       {/* Left Sidebar - Table of Contents */}
       <div className="w-full md:w-64 md:min-w-64 bg-gray-800 p-4 md:h-full overflow-auto">
+        {/* Course Progress Section - Now aligned left */}
+        <div className="mb-8 space-y-2">
+          <div className="flex items-center justify-between">
+            <h2 className="text-2xl font-bold text-purple-300">Course Progress</h2>
+            <div className="flex items-center space-x-1 text-yellow-300">
+              <span>{xp}</span>
+              <Star size={14} />
+              <span className="text-xs text-gray-400">XP</span>
+            </div>
+          </div>
+          <Progress value={progress} className="h-2 bg-gray-700" />
+          <div className="flex justify-between text-sm text-gray-400">
+            <div className="flex items-center">
+              <Clock size={14} className="mr-1" />
+              <span>Duration: 2 hours</span>
+            </div>
+            <div className="flex items-center">
+              <GraduationCap size={14} className="mr-1" />
+              <span>Level: English</span>
+            </div>
+          </div>
+        </div>
+        
         <TableOfContents 
           sections={courseSections}
           activeSection={activeSection.id}
@@ -1038,43 +1062,28 @@ const Guide: React.FC = () => {
           />
         ) : (
           <div className="max-w-3xl mx-auto">
-            {/* Course Progress */}
-            <div className="mb-8 space-y-2">
-              <div className="flex items-center justify-between">
-                <h2 className="text-2xl font-bold text-purple-300">Course Progress</h2>
-                <div className="flex items-center space-x-1 text-yellow-300">
-                  <span>{xp}</span>
-                  <Star size={14} />
-                  <span className="text-xs text-gray-400">XP</span>
-                </div>
+            {/* Topic and Subtopic Navigation Block */}
+            <div className="mb-6 p-4 bg-gray-800/50 rounded-xl border border-purple-800/30">
+              <div className="flex items-center gap-2 text-sm text-purple-400 mb-2">
+                <BookIcon size={16} className="text-purple-400" />
+                <span>Topic:</span>
+                <span className="font-medium text-white">{activeSection.title}</span>
               </div>
-              <Progress value={progress} className="h-2 bg-gray-700" />
-              <div className="flex justify-between text-sm text-gray-400">
-                <div className="flex items-center">
-                  <Clock size={14} className="mr-1" />
-                  <span>Duration: 2 hours</span>
-                </div>
-                <div className="flex items-center">
-                  <GraduationCap size={14} className="mr-1" />
-                  <span>Level: English</span>
-                </div>
+              
+              <div className="flex items-center gap-2 text-lg font-bold text-white">
+                <Bookmark size={18} className="text-purple-300" />
+                <h1 className="text-2xl">{activeSubtopic.title}</h1>
               </div>
             </div>
             
-            {/* Content Title */}
-            <div className="mb-6 border-b border-purple-800/30 pb-2">
-              <h1 className="text-3xl font-bold text-white">{activeSubtopic.title}</h1>
-              <p className="text-gray-400 text-sm mt-1">
-                {activeSection.title}
-              </p>
+            {/* Course Content */}
+            <div className="bg-gray-800/30 p-6 rounded-xl border border-purple-800/20 backdrop-blur-sm">
+              <CourseContent 
+                content={activeSubtopic.content} 
+                quizId={activeSubtopic.hasQuiz ? activeSubtopic.id : undefined}
+                onTakeQuiz={handleTakeQuiz}
+              />
             </div>
-            
-            {/* Content */}
-            <CourseContent 
-              content={activeSubtopic.content} 
-              quizId={activeSubtopic.hasQuiz ? activeSubtopic.id : undefined}
-              onTakeQuiz={handleTakeQuiz}
-            />
           </div>
         )}
       </div>
