@@ -404,29 +404,19 @@ In today's digital world, practical AI skills are essential for tech professiona
       },
       {
         id: "proactive-ai-implementation",
-        title: "Proactive AI Implementation",
-        content: `# Proactive AI Implementation
+        title: "Proactive AI Implementation & Personal Development",
+        content: `# Proactive AI Implementation & Personal Development
 
 Success in AI adoption requires strategic planning:
 
 - **Rapid Testing**: Launch small pilots quickly, learn from results, and scale successful approaches.
 - **Change Management**: Drive adoption through clear communication and demonstrable benefits.
 - **Tool Selection**: Choose appropriate AI tools based on specific professional roles and needs.
-
-**Example**: Develop practical solutions using Claude AI for documents and Perplexity AI for information verification.`,
-        hasQuiz: false
-      },
-      {
-        id: "personal-ai-development",
-        title: "Personal AI Development",
-        content: `# Personal AI Development
-
-Accelerate your AI expertise through structured learning:
-
 - **Skills Assessment**: Identify areas for improvement in AI tool usage and implementation.
 - **Project Focus**: Apply learning to real projects aligned with course objectives.
 - **Continuous Learning**: Practice AI skills through hands-on projects and exercises.
 
+**Example**: Develop practical solutions using Claude AI for documents and Perplexity AI for information verification.
 **Planning**: Create detailed project plans with measurable outcomes.`,
         hasQuiz: false
       },
@@ -501,7 +491,6 @@ Key principles:
 **Prompt**:
 
 > "As a Documentation Specialist, analyze this meeting transcript. Extract key decisions and action items. Format as a bulleted list."
-> 
 
 **Result**:
 
@@ -520,7 +509,6 @@ Key principles:
 **Prompt**:
 
 > "As a Research Assistant, find relevant industry statistics for our quarterly report. Focus on market growth and trends."
-> 
 
 | Category | Current Value | Growth Rate | Source |
 | --- | --- | --- | --- |
@@ -631,22 +619,22 @@ Key phases include:
 
 Example: Process optimization project
 
-1. **Objective**: Create an automated workflow
-   - Define clear goals
-   - Establish success metrics
-   
-2. **Tools**:
-   - **Claude AI**: Document processing
-   - **Perplexity AI**: Information verification
-   
-3. **Steps**:
-   - Define workflow requirements
-   - Implement AI tools
-   - Test and validate results
-   
-4. **Optimization**:
-   - Monitor performance metrics
-   - Gather user feedback`,
+**Objective**: Create an automated workflow
+- Define clear goals
+- Establish success metrics
+
+**Tools**:
+- **Claude AI**: Document processing
+- **Perplexity AI**: Information verification
+
+**Steps**:
+- Define workflow requirements
+- Implement AI tools
+- Test and validate results
+
+**Optimization**:
+- Monitor performance metrics
+- Gather user feedback`,
         hasQuiz: false
       },
       {
