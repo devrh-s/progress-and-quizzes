@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
@@ -401,7 +400,7 @@ In today's digital world, practical AI skills are essential for tech professiona
 - **Role-Context-Query Method**: Learn precise formulation and task decomposition for effective AI interaction.
 
 **Practical Exercise**: Create an AI-assisted workflow optimization plan with clear metrics and validation steps.`,
-        hasQuiz: true
+        hasQuiz: false
       },
       {
         id: "proactive-ai-implementation",
@@ -415,7 +414,7 @@ Success in AI adoption requires strategic planning:
 - **Tool Selection**: Choose appropriate AI tools based on specific professional roles and needs.
 
 **Example**: Develop practical solutions using Claude AI for documents and Perplexity AI for information verification.`,
-        hasQuiz: true
+        hasQuiz: false
       },
       {
         id: "personal-ai-development",
@@ -429,7 +428,7 @@ Accelerate your AI expertise through structured learning:
 - **Continuous Learning**: Practice AI skills through hands-on projects and exercises.
 
 **Planning**: Create detailed project plans with measurable outcomes.`,
-        hasQuiz: true
+        hasQuiz: false
       },
       {
         id: "final-project",
@@ -448,7 +447,7 @@ Implement an AI solution for business process improvement:
 4. **Present**: Demonstrate results and future development plans.
 
 **Example**: Workflow optimization using AI tools covered in the course.`,
-        hasQuiz: true
+        hasQuiz: false
       },
       {
         id: "key-focus-areas",
@@ -460,7 +459,7 @@ Implement an AI solution for business process improvement:
 - **Results**: Measurable improvements in workflow efficiency.
 
 Success requires practical expertise, strategic thinking, and effective implementation of AI technologies.`,
-        hasQuiz: true
+        hasQuiz: false
       }
     ]
   },
@@ -478,7 +477,7 @@ The framework consists of three key elements:
 - **Role**: Specify the AI's role (e.g., "Documentation Specialist" when working with documents)
 - **Context**: Provide relevant background information and specific requirements
 - **Task**: Clearly state what needs to be done and in what format`,
-        hasQuiz: true
+        hasQuiz: false
       },
       {
         id: "effective-prompting-principles",
@@ -492,7 +491,7 @@ Key principles:
 3. **Task breakdown**: Split complex requests into smaller steps
 4. **Iteration**: Refine prompts based on results
 5. **Clear formatting**: Define how you want the information presented`,
-        hasQuiz: true
+        hasQuiz: false
       },
       {
         id: "document-processing-with-rct",
@@ -511,7 +510,7 @@ Key principles:
 3. **Team structure**: Roles defined
 4. **Next steps**: Weekly progress reviews
 5. **Tools**: Selected collaboration platform`,
-        hasQuiz: true
+        hasQuiz: false
       },
       {
         id: "information-search-with-rct",
@@ -528,7 +527,7 @@ Key principles:
 | Market Size | $5.2B | 12% | Industry Report |
 | User Base | 2.5M | 15% | Analytics |
 | ROI | 185% | 8% | Customer Data |`,
-        hasQuiz: true
+        hasQuiz: false
       },
       {
         id: "why-the-rct-framework-works",
@@ -540,7 +539,7 @@ Key principles:
 - **Structured output**: Organized information delivery
 
 The RCT framework helps employees maximize AI tool effectiveness across various work tasks.`,
-        hasQuiz: true
+        hasQuiz: false
       }
     ]
   },
@@ -825,24 +824,7 @@ const Guide: React.FC = () => {
               <>
                 <CourseContent 
                   content={activeSubtopic.content}
-                  quizId={activeSubtopic.id}
-                  onTakeQuiz={handleTakeQuiz}
                 />
-                
-                {activeSubtopic.hasQuiz && (
-                  <div className="mt-6 pt-6 border-t border-purple-800/30 flex justify-end">
-                    <Button 
-                      onClick={handleStartQuiz}
-                      className="group relative overflow-hidden px-6 py-2 shadow-lg text-white rounded-lg magical-border"
-                    >
-                      <div className="absolute inset-0 bg-gradient-to-br from-purple-500 to-purple-700 opacity-70 group-hover:opacity-80 transition-opacity"></div>
-                      <span className="relative flex items-center font-medium text-lg">
-                        <GraduationCap className="mr-2 h-5 w-5" />
-                        Take Quiz
-                      </span>
-                    </Button>
-                  </div>
-                )}
               </>
             )}
           </div>

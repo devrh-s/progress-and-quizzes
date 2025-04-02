@@ -180,21 +180,6 @@ export const CourseContent: React.FC<CourseContentProps> = ({ content, quizId, o
         dangerouslySetInnerHTML={{ __html: animateKeywords(content) }}
       />
       
-      {quizId && onTakeQuiz && (
-        <div className="mt-6 flex justify-end">
-          <Button 
-            onClick={() => onTakeQuiz(quizId)}
-            className="group relative overflow-hidden px-6 py-2 shadow-lg text-white rounded-lg magical-border"
-          >
-            <div className="absolute inset-0 bg-gradient-to-br from-purple-500 to-purple-700 opacity-70 group-hover:opacity-80 transition-opacity"></div>
-            <span className="relative flex items-center font-medium text-lg">
-              <GraduationCap className="mr-2 h-5 w-5" />
-              Take Quiz
-            </span>
-          </Button>
-        </div>
-      )}
-      
       <div className="mt-6 border-t border-purple-800/30 pt-4 text-sm text-purple-300">
         <p>Take your time to understand these concepts before moving on.</p>
       </div>
