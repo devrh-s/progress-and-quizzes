@@ -159,10 +159,8 @@ const animateKeywords = (content: string): string => {
     contentWithLists = processedLines.join('\n');
   }
   
-  // Remove quiz button placeholder if it exists
-  if (contentWithLists.includes('QUIZ_BUTTON_PLACEHOLDER')) {
-    contentWithLists = contentWithLists.replace('QUIZ_BUTTON_PLACEHOLDER', '');
-  }
+  // Remove any quiz button placeholders if they exist
+  contentWithLists = contentWithLists.replace(/QUIZ_BUTTON_PLACEHOLDER/g, '');
   
   return contentWithLists;
 };

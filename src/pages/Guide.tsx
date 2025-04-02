@@ -551,25 +551,25 @@ The RCT framework helps employees maximize AI tool effectiveness across various 
       {
         id: "text-generation-analysis",
         title: "Text Generation & Analysis",
-        content: "Learn about tools for generating and analyzing text. QUIZ_BUTTON_PLACEHOLDER",
+        content: "Learn about tools for generating and analyzing text.",
         hasQuiz: false
       },
       {
         id: "content-creation-design",
         title: "Content Creation & Design",
-        content: "Discover tools for creating and designing content. QUIZ_BUTTON_PLACEHOLDER",
+        content: "Discover tools for creating and designing content.",
         hasQuiz: false
       },
       {
         id: "development-automation",
         title: "Development & Automation",
-        content: "Explore automation tools for streamlining development. QUIZ_BUTTON_PLACEHOLDER",
+        content: "Explore automation tools for streamlining development.",
         hasQuiz: false
       },
       {
         id: "key-applications",
         title: "Key Applications",
-        content: "Understand key applications of AI tools for remote helpers. QUIZ_BUTTON_PLACEHOLDER",
+        content: "Understand key applications of AI tools for remote helpers.",
         hasQuiz: false
       }
     ]
@@ -581,43 +581,43 @@ The RCT framework helps employees maximize AI tool effectiveness across various 
       {
         id: "core-components",
         title: "Core Components of AI Project Development",
-        content: "Understand the fundamental components of AI project development. QUIZ_BUTTON_PLACEHOLDER",
+        content: "Understand the fundamental components of AI project development.",
         hasQuiz: false
       },
       {
         id: "tool-selection",
         title: "Tool Selection",
-        content: "Learn how to select the right tools for your AI project. QUIZ_BUTTON_PLACEHOLDER",
+        content: "Learn how to select the right tools for your AI project.",
         hasQuiz: false
       },
       {
         id: "workflow-development",
         title: "Workflow Development",
-        content: "Develop effective workflows for your AI projects. QUIZ_BUTTON_PLACEHOLDER",
+        content: "Develop effective workflows for your AI projects.",
         hasQuiz: false
       },
       {
         id: "testing-optimization",
         title: "Testing & Optimization",
-        content: "Master techniques for testing and optimizing AI implementations. QUIZ_BUTTON_PLACEHOLDER",
+        content: "Master techniques for testing and optimizing AI implementations.",
         hasQuiz: false
       },
       {
         id: "build-working-prototype",
         title: "Task – Build a Working Prototype",
-        content: "Apply your knowledge to build a working AI prototype. QUIZ_BUTTON_PLACEHOLDER",
+        content: "Apply your knowledge to build a working AI prototype.",
         hasQuiz: false
       },
       {
         id: "tools-overview",
         title: "Tools Overview",
-        content: "Get an overview of the tools available for AI projects. QUIZ_BUTTON_PLACEHOLDER",
+        content: "Get an overview of the tools available for AI projects.",
         hasQuiz: false
       },
       {
         id: "practical-tips",
         title: "Practical Tips",
-        content: "Learn practical tips for successful AI project implementation. QUIZ_BUTTON_PLACEHOLDER",
+        content: "Learn practical tips for successful AI project implementation.",
         hasQuiz: false
       }
     ]
@@ -629,31 +629,31 @@ The RCT framework helps employees maximize AI tool effectiveness across various 
       {
         id: "problem-description",
         title: "Problem Description",
-        content: "Learn how to effectively describe the problem your AI project addresses. QUIZ_BUTTON_PLACEHOLDER",
+        content: "Learn how to effectively describe the problem your AI project addresses.",
         hasQuiz: false
       },
       {
         id: "tools-implementation",
         title: "AI Tools and Implementation",
-        content: "Understand how to present the tools and implementation details of your project. QUIZ_BUTTON_PLACEHOLDER",
+        content: "Understand how to present the tools and implementation details of your project.",
         hasQuiz: false
       },
       {
         id: "results-impact",
         title: "Results and Impact",
-        content: "Learn how to demonstrate the results and impact of your AI project. QUIZ_BUTTON_PLACEHOLDER",
+        content: "Learn how to demonstrate the results and impact of your AI project.",
         hasQuiz: false
       },
       {
         id: "future-development",
         title: "Future Development",
-        content: "Explore strategies for presenting future development plans. QUIZ_BUTTON_PLACEHOLDER",
+        content: "Explore strategies for presenting future development plans.",
         hasQuiz: false
       },
       {
         id: "presentation-guidelines",
         title: "Presentation Guidelines",
-        content: "Master guidelines for delivering an effective project presentation. QUIZ_BUTTON_PLACEHOLDER",
+        content: "Master guidelines for delivering an effective project presentation.",
         hasQuiz: false
       }
     ]
