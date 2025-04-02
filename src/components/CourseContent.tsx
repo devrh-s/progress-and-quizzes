@@ -26,7 +26,10 @@ const animateKeywords = (content: string): string => {
       `<span class="animated-keyword">${keyword}</span>`);
   });
   
-  // Process Markdown for headings
+  // Remove the title from content (h1 heading at the beginning)
+  processedContent = processedContent.replace(/^# .*\n/m, '');
+  
+  // Process Markdown for remaining headings
   processedContent = processedContent.replace(/^# (.*$)/gim, '<h1>$1</h1>');
   processedContent = processedContent.replace(/^## (.*$)/gim, '<h2>$1</h2>');
   processedContent = processedContent.replace(/^### (.*$)/gim, '<h3>$1</h3>');
@@ -129,3 +132,4 @@ export const CourseContent: React.FC<CourseContentProps> = ({ content, quizId })
     </div>
   );
 };
+
