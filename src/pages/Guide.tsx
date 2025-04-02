@@ -476,7 +476,8 @@ The framework consists of three key elements:
 
 - **Role**: Specify the AI's role (e.g., "Documentation Specialist" when working with documents)
 - **Context**: Provide relevant background information and specific requirements
-- **Task**: Clearly state what needs to be done and in what format`
+- **Task**: Clearly state what needs to be done and in what format`,
+        hasQuiz: true
       },
       {
         id: "effective-prompting-principles",
@@ -489,7 +490,8 @@ Key principles:
 2. **Context relevance**: Include relevant background information
 3. **Task breakdown**: Split complex requests into smaller steps
 4. **Iteration**: Refine prompts based on results
-5. **Clear formatting**: Define how you want the information presented`
+5. **Clear formatting**: Define how you want the information presented`,
+        hasQuiz: true
       },
       {
         id: "document-processing-with-rct",
@@ -507,7 +509,8 @@ Key principles:
 2. **Budget allocation**: Resources confirmed
 3. **Team structure**: Roles defined
 4. **Next steps**: Weekly progress reviews
-5. **Tools**: Selected collaboration platform`
+5. **Tools**: Selected collaboration platform`,
+        hasQuiz: true
       },
       {
         id: "information-search-with-rct",
@@ -523,7 +526,8 @@ Key principles:
 | --- | --- | --- | --- |
 | Market Size | $5.2B | 12% | Industry Report |
 | User Base | 2.5M | 15% | Analytics |
-| ROI | 185% | 8% | Customer Data |`
+| ROI | 185% | 8% | Customer Data |`,
+        hasQuiz: true
       },
       {
         id: "why-the-rct-framework-works",
@@ -534,7 +538,8 @@ Key principles:
 - **Detailed context**: Well-defined parameters
 - **Structured output**: Organized information delivery
 
-The RCT framework helps employees maximize AI tool effectiveness across various work tasks.`
+The RCT framework helps employees maximize AI tool effectiveness across various work tasks.`,
+        hasQuiz: true
       }
     ]
   },
