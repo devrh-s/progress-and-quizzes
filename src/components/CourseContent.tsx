@@ -159,9 +159,6 @@ const animateKeywords = (content: string): string => {
     contentWithLists = processedLines.join('\n');
   }
   
-  // Remove any quiz button placeholders if they exist
-  contentWithLists = contentWithLists.replace(/QUIZ_BUTTON_PLACEHOLDER/g, '');
-  
   return contentWithLists;
 };
 
