@@ -439,6 +439,48 @@ const quizzes = {
         correctOrder: [0, 1, 2]
       }
     ]
+  },
+  "implementation-workflow": {
+    id: "implementation-workflow-quiz",
+    title: "Implementation Workflow Quiz",
+    difficulty: "Intermediate",
+    timeLimit: 120,
+    questions: [
+      {
+        type: "matching",
+        question: "Match each Essential AI Tool with its corresponding function.",
+        items: ["Claude AI", "Perplexity AI", "Grok"],
+        descriptions: [
+          "Document processing and analysis",
+          "Information search and verification",
+          "Workflow automation"
+        ],
+        correctPairs: [0, 1, 2]
+      },
+      {
+        type: "sequencing",
+        question: "Arrange the following steps of the Implementation Structure in the exact order as described in the material.",
+        steps: [
+          "Data Collection: Use Perplexity AI for research",
+          "Analysis: Apply Claude AI for processing",
+          "Content Generation: Create outputs with AI assistance",
+          "Iteration: Refine based on feedback"
+        ],
+        correctOrder: [0, 1, 2, 3]
+      },
+      {
+        type: "sorting",
+        question: "For each description in the Testing & Optimization section, select the correct step from the list provided.",
+        activities: [
+          "Test functionality and performance.",
+          "Track key metrics.",
+          "Improve processes.",
+          "Incorporate user input."
+        ],
+        categories: ["Validation", "Monitoring", "Optimization", "Feedback"],
+        correctCategories: [0, 1, 2, 3]
+      }
+    ]
   }
 };
 
@@ -669,7 +711,7 @@ Key phases include:
 - **Monitoring**: Track key metrics
 - **Optimization**: Improve processes
 - **Feedback**: Incorporate user input`,
-        hasQuiz: false
+        hasQuiz: true
       },
       {
         id: "build-working-prototype",
