@@ -207,21 +207,39 @@ const quizzes = {
     id: "key-focus-areas-quiz",
     title: "Key Focus Areas Quiz",
     difficulty: "Intermediate",
-    timeLimit: 60,
+    timeLimit: 120,
     questions: [
       {
+        type: "matching",
+        question: "Match each Key Focus Area with its corresponding description.",
+        items: ["Practical Skills", "Implementation", "Results"],
+        descriptions: [
+          "Hands-on experience with AI tools and applications.",
+          "Strategic approach to AI solution deployment.",
+          "Measurable improvements in workflow efficiency."
+        ],
+        correctPairs: [0, 1, 2]
+      },
+      {
+        type: "sequencing",
+        question: "Arrange the Key Focus Areas in the exact order they are presented in the text.",
+        steps: [
+          "Practical Skills",
+          "Implementation",
+          "Results"
+        ],
+        correctOrder: [0, 1, 2]
+      },
+      {
         type: "sorting",
-        question: "Drag and drop each benefit into the correct Key Focus Area.",
+        question: "For each statement below, select the Key Focus Area that best matches the description.",
         activities: [
-          "Hands-on experience with AI tools and applications",
-          "Practical expertise",
-          "Strategic approach to AI solution deployment",
-          "Strategic thinking",
-          "Measurable improvements in workflow efficiency",
-          "Effective implementation of AI technologies"
+          "Gaining direct, hands-on experience by working with AI tools and applications.",
+          "Developing and executing a well-thought-out plan for deploying AI solutions effectively.",
+          "Achieving quantifiable improvements in workflow efficiency as a result of AI adoption."
         ],
         categories: ["Practical Skills", "Implementation", "Results"],
-        correctCategories: [0, 0, 1, 1, 2, 2]
+        correctCategories: [0, 1, 2]
       }
     ]
   },
@@ -444,7 +462,7 @@ Implement an AI solution for business process improvement:
 - **Results**: Measurable improvements in workflow efficiency.
 
 Success requires practical expertise, strategic thinking, and effective implementation of AI technologies.`,
-        hasQuiz: false
+        hasQuiz: true
       }
     ]
   },
