@@ -207,41 +207,21 @@ const quizzes = {
     id: "key-focus-areas-quiz",
     title: "Key Focus Areas Quiz",
     difficulty: "Intermediate",
-    timeLimit: 180,
+    timeLimit: 60,
     questions: [
       {
-        type: "matching",
-        question: "Match each key focus area with its description by dragging the correct description block next to the corresponding focus area.",
-        items: ["Practical Skills", "Implementation", "Results"],
-        descriptions: [
-          "Hands‑on experience with AI tools",
-          "Strategic deployment of AI solutions",
-          "Measurable improvements in workflow efficiency"
-        ],
-        correctPairs: [0, 1, 2]
-      },
-      {
-        type: "sequencing",
-        question: "Arrange the key focus areas in the order they are emphasized for successful AI adoption.",
-        steps: [
-          "Practical Skills",
-          "Implementation",
-          "Results"
-        ],
-        correctOrder: [0, 1, 2]
-      },
-      {
         type: "sorting",
-        question: "Sort these factors into two groups: Relevant Factors and Irrelevant Factors for AI success.",
+        question: "Drag and drop each benefit into the correct Key Focus Area.",
         activities: [
-          "Practical Expertise",
-          "Strategic Thinking",
-          "Effective Implementation",
-          "Creative Design",
-          "Random Experimentation"
+          "Hands-on experience with AI tools and applications",
+          "Practical expertise",
+          "Strategic approach to AI solution deployment",
+          "Strategic thinking",
+          "Measurable improvements in workflow efficiency",
+          "Effective implementation of AI technologies"
         ],
-        categories: ["Relevant Factors", "Irrelevant Factors"],
-        correctCategories: [0, 0, 0, 1, 1]
+        categories: ["Practical Skills", "Implementation", "Results"],
+        correctCategories: [0, 0, 1, 1, 2, 2]
       }
     ]
   },
