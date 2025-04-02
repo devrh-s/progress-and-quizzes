@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
@@ -320,27 +319,71 @@ Success requires practical expertise, strategic thinking, and effective implemen
       {
         id: "rct-framework-basics",
         title: "RCT Framework Basics",
-        content: "Learn the fundamentals of the Role-Context-Task Framework. QUIZ_BUTTON_PLACEHOLDER"
+        content: `# RCT Framework Basics
+
+The framework consists of three key elements:
+
+- **Role**: Specify the AI's role (e.g., "Documentation Specialist" when working with documents)
+- **Context**: Provide relevant background information and specific requirements
+- **Task**: Clearly state what needs to be done and in what format`
       },
       {
         id: "effective-prompting-principles",
         title: "Effective Prompting Principles",
-        content: "Master the art of crafting effective prompts with key principles. QUIZ_BUTTON_PLACEHOLDER"
+        content: `# Effective Prompting Principles
+
+Key principles:
+
+1. **Precision**: Be specific in your requests (e.g., "Create a summary of the meeting minutes in 5 bullet points")
+2. **Context relevance**: Include relevant background information
+3. **Task breakdown**: Split complex requests into smaller steps
+4. **Iteration**: Refine prompts based on results
+5. **Clear formatting**: Define how you want the information presented`
       },
       {
         id: "document-processing-with-rct",
         title: "Document Processing",
-        content: "Learn how to process documents using the RCT Framework. QUIZ_BUTTON_PLACEHOLDER"
+        content: `# Document Processing
+
+**Prompt**:
+
+> "As a Documentation Specialist, analyze this meeting transcript. Extract key decisions and action items. Format as a bulleted list."
+> 
+
+**Result**:
+
+1. **Project timeline**: Approved Q2 start date
+2. **Budget allocation**: Resources confirmed
+3. **Team structure**: Roles defined
+4. **Next steps**: Weekly progress reviews
+5. **Tools**: Selected collaboration platform`
       },
       {
         id: "information-search-with-rct",
         title: "Information Search",
-        content: "Master information search techniques using the RCT Framework. QUIZ_BUTTON_PLACEHOLDER"
+        content: `# Information Search
+
+**Prompt**:
+
+> "As a Research Assistant, find relevant industry statistics for our quarterly report. Focus on market growth and trends."
+> 
+
+| Category | Current Value | Growth Rate | Source |
+| --- | --- | --- | --- |
+| Market Size | $5.2B | 12% | Industry Report |
+| User Base | 2.5M | 15% | Analytics |
+| ROI | 185% | 8% | Customer Data |`
       },
       {
         id: "why-the-rct-framework-works",
         title: "Why This Works",
-        content: "Understand the benefits and effectiveness of the RCT Framework. QUIZ_BUTTON_PLACEHOLDER"
+        content: `# Why This Works
+
+- **Clear roles**: Specific AI expertise assignment
+- **Detailed context**: Well-defined parameters
+- **Structured output**: Organized information delivery
+
+The RCT framework helps employees maximize AI tool effectiveness across various work tasks.`
       }
     ]
   },

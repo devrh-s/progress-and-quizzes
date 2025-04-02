@@ -101,6 +101,61 @@ const animateKeywords = (content: string): string => {
     contentWithLists = withNumberedLists.join('\n');
   }
   
+  // Process blockquotes (for prompts)
+  contentWithLists = contentWithLists.replace(/^>\s+(.*$)/gim, '<blockquote>$1</blockquote>');
+  
+  // Process tables
+  if (contentWithLists.includes('|')) {
+    const lines = contentWithLists.split('\n');
+    let inTable = false;
+    let tableContent = '';
+    let processedLines = [];
+    
+    for (let i = 0; i < lines.length; i++) {
+      const line = lines[i].trim();
+      
+      if (line.startsWith('|') && line.endsWith('|')) {
+        if (!inTable) {
+          inTable = true;
+          tableContent = '<table class="border-collapse w-full my-4">\n<thead>\n';
+          
+          // First row is header
+          const headerCells = line.split('|').filter(cell => cell.trim() !== '');
+          tableContent += '<tr>\n';
+          headerCells.forEach(cell => {
+            tableContent += `<th class="border border-purple-800 px-4 py-2 text-purple-300 bg-purple-900/30">${cell.trim()}</th>\n`;
+          });
+          tableContent += '</tr>\n</thead>\n<tbody>\n';
+          
+          // Skip the separator row (contains dashes)
+          i++;
+        } else {
+          // Data rows
+          const cells = line.split('|').filter(cell => cell.trim() !== '');
+          tableContent += '<tr>\n';
+          cells.forEach(cell => {
+            tableContent += `<td class="border border-purple-800 px-4 py-2 text-gray-200">${cell.trim()}</td>\n`;
+          });
+          tableContent += '</tr>\n';
+        }
+      } else if (inTable) {
+        inTable = false;
+        tableContent += '</tbody>\n</table>';
+        processedLines.push(tableContent);
+        processedLines.push(line);
+      } else {
+        processedLines.push(line);
+      }
+    }
+    
+    if (inTable) {
+      tableContent += '</tbody>\n</table>';
+      processedLines.push(tableContent);
+    }
+    
+    contentWithLists = processedLines.join('\n');
+  }
+  
   // Remove quiz button placeholder if it exists
   if (contentWithLists.includes('QUIZ_BUTTON_PLACEHOLDER')) {
     contentWithLists = contentWithLists.replace('QUIZ_BUTTON_PLACEHOLDER', '');
@@ -122,7 +177,8 @@ export const CourseContent: React.FC<CourseContentProps> = ({ content, quizId })
           prose-ul:my-4 prose-ul:space-y-2
           prose-ol:my-4 prose-ol:space-y-2
           prose-strong:text-yellow-300 prose-strong:font-semibold
-          [&_.animated-keyword]:inline-block [&_.animated-keyword]:text-yellow-300 [&_.animated-keyword]:font-semibold [&_.animated-keyword]:animate-pulse"
+          [&_.animated-keyword]:inline-block [&_.animated-keyword]:text-yellow-300 [&_.animated-keyword]:font-semibold [&_.animated-keyword]:animate-pulse
+          [&_blockquote]:bg-purple-900/20 [&_blockquote]:border-l-4 [&_blockquote]:border-purple-500 [&_blockquote]:pl-4 [&_blockquote]:py-2 [&_blockquote]:italic [&_blockquote]:text-gray-300 [&_blockquote]:my-4"
         dangerouslySetInnerHTML={{ __html: animateKeywords(content) }}
       />
       
@@ -132,4 +188,3 @@ export const CourseContent: React.FC<CourseContentProps> = ({ content, quizId })
     </div>
   );
 };
-
