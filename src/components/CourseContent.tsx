@@ -35,11 +35,20 @@ const animateKeywords = (content: string): string => {
   return processedContent;
 };
 
-export const CourseContent: React.FC<CourseContentProps> = ({ content, onTakeQuiz, quizId }) => {
+export const CourseContent: React.FC<CourseContentProps> = ({ content, quizId }) => {
   return (
     <div className="animate-fade-in">
       <div 
-        className="prose prose-invert max-w-none prose-headings:text-purple-300 prose-p:text-gray-200 prose-li:text-gray-200 prose-h4:text-white prose-h4:font-semibold prose-strong:text-yellow-300 [&_.animated-keyword]:inline-block [&_.animated-keyword]:text-yellow-300 [&_.animated-keyword]:font-semibold [&_.animated-keyword]:animate-pulse"
+        className="prose prose-invert max-w-none 
+          prose-headings:text-purple-300 prose-headings:font-bold
+          prose-h1:text-2xl prose-h1:text-purple-200 prose-h1:mb-4 prose-h1:pb-2 prose-h1:border-b prose-h1:border-purple-800/30
+          prose-h2:text-xl prose-h2:mt-6
+          prose-p:text-gray-200 prose-p:leading-relaxed
+          prose-li:text-gray-200 prose-li:my-1
+          prose-ul:my-4 prose-ul:space-y-2
+          prose-ol:my-4 prose-ol:space-y-2
+          prose-strong:text-yellow-300 prose-strong:font-semibold
+          [&_.animated-keyword]:inline-block [&_.animated-keyword]:text-yellow-300 [&_.animated-keyword]:font-semibold [&_.animated-keyword]:animate-pulse"
         dangerouslySetInnerHTML={{ __html: animateKeywords(content) }}
       />
       
