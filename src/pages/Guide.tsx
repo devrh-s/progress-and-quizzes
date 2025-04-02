@@ -481,6 +481,46 @@ const quizzes = {
         correctCategories: [0, 1, 2, 3]
       }
     ]
+  },
+  "build-working-prototype": {
+    id: "build-working-prototype-quiz",
+    title: "Working Prototype Quiz",
+    difficulty: "Intermediate",
+    timeLimit: 120,
+    questions: [
+      {
+        type: "matching",
+        question: "Match each AI tool with its corresponding function.",
+        items: ["Claude AI", "Perplexity AI"],
+        descriptions: [
+          "Document processing",
+          "Information verification"
+        ],
+        correctPairs: [0, 1]
+      },
+      {
+        type: "sequencing",
+        question: "Arrange the following implementation steps in the correct order as described in the task.",
+        steps: [
+          "Define workflow requirements",
+          "Implement AI tools",
+          "Test and validate results"
+        ],
+        correctOrder: [0, 1, 2]
+      },
+      {
+        type: "sorting",
+        question: "For each description below, assign the correct project phase label from the list provided.",
+        activities: [
+          "Create an automated workflow, define clear goals, and establish success metrics.",
+          "Use Claude AI for document processing and Perplexity AI for information verification.",
+          "Outline what the workflow should achieve, deploy the selected AI tools, and verify the outcome.",
+          "Monitor performance metrics and gather user feedback to refine the process."
+        ],
+        categories: ["Objective", "Tools", "Steps", "Optimization"],
+        correctCategories: [0, 1, 2, 3]
+      }
+    ]
   }
 };
 
@@ -736,7 +776,7 @@ Example: Process optimization project
 **Optimization**:
 - Monitor performance metrics
 - Gather user feedback`,
-        hasQuiz: false
+        hasQuiz: true
       },
       {
         id: "tools-overview",
