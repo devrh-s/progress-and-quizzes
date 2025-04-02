@@ -24,41 +24,42 @@ const quizzes = {
     id: "developing-practical-ai-skills-quiz",
     title: "Developing Practical AI Skills Quiz",
     difficulty: "Intermediate",
-    timeLimit: 180,
+    timeLimit: 120,
     questions: [
       {
         type: "matching",
-        question: "Match each key component with its description by dragging the correct description next to the corresponding component.",
-        items: ["AI Fluency", "Critical Analysis", "Role‑Context‑Query Method"],
+        question: "Match each training component with its corresponding description.",
+        items: ["AI Fluency", "Critical Analysis", "Role-Context-Query Method", "Practical Exercise"],
         descriptions: [
-          "Mastering AI tools to solve real business problems",
-          "Applying analytical thinking for informed decision‑making",
-          "Breaking down tasks into roles, context, and precise queries"
+          "Master tools like ChatGPT, Claude, and Perplexity AI to solve real business problems with a focus on strategic implementation.",
+          "Apply critical thinking for decision-making and problem-solving with AI tools.",
+          "Learn precise formulation and task decomposition for effective AI interaction.",
+          "Create an AI-assisted workflow optimization plan with clear metrics and validation steps."
         ],
-        correctPairs: [0, 1, 2]
+        correctPairs: [0, 1, 2, 3]
       },
       {
         type: "sequencing",
-        question: "Arrange the following steps to develop practical AI skills in the correct order.",
+        question: "Arrange the training components in the exact order they are presented in the training module.",
         steps: [
-          "Understanding basic AI concepts",
-          "Gaining hands‑on experience",
-          "Applying AI tools in real projects",
-          "Evaluating outcomes and refining strategies"
+          "AI Fluency",
+          "Critical Analysis",
+          "Role-Context-Query Method",
+          "Practical Exercise"
         ],
         correctOrder: [0, 1, 2, 3]
       },
       {
         type: "sorting",
-        question: "Sort these activities into two categories: Practical Application and Theoretical Study.",
+        question: "For each statement, identify which training component it best describes.",
         activities: [
-          "Participating in an AI workshop",
-          "Reading research papers on AI algorithms",
-          "Experimenting with AI tools in real projects",
-          "Attending academic lectures on AI fundamentals"
+          "This component focuses on mastering AI tools like ChatGPT, Claude, and Perplexity AI to address real business challenges.",
+          "This section encourages the use of critical thinking for effective decision-making and problem-solving with AI.",
+          "In this part, learners practice creating an AI-assisted workflow optimization plan complete with metrics and validation.",
+          "This method teaches how to precisely formulate tasks and decompose them for more effective AI interactions."
         ],
-        categories: ["Practical Application", "Theoretical Study"],
-        correctCategories: [0, 1, 0, 1]
+        categories: ["AI Fluency", "Critical Analysis", "Role-Context-Query Method", "Practical Exercise"],
+        correctCategories: [0, 1, 3, 2]
       }
     ]
   },
@@ -400,7 +401,7 @@ In today's digital world, practical AI skills are essential for tech professiona
 - **Role-Context-Query Method**: Learn precise formulation and task decomposition for effective AI interaction.
 
 **Practical Exercise**: Create an AI-assisted workflow optimization plan with clear metrics and validation steps.`,
-        hasQuiz: false
+        hasQuiz: true
       },
       {
         id: "proactive-ai-implementation",
@@ -901,6 +902,8 @@ const Guide: React.FC = () => {
               <>
                 <CourseContent 
                   content={activeSubtopic.content}
+                  quizId={activeSubtopic.hasQuiz ? activeSubtopic.id : undefined}
+                  onTakeQuiz={handleTakeQuiz}
                 />
               </>
             )}
