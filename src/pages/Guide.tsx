@@ -450,7 +450,7 @@ Implement an AI solution for business process improvement:
 4. **Present**: Demonstrate results and future development plans.
 
 **Example**: Workflow optimization using AI tools covered in the course.`,
-        hasQuiz: true
+        hasQuiz: false
       },
       {
         id: "key-focus-areas",
@@ -462,7 +462,7 @@ Implement an AI solution for business process improvement:
 - **Results**: Measurable improvements in workflow efficiency.
 
 Success requires practical expertise, strategic thinking, and effective implementation of AI technologies.`,
-        hasQuiz: true
+        hasQuiz: false
       }
     ]
   },
