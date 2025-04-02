@@ -107,4 +107,49 @@
     50% { background-position: 100% 50%; }
     100% { background-position: 0% 50%; }
   }
+
+  /* New animations for course content */
+  @keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+  
+  .animate-fade-in {
+    animation: fadeIn 0.5s ease-in-out;
+  }
+  
+  @keyframes highlightPulse {
+    0% { color: theme('colors.yellow.300'); }
+    50% { color: theme('colors.yellow.400'); }
+    100% { color: theme('colors.yellow.300'); }
+  }
+  
+  .animated-keyword {
+    animation: highlightPulse 2s infinite;
+    transition: all 0.3s ease;
+  }
+  
+  .animated-keyword:hover {
+    color: theme('colors.yellow.200') !important;
+    text-shadow: 0 0 8px rgba(234, 179, 8, 0.6);
+  }
+  
+  /* Improve list styling */
+  .prose ul li::before {
+    content: '•';
+    @apply text-purple-400 mr-2 inline-block;
+  }
+  
+  .prose ol {
+    counter-reset: list-counter;
+  }
+  
+  .prose ol li {
+    counter-increment: list-counter;
+  }
+  
+  .prose ol li::before {
+    content: counter(list-counter) ".";
+    @apply text-purple-400 mr-2 inline-block font-bold;
+  }
 }

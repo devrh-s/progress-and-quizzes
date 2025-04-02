@@ -4,7 +4,6 @@ import { motion } from 'framer-motion';
 
 interface CourseContentProps {
   content: string;
-  onTakeQuiz?: (quizId: string) => void; // Optional callback for quiz button
   quizId?: string; // Optional quiz ID
 }
 
@@ -27,12 +26,84 @@ const animateKeywords = (content: string): string => {
       `<span class="animated-keyword">${keyword}</span>`);
   });
   
-  // Remove quiz button placeholder if it exists
-  if (processedContent.includes('QUIZ_BUTTON_PLACEHOLDER')) {
-    processedContent = processedContent.replace('QUIZ_BUTTON_PLACEHOLDER', '');
+  // Process Markdown for headings
+  processedContent = processedContent.replace(/^# (.*$)/gim, '<h1>$1</h1>');
+  processedContent = processedContent.replace(/^## (.*$)/gim, '<h2>$1</h2>');
+  processedContent = processedContent.replace(/^### (.*$)/gim, '<h3>$1</h3>');
+  
+  // Process Markdown for bold text
+  processedContent = processedContent.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
+  
+  // Process Markdown for bullet points
+  processedContent = processedContent.replace(/^- (.*$)/gim, '<li>$1</li>');
+  
+  // Wrap lists in ul tags
+  let hasStartedList = false;
+  const lines = processedContent.split('\n');
+  let newContent = [];
+  
+  for (let i = 0; i < lines.length; i++) {
+    const line = lines[i];
+    if (line.startsWith('<li>')) {
+      if (!hasStartedList) {
+        newContent.push('<ul>');
+        hasStartedList = true;
+      }
+      newContent.push(line);
+    } else {
+      if (hasStartedList) {
+        newContent.push('</ul>');
+        hasStartedList = false;
+      }
+      newContent.push(line);
+    }
   }
   
-  return processedContent;
+  if (hasStartedList) {
+    newContent.push('</ul>');
+  }
+  
+  // Process Markdown for numbered lists
+  let contentWithLists = newContent.join('\n');
+  const numberedListRegex = /^\d+\.\s+(.*$)/gim;
+  
+  if (numberedListRegex.test(contentWithLists)) {
+    let hasStartedNumberedList = false;
+    const lines = contentWithLists.split('\n');
+    let withNumberedLists = [];
+    
+    for (let i = 0; i < lines.length; i++) {
+      const line = lines[i];
+      const match = line.match(/^(\d+)\.\s+(.*$)/);
+      
+      if (match) {
+        if (!hasStartedNumberedList) {
+          withNumberedLists.push('<ol>');
+          hasStartedNumberedList = true;
+        }
+        withNumberedLists.push(`<li>${match[2]}</li>`);
+      } else {
+        if (hasStartedNumberedList) {
+          withNumberedLists.push('</ol>');
+          hasStartedNumberedList = false;
+        }
+        withNumberedLists.push(line);
+      }
+    }
+    
+    if (hasStartedNumberedList) {
+      withNumberedLists.push('</ol>');
+    }
+    
+    contentWithLists = withNumberedLists.join('\n');
+  }
+  
+  // Remove quiz button placeholder if it exists
+  if (contentWithLists.includes('QUIZ_BUTTON_PLACEHOLDER')) {
+    contentWithLists = contentWithLists.replace('QUIZ_BUTTON_PLACEHOLDER', '');
+  }
+  
+  return contentWithLists;
 };
 
 export const CourseContent: React.FC<CourseContentProps> = ({ content, quizId }) => {
