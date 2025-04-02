@@ -550,25 +550,40 @@ The RCT framework helps employees maximize AI tool effectiveness across various 
       {
         id: "text-generation-analysis",
         title: "Text Generation & Analysis",
-        content: "Learn about tools for generating and analyzing text.",
+        content: `# Text Generation & Analysis
+
+- **Claude AI**: Creates and analyzes documents, reports, and administrative content with high accuracy.
+- **Perplexity AI**: Delivers verified research results and fact-checking with cited sources.
+- **Grok**: Processes bulk text and learns from interactions to improve workflow efficiency.`,
         hasQuiz: false
       },
       {
         id: "content-creation-design",
         title: "Content Creation & Design",
-        content: "Discover tools for creating and designing content.",
+        content: `# Content Creation & Design
+
+- **ChatGPT**: Creates content and assists with creative ideation.
+- **Gemini**: Handles both text and image tasks with Google's latest AI technology.`,
         hasQuiz: false
       },
       {
         id: "development-automation",
         title: "Development & Automation",
-        content: "Explore automation tools for streamlining development.",
+        content: `# Development & Automation
+
+- **Make.com**: Automates workflows across platforms, reducing manual tasks.`,
         hasQuiz: false
       },
       {
         id: "key-applications",
         title: "Key Applications",
-        content: "Understand key applications of AI tools for remote helpers.",
+        content: `# Key Applications
+
+- **Communication**: Real-time transcription and automated summaries.
+- **Task Management**: AI-driven prioritization and deadline tracking.
+- **Process Automation**: Streamlined scheduling, data entry, and analysis.
+
+These tools enable Remote Helpers to deliver faster, more accurate results while reducing operational overhead and improving team efficiency.`,
         hasQuiz: false
       }
     ]
