@@ -67,41 +67,55 @@ const quizzes = {
     id: "proactive-ai-implementation-quiz",
     title: "Proactive AI Implementation Quiz",
     difficulty: "Intermediate",
-    timeLimit: 180,
+    timeLimit: 120,
     questions: [
       {
-        type: "sequencing",
-        question: "Arrange the strategic steps for proactive AI implementation in the correct order.",
-        steps: [
-          "Analyze business needs",
-          "Launch rapid testing pilots",
-          "Manage change through clear communication",
-          "Select appropriate AI tools"
-        ],
-        correctOrder: [0, 1, 2, 3]
-      },
-      {
-        type: "matching",
-        question: "Match each element of proactive implementation with its function.",
-        items: ["Rapid Testing", "Change Management", "Tool Selection"],
-        descriptions: [
-          "Launching small pilots to validate ideas quickly",
-          "Driving adoption with clear, effective communication",
-          "Choosing the right AI tools based on role needs"
-        ],
-        correctPairs: [0, 1, 2]
-      },
-      {
         type: "sorting",
-        question: "Sort the following items into two groups: Strategic Elements and Non‑Strategic Elements.",
+        question: "Drag each of the following items into one of three categories based on its role in strategic planning for proactive AI implementation and personal development.",
         activities: [
           "Rapid Testing",
           "Change Management",
-          "Random Experimentation",
-          "Unplanned Trials"
+          "Tool Selection",
+          "Skills Assessment",
+          "Project Focus",
+          "Continuous Learning",
+          "Example",
+          "Planning"
         ],
-        categories: ["Strategic Elements", "Non‑Strategic Elements"],
-        correctCategories: [0, 0, 1, 1]
+        categories: ["Implementation Strategies", "Personal Development Strategies", "Illustration"],
+        correctCategories: [0, 0, 0, 1, 1, 1, 2, 0]
+      },
+      {
+        type: "sequencing",
+        question: "Reorder the following strategic planning components to reflect the exact sequence in which they appear in the text.",
+        steps: [
+          "Rapid Testing: Launch small pilots quickly, learn from results, and scale successful approaches.",
+          "Change Management: Drive adoption through clear communication and demonstrable benefits.",
+          "Tool Selection: Choose appropriate AI tools based on specific professional roles and needs.",
+          "Skills Assessment: Identify areas for improvement in AI tool usage and implementation.",
+          "Project Focus: Apply learning to real projects aligned with course objectives.",
+          "Continuous Learning: Practice AI skills through hands-on projects and exercises.",
+          "Example: Develop practical solutions using Claude AI for documents and Perplexity AI for information verification.",
+          "Planning: Create detailed project plans with measurable outcomes."
+        ],
+        correctOrder: [0, 1, 2, 3, 4, 5, 6, 7]
+      },
+      {
+        type: "matching",
+        question: "For each description below, match the correct strategic planning component label.",
+        items: [
+          "Launch small pilots quickly, learn from results, and scale successful approaches.",
+          "Drive adoption through clear communication and demonstrable benefits.",
+          "Choose appropriate AI tools based on specific professional roles and needs.",
+          "Practice AI skills through hands-on projects and exercises."
+        ],
+        descriptions: [
+          "Rapid Testing",
+          "Change Management",
+          "Tool Selection",
+          "Continuous Learning"
+        ],
+        correctPairs: [0, 1, 2, 3]
       }
     ]
   },
@@ -419,7 +433,7 @@ Success in AI adoption requires strategic planning:
 
 **Example**: Develop practical solutions using Claude AI for documents and Perplexity AI for information verification.
 **Planning**: Create detailed project plans with measurable outcomes.`,
-        hasQuiz: false
+        hasQuiz: true
       },
       {
         id: "final-project",
