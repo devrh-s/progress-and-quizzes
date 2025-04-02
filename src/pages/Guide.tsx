@@ -589,43 +589,101 @@ These tools enable Remote Helpers to deliver faster, more accurate results while
       {
         id: "core-components",
         title: "Core Components of AI Project Development",
-        content: "Understand the fundamental components of AI project development.",
+        content: `# Core Components of AI Project Development
+
+Strategic planning, tool selection, workflow development, and testing are essential components of an AI project in our onboarding program. This lesson covers practical AI project development techniques.
+
+Key phases include:
+
+- **Problem Formulation**: Define business problem, set measurable KPIs, and align with stakeholders.
+- **Tool Selection**: Choose AI tools based on task requirements, data needs, and team expertise.
+- **Workflow Development**: Create project lifecycle plan, define roles, and establish feedback loops.
+- **Testing & Optimization**: Implement testing protocols and use feedback for improvements.`,
         hasQuiz: false
       },
       {
         id: "tool-selection",
         title: "Tool Selection",
-        content: "Learn how to select the right tools for your AI project.",
+        content: `# Tool Selection
+
+Essential AI tools for our work:
+
+- **Claude AI**: Document processing and analysis
+- **Perplexity AI**: Information search and verification
+- **Grok**: Workflow automation`,
         hasQuiz: false
       },
       {
         id: "workflow-development",
         title: "Workflow Development",
-        content: "Develop effective workflows for your AI projects.",
+        content: `# Workflow Development
+
+Implementation structure:
+
+1. **Data Collection**: Use Perplexity AI for research
+2. **Analysis**: Apply Claude AI for processing
+3. **Content Generation**: Create outputs with AI assistance
+4. **Iteration**: Refine based on feedback`,
         hasQuiz: false
       },
       {
         id: "testing-optimization",
         title: "Testing & Optimization",
-        content: "Master techniques for testing and optimizing AI implementations.",
+        content: `# Testing & Optimization
+
+- **Validation**: Test functionality and performance
+- **Monitoring**: Track key metrics
+- **Optimization**: Improve processes
+- **Feedback**: Incorporate user input`,
         hasQuiz: false
       },
       {
         id: "build-working-prototype",
         title: "Task – Build a Working Prototype",
-        content: "Apply your knowledge to build a working AI prototype.",
+        content: `# Task: Build a Working Prototype
+
+Example: Process optimization project
+
+1. **Objective**: Create an automated workflow
+2. **Tools**:
+    - **Claude AI**: Document processing
+    - **Perplexity AI**: Information verification
+3. **Steps**:
+    - Define workflow requirements
+    - Implement AI tools
+    - Test and validate results
+4. **Optimization**:
+    - Monitor performance metrics
+    - Gather user feedback`,
         hasQuiz: false
       },
       {
         id: "tools-overview",
         title: "Tools Overview",
-        content: "Get an overview of the tools available for AI projects.",
+        content: `# Tools Overview
+
+| **Tool** | **Purpose** | **Usage** |
+| --- | --- | --- |
+| **Claude AI** | Text generation | Workflow automation |
+| **Perplexity** | Research | Data verification |
+| **Grok** | Text processing | Documentation |
+| **Notebook LM** | Analysis | Data handling |
+| **Midjourney** | Images | Visual content |
+| **ChatGPT** | Content | Communications |
+| **Gemini** | Multimedia | Complex projects |
+| **Cursor Pro** | Coding | Development |`,
         hasQuiz: false
       },
       {
         id: "practical-tips",
         title: "Practical Tips",
-        content: "Learn practical tips for successful AI project implementation.",
+        content: `# Practical Tips
+
+- **Start Small**: Begin with MVPs to validate concepts.
+- **Collaborate**: Maintain stakeholder engagement.
+- **Monitor**: Track metrics and optimize performance.
+
+These practices ensure efficient AI project development while maintaining quality and innovation.`,
         hasQuiz: false
       }
     ]
