@@ -653,9 +653,10 @@ const Guide: React.FC = () => {
                 <CourseContent 
                   content={activeSubtopic.content}
                   quizId={activeSubtopic.id}
+                  onTakeQuiz={handleTakeQuiz}
                 />
                 
-                {quizzes[activeSubtopic.id] && (
+                {activeSubtopic.hasQuiz && (
                   <div className="mt-6 pt-6 border-t border-purple-800/30 flex justify-end">
                     <Button 
                       onClick={handleStartQuiz}
