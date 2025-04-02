@@ -15,11 +15,221 @@ interface Section {
     id: string;
     title: string;
     content: string;
+    hasQuiz?: boolean;
   }[];
 }
 
 const quizzes = {
-  // ... keep existing code (quiz definitions)
+  "developing-practical-ai-skills": {
+    id: "developing-practical-ai-skills-quiz",
+    title: "Developing Practical AI Skills Quiz",
+    difficulty: "Intermediate",
+    timeLimit: 180,
+    questions: [
+      {
+        type: "matching",
+        question: "Match each key component with its description by dragging the correct description next to the corresponding component.",
+        items: ["AI Fluency", "Critical Analysis", "Role‑Context‑Query Method"],
+        descriptions: [
+          "Mastering AI tools to solve real business problems",
+          "Applying analytical thinking for informed decision‑making",
+          "Breaking down tasks into roles, context, and precise queries"
+        ],
+        correctPairs: [0, 1, 2]
+      },
+      {
+        type: "sequencing",
+        question: "Arrange the following steps to develop practical AI skills in the correct order.",
+        steps: [
+          "Understanding basic AI concepts",
+          "Gaining hands‑on experience",
+          "Applying AI tools in real projects",
+          "Evaluating outcomes and refining strategies"
+        ],
+        correctOrder: [0, 1, 2, 3]
+      },
+      {
+        type: "sorting",
+        question: "Sort these activities into two categories: Practical Application and Theoretical Study.",
+        activities: [
+          "Participating in an AI workshop",
+          "Reading research papers on AI algorithms",
+          "Experimenting with AI tools in real projects",
+          "Attending academic lectures on AI fundamentals"
+        ],
+        categories: ["Practical Application", "Theoretical Study"],
+        correctCategories: [0, 1, 0, 1]
+      }
+    ]
+  },
+  "proactive-ai-implementation": {
+    id: "proactive-ai-implementation-quiz",
+    title: "Proactive AI Implementation Quiz",
+    difficulty: "Intermediate",
+    timeLimit: 180,
+    questions: [
+      {
+        type: "sequencing",
+        question: "Arrange the strategic steps for proactive AI implementation in the correct order.",
+        steps: [
+          "Analyze business needs",
+          "Launch rapid testing pilots",
+          "Manage change through clear communication",
+          "Select appropriate AI tools"
+        ],
+        correctOrder: [0, 1, 2, 3]
+      },
+      {
+        type: "matching",
+        question: "Match each element of proactive implementation with its function.",
+        items: ["Rapid Testing", "Change Management", "Tool Selection"],
+        descriptions: [
+          "Launching small pilots to validate ideas quickly",
+          "Driving adoption with clear, effective communication",
+          "Choosing the right AI tools based on role needs"
+        ],
+        correctPairs: [0, 1, 2]
+      },
+      {
+        type: "sorting",
+        question: "Sort the following items into two groups: Strategic Elements and Non‑Strategic Elements.",
+        activities: [
+          "Rapid Testing",
+          "Change Management",
+          "Random Experimentation",
+          "Unplanned Trials"
+        ],
+        categories: ["Strategic Elements", "Non‑Strategic Elements"],
+        correctCategories: [0, 0, 1, 1]
+      }
+    ]
+  },
+  "personal-ai-development": {
+    id: "personal-ai-development-quiz",
+    title: "Personal AI Development Quiz",
+    difficulty: "Intermediate",
+    timeLimit: 180,
+    questions: [
+      {
+        type: "sequencing",
+        question: "Arrange the steps for personal AI development in the correct order.",
+        steps: [
+          "Conduct a skills assessment",
+          "Apply learning to real projects",
+          "Engage in continuous practice and refinement"
+        ],
+        correctOrder: [0, 1, 2]
+      },
+      {
+        type: "matching",
+        question: "Match each component of personal AI development with its description.",
+        items: ["Skills Assessment", "Project Focus", "Continuous Learning"],
+        descriptions: [
+          "Identifying areas for improvement in AI tool usage",
+          "Applying learning to practical projects",
+          "Regular practice to refine and enhance skills"
+        ],
+        correctPairs: [0, 1, 2]
+      },
+      {
+        type: "sorting",
+        question: "Sort the following project planning elements into two categories: Strategy and Measurement.",
+        activities: [
+          "Define clear objectives",
+          "Outline action steps",
+          "Establish success metrics",
+          "Set timelines"
+        ],
+        categories: ["Strategy", "Measurement"],
+        correctCategories: [0, 0, 1, 1]
+      }
+    ]
+  },
+  "final-project": {
+    id: "final-project-quiz",
+    title: "Final Project Quiz",
+    difficulty: "Advanced",
+    timeLimit: 180,
+    questions: [
+      {
+        type: "sequencing",
+        question: "Arrange the final project implementation steps in the correct order.",
+        steps: [
+          "Analysis (Identify AI opportunities)",
+          "Tool Selection (Choose and implement AI solutions)",
+          "Execution (Build and test with stakeholder feedback)",
+          "Presentation (Demonstrate results and future plans)"
+        ],
+        correctOrder: [0, 1, 2, 3]
+      },
+      {
+        type: "matching",
+        question: "Match each final project step with its function.",
+        items: ["Analysis", "Tools", "Execute", "Present"],
+        descriptions: [
+          "Identifying opportunities for AI implementation",
+          "Selecting and applying appropriate AI solutions",
+          "Building and testing the solution with feedback",
+          "Demonstrating outcomes and outlining next steps"
+        ],
+        correctPairs: [0, 1, 2, 3]
+      },
+      {
+        type: "sorting",
+        question: "Sort the following aspects of business process improvement with AI into two categories: Operational Efficiency and Data Accuracy.",
+        activities: [
+          "Speeding up task completion",
+          "Streamlining communication",
+          "Reducing manual errors",
+          "Enhancing data processing"
+        ],
+        categories: ["Operational Efficiency", "Data Accuracy"],
+        correctCategories: [0, 0, 1, 1]
+      }
+    ]
+  },
+  "key-focus-areas": {
+    id: "key-focus-areas-quiz",
+    title: "Key Focus Areas Quiz",
+    difficulty: "Intermediate",
+    timeLimit: 180,
+    questions: [
+      {
+        type: "matching",
+        question: "Match each key focus area with its description by dragging the correct description block next to the corresponding focus area.",
+        items: ["Practical Skills", "Implementation", "Results"],
+        descriptions: [
+          "Hands‑on experience with AI tools",
+          "Strategic deployment of AI solutions",
+          "Measurable improvements in workflow efficiency"
+        ],
+        correctPairs: [0, 1, 2]
+      },
+      {
+        type: "sequencing",
+        question: "Arrange the key focus areas in the order they are emphasized for successful AI adoption.",
+        steps: [
+          "Practical Skills",
+          "Implementation",
+          "Results"
+        ],
+        correctOrder: [0, 1, 2]
+      },
+      {
+        type: "sorting",
+        question: "Sort these factors into two groups: Relevant Factors and Irrelevant Factors for AI success.",
+        activities: [
+          "Practical Expertise",
+          "Strategic Thinking",
+          "Effective Implementation",
+          "Creative Design",
+          "Random Experimentation"
+        ],
+        categories: ["Relevant Factors", "Irrelevant Factors"],
+        correctCategories: [0, 0, 0, 1, 1]
+      }
+    ]
+  }
 };
 
 const courseSections = [
@@ -30,27 +240,32 @@ const courseSections = [
       {
         id: "developing-practical-ai-skills",
         title: "Developing Practical AI Skills",
-        content: "Learn how to develop practical AI skills for real-world applications. QUIZ_BUTTON_PLACEHOLDER"
+        content: "Learn how to develop practical AI skills through the key components of AI Fluency, Critical Analysis, and the Role-Context-Query Method. Master these skills through hands-on experience and real-world application. QUIZ_BUTTON_PLACEHOLDER",
+        hasQuiz: true
       },
       {
         id: "proactive-ai-implementation",
         title: "Proactive AI Implementation",
-        content: "Understand strategies for proactive AI implementation in your workflows. QUIZ_BUTTON_PLACEHOLDER"
+        content: "Understand strategies for proactive AI implementation including analyzing business needs, rapid testing, change management, and appropriate tool selection. QUIZ_BUTTON_PLACEHOLDER",
+        hasQuiz: true
       },
       {
         id: "personal-ai-development",
         title: "Personal AI Development",
-        content: "Develop your own AI skills and strategies for personal growth. QUIZ_BUTTON_PLACEHOLDER"
+        content: "Develop your own AI skills through skills assessment, project-focused learning, and continuous practice to refine your abilities. QUIZ_BUTTON_PLACEHOLDER",
+        hasQuiz: true
       },
       {
         id: "final-project",
         title: "Final Project",
-        content: "Apply your knowledge to a real-world project with practical outcomes. QUIZ_BUTTON_PLACEHOLDER"
+        content: "Apply your knowledge to a real-world project through analysis, tool selection, execution with stakeholder feedback, and presentation of results. QUIZ_BUTTON_PLACEHOLDER",
+        hasQuiz: true
       },
       {
         id: "key-focus-areas",
         title: "Key Focus Areas",
-        content: "Understand the key focus areas for successful AI adoption. QUIZ_BUTTON_PLACEHOLDER"
+        content: "Focus on developing practical skills, implementing strategic solutions, and achieving measurable results in your AI adoption journey. QUIZ_BUTTON_PLACEHOLDER",
+        hasQuiz: true
       }
     ]
   },
@@ -197,20 +412,16 @@ const Guide: React.FC = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    // Find the section
     const foundSection = courseSections.find(section => section.id === activeSection.id);
     if (foundSection) {
-      // Find the subtopic
       const foundSubtopic = foundSection.subtopics.find(subtopic => subtopic.id === activeSubtopic.id);
       if (foundSubtopic) {
         setActiveSubtopic(foundSubtopic);
       } else if (foundSection.subtopics.length > 0) {
-        // Default to first subtopic if current is not found
         setActiveSubtopic(foundSection.subtopics[0]);
       }
     }
     
-    // Calculate progress
     if (courseSections.length > 0) {
       let totalSubtopics = 0;
       courseSections.forEach(section => {
@@ -219,7 +430,7 @@ const Guide: React.FC = () => {
       
       const progressPercentage = Math.round((completedSections.length / totalSubtopics) * 100);
       setProgress(progressPercentage);
-      setXp(completedSections.length * 5); // 5 XP per completed section
+      setXp(completedSections.length * 5);
     }
   }, [activeSection, activeSubtopic.id, completedSections]);
 
@@ -227,7 +438,6 @@ const Guide: React.FC = () => {
     const section = courseSections.find(s => s.id === sectionId);
     if (section) {
       setActiveSection(section);
-      // If there are subtopics, set the first one as active
       if (section.subtopics.length > 0) {
         setActiveSubtopic(section.subtopics[0]);
       }
@@ -235,7 +445,6 @@ const Guide: React.FC = () => {
   };
 
   const handleSubtopicChange = (subtopicId: string) => {
-    // Find the section containing this subtopic
     const section = courseSections.find(s => 
       s.subtopics.some(sub => sub.id === subtopicId)
     );
@@ -243,17 +452,14 @@ const Guide: React.FC = () => {
     if (section) {
       setActiveSection(section);
       
-      // Find and set the active subtopic
       const subtopic = section.subtopics.find(sub => sub.id === subtopicId);
       if (subtopic) {
         setActiveSubtopic(subtopic);
         
-        // Mark as completed if not already
         if (!completedSections.includes(subtopicId)) {
           const newCompletedSections = [...completedSections, subtopicId];
           setCompletedSections(newCompletedSections);
           
-          // Show toast for new completion - FIXED variant to use "default" instead of "success"
           toast({
             title: "Section completed!",
             description: `You earned 5 XP for completing "${subtopic.title}"`,
@@ -263,7 +469,6 @@ const Guide: React.FC = () => {
       }
     }
     
-    // Hide quiz if it was showing
     setShowQuiz(false);
   };
 
@@ -275,30 +480,32 @@ const Guide: React.FC = () => {
     }
   };
 
-  // FIXED: Modified handleQuizComplete to match the expected signature
+  const handleTakeQuiz = (quizId: string, subtopicTitle: string) => {
+    const quiz = quizzes[quizId];
+    if (quiz) {
+      setCurrentQuiz(quiz);
+      setShowQuiz(true);
+    }
+  };
+
   const handleQuizComplete = (score: number) => {
-    // We still calculate using totalQuestions from currentQuiz
     const totalQuestions = currentQuiz?.questions?.length || 1;
     const earnedXP = Math.round((score / totalQuestions) * 10);
     setXp(prev => prev + earnedXP);
     
-    // Show toast - FIXED variant to use "default" instead of "success"
     toast({
       title: "Quiz Completed!",
       description: `You scored ${score}/${totalQuestions} and earned ${earnedXP} XP`,
       variant: "default",
     });
     
-    // Hide quiz
     setShowQuiz(false);
   };
 
   return (
     <div className="flex flex-col min-h-screen pb-12">
       <div className="container mx-auto px-4 py-6 flex-1 flex flex-col lg:flex-row gap-6">
-        {/* Sidebar */}
         <div className="lg:w-1/3 xl:w-1/4 space-y-6">
-          {/* Course Progress */}
           <div className="fantasy-card p-4">
             <div className="flex justify-between items-center mb-2">
               <h3 className="text-lg font-semibold text-white">Course Progress</h3>
@@ -310,7 +517,6 @@ const Guide: React.FC = () => {
               <span>XP: {xp}</span>
             </div>
             
-            {/* Course Info Tags - Moved from content section */}
             <div className="flex flex-wrap gap-2 mt-4">
               <div className="px-3 py-1 bg-purple-900/30 rounded-full text-sm text-purple-300 flex items-center">
                 <Clock size={14} className="mr-2" />
@@ -327,7 +533,6 @@ const Guide: React.FC = () => {
             </div>
           </div>
           
-          {/* Table of Contents */}
           <div className="fantasy-card p-4">
             <TableOfContents 
               sections={courseSections}
@@ -336,11 +541,11 @@ const Guide: React.FC = () => {
               completedSections={completedSections}
               onSectionChange={handleSectionChange}
               onSubtopicChange={handleSubtopicChange}
+              onTakeQuiz={handleTakeQuiz}
             />
           </div>
         </div>
         
-        {/* Main Content */}
         <div className="lg:w-2/3 xl:w-3/4 space-y-6">
           <div className="fantasy-card p-6">
             <div className="mb-4">
@@ -359,7 +564,11 @@ const Guide: React.FC = () => {
               />
             ) : (
               <>
-                <CourseContent content={activeSubtopic.content} />
+                <CourseContent 
+                  content={activeSubtopic.content} 
+                  onTakeQuiz={handleTakeQuiz}
+                  quizId={activeSubtopic.id}
+                />
                 
                 {quizzes[activeSubtopic.id] && 
                  !activeSubtopic.content.includes('Take Quiz') && (
