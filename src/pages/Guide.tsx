@@ -393,6 +393,52 @@ const quizzes = {
         correctPairs: [0, 1, 2]
       }
     ]
+  },
+  "rh-ai-tools": {
+    id: "rh-ai-tools-quiz",
+    title: "RH AI Tools Quiz",
+    difficulty: "Intermediate",
+    timeLimit: 120,
+    questions: [
+      {
+        type: "sorting",
+        question: "For each statement below, select the appropriate RH AI Tool from the list provided.",
+        activities: [
+          "This tool creates and analyzes documents, reports, and administrative content with high accuracy.",
+          "This tool delivers verified research results and fact-checking with cited sources.",
+          "This tool processes bulk text and learns from interactions to improve workflow efficiency.",
+          "This tool creates content and assists with creative ideation.",
+          "This tool handles both text and image tasks with Google's latest AI technology.",
+          "This tool automates workflows across platforms, reducing manual tasks."
+        ],
+        categories: ["Claude AI", "Perplexity AI", "Grok", "ChatGPT", "Gemini", "Make.com"],
+        correctCategories: [0, 1, 2, 3, 4, 5]
+      },
+      {
+        type: "sorting",
+        question: "Drag and drop each tool into the correct category based on its focus area.",
+        activities: [
+          "Claude AI",
+          "Perplexity AI",
+          "Grok",
+          "ChatGPT",
+          "Gemini",
+          "Make.com"
+        ],
+        categories: ["Text Generation & Analysis", "Content Creation & Design", "Development & Automation"],
+        correctCategories: [0, 0, 0, 1, 1, 2]
+      },
+      {
+        type: "sequencing",
+        question: "Arrange the following AI tools in the order they are listed under the \"Text Generation & Analysis\" category in the provided material.",
+        steps: [
+          "Claude AI",
+          "Perplexity AI",
+          "Grok"
+        ],
+        correctOrder: [0, 1, 2]
+      }
+    ]
   }
 };
 
@@ -567,7 +613,7 @@ The RCT framework helps employees maximize AI tool effectiveness across various 
 ## Development & Automation
 
 - **Make.com**: Automates workflows across platforms, reducing manual tasks.`,
-        hasQuiz: false
+        hasQuiz: true
       },
       {
         id: "key-applications",
